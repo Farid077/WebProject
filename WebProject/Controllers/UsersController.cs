@@ -1,16 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebProject.DataAccess;
 using WebProject.Models;
+using WebProject.ViewModels;
 
 namespace WebProject.Controllers
 {
+    [Authorize]
     public class UsersController(WebProjectDbContext _context) : Controller
     {
         
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var users = await _context.Users.ToListAsync(cancellationToken);
+            var users = await _context.Users.Select(x => 
+            new UserManagementViewModel 
+            { 
+                Id = x.Id,
+                Username = x.Username, 
+                PasswordHash = x.PasswordHash,
+            })
+            .ToListAsync(cancellationToken);
+
             return View(users);
         }
 

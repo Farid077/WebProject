@@ -1,4 +1,4 @@
-﻿@model List<User>
+﻿@model List<UserManagementViewModel>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -120,6 +120,42 @@
             margin-bottom: 2px;
         }
 
+        nav form button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: .02em;
+            transition: all .15s;
+            background: var(--bg);
+            box-shadow: none;
+            border: none;
+            border-width: 0px;
+            border-style: solid;
+            width: 195px !important;
+            margin-left: -13px !important;
+        }
+
+        nav form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: .02em;
+            transition: all .15s;
+            width: 300px !important;
+        }
+
             nav a:hover {
                 color: var(--text);
                 background: var(--border);
@@ -131,6 +167,17 @@
             }
 
             nav a .icon {
+                font-size: 15px;
+                width: 18px;
+                text-align: center;
+            }
+
+            nav form button:hover {
+                color: var(--text);
+                background: var(--border);
+            }
+
+            nav form button {
                 font-size: 15px;
                 width: 18px;
                 text-align: center;
@@ -638,6 +685,12 @@
             <div class="nav-label">Main</div>
             <a asp-action="Index" asp-controller="Home"><span class="icon">▦</span> Dashboard</a>
             <a asp-action="Index" class="active"><span class="icon">◈</span> Users</a>
+              <form asp-controller="Auth" asp-action="Logout" method="post">
+                 @Html.AntiForgeryToken()
+                 <button style="width:max-content; height: max-content;" type="submit">
+                    <span class="icon">◉</span> Logout
+                 </button>
+              </form>
         </nav>
     </aside>
 
@@ -671,11 +724,11 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>User</th>
                         <th>Role</th>
                         <th>Status</th>
                         <th>Joined</th>
-                        <th>Last Active</th>
                         <th>Password</th>
                         <th>Actions</th>
                     </tr>
@@ -683,19 +736,19 @@
                 <tbody>
                     @foreach(var user in Model){
                         <tr>
+                            <td>@user.Id</td>
                             <td>
                                 <div class="cell-user">
-                                    <div class="mini-avatar" style="background:rgba(200,255,62,.15);color:var(--accent)">AL</div>
+                                    <div class="mini-avatar" style="background:rgba(200,255,62,.15);color:var(--accent)">@user.Username.ToUpper()[0]@user.Username.ToUpper()[1]</div>
                                     <div>
                                         <div class="cell-name">@user.Username</div>
-                                        <div class="cell-email">alex.lee@example.com</div>
+                                        @* <div class="cell-email">alex.lee@example.com</div> *@
                                     </div>
                                 </div>
                             </td>
                             <td><span class="role-tag">Admin</span></td>
                             <td><span class="status-pill s-active">Active</span></td>
                             <td>Jan 12, 2024</td>
-                            <td>@user.Id</td>
                             <td>@user.PasswordHash</td>
                             <td>
                                 <button class="action-btn">Edit</button>
@@ -703,94 +756,8 @@
                             </td>
                         </tr>
                     }
-                    <tr>
-                        <td>
-                            <div class="cell-user">
-                                <div class="mini-avatar" style="background:rgba(255,179,71,.15);color:var(--orange)">KJ</div>
-                                <div>
-                                    <div class="cell-name">Kai Jordan</div>
-                                    <div class="cell-email">kai.j@example.com</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="role-tag">Viewer</span></td>
-                        <td><span class="status-pill s-pending">Pending</span></td>
-                        <td>May 19, 2024</td>
-                        <td>3 days ago</td>
-                        <td>
-                            <button class="action-btn">Edit</button>
-                            <button class="action-btn del">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="cell-user">
-                                <div class="mini-avatar" style="background:rgba(255,78,106,.15);color:var(--red)">DP</div>
-                                <div>
-                                    <div class="cell-name">Dana Park</div>
-                                    <div class="cell-email">dana.park@example.com</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="role-tag">Editor</span></td>
-                        <td><span class="status-pill s-inactive">Inactive</span></td>
-                        <td>Jul 7, 2023</td>
-                        <td>2 months ago</td>
-                        <td>
-                            <button class="action-btn">Edit</button>
-                            <button class="action-btn del">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="cell-user">
-                                <div class="mini-avatar" style="background:rgba(200,255,62,.15);color:var(--accent)">TW</div>
-                                <div>
-                                    <div class="cell-name">Taylor Wu</div>
-                                    <div class="cell-email">t.wu@example.com</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="role-tag">Admin</span></td>
-                        <td><span class="status-pill s-active">Active</span></td>
-                        <td>Feb 28, 2024</td>
-                        <td>Just now</td>
-                        <td>
-                            <button class="action-btn">Edit</button>
-                            <button class="action-btn del">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="cell-user">
-                                <div class="mini-avatar" style="background:rgba(78,168,255,.15);color:var(--blue)">SN</div>
-                                <div>
-                                    <div class="cell-name">Sam Nguyen</div>
-                                    <div class="cell-email">sam.n@example.com</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="role-tag">Viewer</span></td>
-                        <td><span class="status-pill s-pending">Pending</span></td>
-                        <td>Oct 15, 2024</td>
-                        <td>5 hr ago</td>
-                        <td>
-                            <button class="action-btn">Edit</button>
-                            <button class="action-btn del">Delete</button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
-
-            @* <div class="table-footer">
-                <span>Showing 1–6 of 12,480 results</span>
-                <div class="pager">
-                    <button class="page-btn current">1</button>
-                    <button class="page-btn">2</button>
-                    <button class="page-btn">3</button>
-                    <button class="page-btn">›</button>
-                </div>
-            </div> *@
         </div>
     </main>
 

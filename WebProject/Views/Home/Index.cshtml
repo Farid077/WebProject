@@ -118,6 +118,42 @@
             margin-bottom: 2px;
         }
 
+        nav form button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: .02em;
+            transition: all .15s;
+            background: var(--bg);
+            box-shadow: none;
+            border: none;
+            border-width: 0px;
+            border-style: solid;
+            width: 195px !important;
+            margin-left: -13px !important;
+        }
+
+        nav form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: .02em;
+            transition: all .15s;
+            width: 300px !important;
+        }
+
             nav a:hover {
                 color: var(--text);
                 background: var(--border);
@@ -129,6 +165,17 @@
             }
 
             nav a .icon {
+                font-size: 15px;
+                width: 18px;
+                text-align: center;
+            }
+
+            nav form button:hover {
+                color: var(--text);
+                background: var(--border);
+            }
+
+            nav form button {
                 font-size: 15px;
                 width: 18px;
                 text-align: center;
@@ -636,9 +683,15 @@
             <div class="nav-label">Main</div>
             <a asp-action="Index" class="active"><span class="icon">▦</span> Dashboard</a>
             <a asp-action="Index" asp-controller="Users"><span class="icon">◈</span> Users</a>
-            @* <a href="#"><span class="icon">◉</span> Analytics</a>
+            <form asp-controller="Auth" asp-action="Logout" method="post">
+                @Html.AntiForgeryToken()
+                <button style="width:max-content; height: max-content;" type="submit">
+                    <span class="icon">◉</span> Logout
+                </button>
+            </form>
+            @* <a href="#"><span class="icon">◉</span> Analytics</a> *@
 
-            <div class="nav-label" style="margin-top:20px">Manage</div>
+          @*   <div class="nav-label" style="margin-top:20px">Manage</div>
             <a href="#"><span class="icon">◫</span> Projects</a>
             <a href="#"><span class="icon">◷</span> Reports</a>
             <a href="#"><span class="icon">◎</span> Settings</a> *@

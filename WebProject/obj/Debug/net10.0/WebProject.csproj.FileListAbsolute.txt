@@ -220,3 +220,5 @@ C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\ru\Microsoft.Code
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\WebProject.sourcelink.json
+C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
