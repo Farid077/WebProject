@@ -6,11 +6,19 @@ using WebProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<WebProjectDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WebProjectDB")));
+builder.Services.AddDbContext<WebProjectDbContext>(options => 
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSql")));
+
+builder.Services.AddStackExchangeRedisCache(options =>
+    options.Configuration = builder.Configuration.GetConnectionString("Redis"));
+
+//builder.Services.AddDbContext<WebProjectDbContext>(options =>
+//  options.UseSqlServer(builder.Configuration.GetConnectionString("WebProjectDB")));
 
 builder.Services.AddMvc();
 builder.Services.AddControllersWithViews();
 //builder.Services.AddRazorPages();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -18,7 +26,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Auth/Login";
         options.LogoutPath = "/Auth/Login";
         options.AccessDeniedPath = "/Home/Index";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
         options.SlidingExpiration = true;
 
     });
@@ -44,6 +52,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();

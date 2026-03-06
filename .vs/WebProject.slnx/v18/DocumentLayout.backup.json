@@ -3,52 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Farid\\Desktop\\WebProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\user\\userloginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\viewmodels\\user\\userloginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\user\\usermanagementviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\viewmodels\\user\\usermanagementviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\user\\usercreateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\viewmodels\\user\\usercreateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\user\\userupdateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\viewmodels\\user\\userupdateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\docker-compose.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\docker-compose.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -63,157 +27,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "WebProject\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "WebProject\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAKQAAAAAAAAAAAAqwK8AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-01T19:17:09.382Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Users\\Index.cshtml",
-              "RelativeDocumentMoniker": "WebProject\\Views\\Users\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Users\\Index.cshtml",
-              "RelativeToolTip": "WebProject\\Views\\Users\\Index.cshtml",
-              "ViewState": "AgIAAKMCAAAAAAAAAAAAAAQAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-01T19:12:00.281Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "WebProject\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "WebProject\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwB0AAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T19:05:50.226Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UserCreateViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserCreateViewModel.cs",
-              "RelativeDocumentMoniker": "WebProject\\ViewModels\\User\\UserCreateViewModel.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserCreateViewModel.cs",
-              "RelativeToolTip": "WebProject\\ViewModels\\User\\UserCreateViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T19:00:39.856Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UserUpdateViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserUpdateViewModel.cs",
-              "RelativeDocumentMoniker": "WebProject\\ViewModels\\User\\UserUpdateViewModel.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserUpdateViewModel.cs",
-              "RelativeToolTip": "WebProject\\ViewModels\\User\\UserUpdateViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T19:00:26.016Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\_ViewImports.cshtml",
-              "RelativeDocumentMoniker": "WebProject\\Views\\_ViewImports.cshtml",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\_ViewImports.cshtml",
-              "RelativeToolTip": "WebProject\\Views\\_ViewImports.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-01T19:00:06.292Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "login.cshtml",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Auth\\login.cshtml",
-              "RelativeDocumentMoniker": "WebProject\\Views\\Auth\\login.cshtml",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Auth\\login.cshtml",
-              "RelativeToolTip": "WebProject\\Views\\Auth\\login.cshtml",
-              "ViewState": "AgIAAI4BAAAAAAAAAAAAAKABAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-01T18:58:29.264Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UserManagementViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserManagementViewModel.cs",
-              "RelativeDocumentMoniker": "WebProject\\ViewModels\\User\\UserManagementViewModel.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserManagementViewModel.cs",
-              "RelativeToolTip": "WebProject\\ViewModels\\User\\UserManagementViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T18:56:54.084Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "WebProject\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "WebProject\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAzwB4AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T14:17:07.124Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Program.cs",
               "RelativeDocumentMoniker": "WebProject\\Program.cs",
               "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Program.cs",
               "RelativeToolTip": "WebProject\\Program.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAABUAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T13:54:02.972Z",
+              "WhenOpened": "2026-03-06T06:15:49.774Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserLoginViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserLoginViewModel.cs",
-              "RelativeDocumentMoniker": "WebProject\\ViewModels\\User\\UserLoginViewModel.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserLoginViewModel.cs",
-              "RelativeToolTip": "WebProject\\ViewModels\\User\\UserLoginViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T13:48:58.153Z",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\appsettings.json",
+              "RelativeDocumentMoniker": "WebProject\\appsettings.json",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\appsettings.json",
+              "RelativeToolTip": "WebProject\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAB7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-06T06:13:00.703Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\User.cs",
-              "RelativeDocumentMoniker": "WebProject\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\User.cs",
-              "RelativeToolTip": "WebProject\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAClAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T13:50:35.207Z",
+              "DocumentIndex": 2,
+              "Title": "docker-compose.yml",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\docker-compose.yml",
+              "RelativeDocumentMoniker": "WebProject\\docker-compose.yml",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\docker-compose.yml",
+              "RelativeToolTip": "WebProject\\docker-compose.yml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2026-03-06T05:54:13.409Z",
               "EditorCaption": ""
             }
           ]
