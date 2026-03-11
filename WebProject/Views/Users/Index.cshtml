@@ -724,7 +724,6 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>User</th>
                         <th>Role</th>
                         <th>Status</th>
@@ -736,7 +735,6 @@
                 <tbody>
                     @foreach(var user in Model){
                         <tr>
-                            <td>@user.Id</td>
                             <td>
                                 <div class="cell-user">
                                     <div class="mini-avatar" style="background:rgba(200,255,62,.15);color:var(--accent)">@user.Username.ToUpper()[0]@user.Username.ToUpper()[1]</div>
@@ -747,12 +745,20 @@
                                 </div>
                             </td>
                             <td><span class="role-tag">Admin</span></td>
-                            <td><span class="status-pill s-active">Active</span></td>
+                            <td>
+                            @if (user.IsActive)
+                            {
+                                <span class="status-pill s-active">Active</span>
+                            }
+                            else{
+                                <span class="status-pill s-inactive">Inactive</span>
+                            }
+                            </td>
                             <td>Feb 28, 2026</td>
                             @* <td>@user.PasswordHash</td> *@
                             <td>
-                                <a asp-action="Update" asp-route-id="@user.Id" class="action-btn" style="text-decoration:none;">Edit</a>
-                                <a asp-action="Delete" asp-route-id = "@user.Id" class="action-btn del" style="text-decoration:none;">Delete</a>
+                                <a asp-action="Update" asp-route-id="@user.Username" class="action-btn" style="text-decoration:none;">Edit</a>
+                                <a asp-action="Delete" asp-route-id = "@user.Username" class="action-btn del" style="text-decoration:none;">Delete</a>
                             </td>
                         </tr>
                     }

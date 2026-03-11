@@ -12,7 +12,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(x => x.Username);
 
         builder.Property(x => x.Username)
-            .IsRequired()
             .HasMaxLength(16);
 
         builder.Property(x => x.PasswordHash)
@@ -22,7 +21,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             new User
             {
                 Username = "admin",
-                PasswordHash = new PasswordHasher<User>().HashPassword(null!, "admin")
+                PasswordHash = "AQAAAAIAAYagAAAAEMzFSuS1OlYOV9tcCWe4vgqVLIjBwbr+fxJRUHkcqWT+/HNadAqQJDOOHIgB3HSdLA=="
             });
     }
 }

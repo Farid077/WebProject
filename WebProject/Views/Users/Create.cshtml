@@ -138,7 +138,6 @@
   </div>
   <nav>
     <div class="nav-label">Main</div>
-    <div class="nav-label">Main</div>
     <a asp-action="Index" asp-controller="Home" class=""><span class="icon">▦</span> Dashboard</a>
     <a asp-action="Index" asp-controller="Users" class="active"><span class="icon">◈</span> Users</a>
     <form asp-controller="Auth" asp-action="Logout" method="post">
@@ -180,7 +179,7 @@
     </div>
 
     <form method="post" asp asp-action="Create" class="form-body">
-      @* <span asp-validation-for="" class="err-msg"></span> *@
+      @* <div asp-validation-summary="All" class="err-msg"></div> *@
       <div class="form-row single">
         <div class="field" id="f-first">
           <label asp-for="Username">Username</label>

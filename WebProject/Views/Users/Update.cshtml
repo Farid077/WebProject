@@ -212,84 +212,56 @@
 
     <!-- Avatar preview -->
     <div class="avatar-row">
-      <div class="big-avatar" id="big-avatar">@Model.Username.ToUpper()[0]@Model.Username.ToUpper()[1]</div>
+                <div class="big-avatar" id="big-avatar">@ViewData["Id"]?.ToString()?.ToUpper()[0]@ViewData["Id"]?.ToString()?.ToUpper()[1]</div>
       <div class="avatar-meta">
-        <strong id="preview-name">@Model.Username</strong>
+        <strong id="preview-name">@ViewData["Id"]?.ToString()</strong>
         @* <small id="preview-email">m.reyes@example.com</small> *@
         @* <span class="status-pill s-active">Active</span> *@
       </div>
     </div>
 
-    <form asp-action="Update" asp-controller="Users" method="post" asp-route-id="@ViewData["Id"]">
-    <div class="form-body">
-      <div class="form-row single">
-        <div class="field" id="f-first">
-          <label asp-for="Username">Username</label>
-          <input asp-for="Username" name="Username" type="text" id="first-name" value="@Model.Username">
-          <span asp-validation-for="Username" class="err-msg"></span>
-        </div>
-        @* <div class="field" id="f-last">
-          <label>Last Name</label>
-          <input type="text" id="last-name" value="Reyes" oninput="updatePreview()">
-          <span class="err-msg">Required</span>
-        </div> *@
-      </div>
+    <form asp-action="Update" asp-controller="Users" method="post" asp-route-id="@ViewData["Id"]?.ToString()">
+        @* <div asp-validation-summary="All" class="err-msg"></div> *@
+        <div class="form-body">
+          @* <div class="form-row single">
+            <div class="field" id="f-first">
+              <label>Username</label>
+              <input name="Username" type="text" id="first-name" value="@ViewData["Id"]?.ToString()">
+              <span asp-validation-for="Username" class="err-msg"></span>
+            </div>
+          </div> *@
 
-    @*   <div class="form-row">
-        <div class="field" id="f-email">
-          <label>Email Address</label>
-          <input type="email" id="email" value="m.reyes@example.com" oninput="updatePreview()">
-          <span class="err-msg">Enter a valid email</span>
-        </div>
-        <div class="field">
-          <label>Phone (optional)</label>
-          <input type="text" id="phone" value="+1 555 020 3040">
-        </div>
-      </div> *@
+          <div class="form-row single">
+            <div class="field">
+              <label asp-for="Password" >New Password <span style="color:var(--muted);font-size:10px;">(leave blank to keep current)</span></label>
+              <input asp-for="Password" name="Password" type="password" id="password" placeholder="Leave blank to keep current">
+              <span asp-validation-for="Password" class="err-msg"></span>
+            </div>
+          </div>
 
-      @* <div class="form-row">
-        <div class="field" id="f-role">
-          <label>Role</label>
-          <select id="role">
-            <option value="">Select role...</option>
-            <option value="admin">Admin</option>
-            <option value="editor" selected>Editor</option>
-            <option value="viewer">Viewer</option>
-          </select>
-          <span class="err-msg">Required</span>
-        </div>
-        <div class="field">
-          <label>Status</label>
-          <select id="status">
-            <option value="active" selected>Active</option>
-            <option value="pending">Pending</option>
-            <option value="inactive">Inactive</option>
-          </select>
-        </div>
-      </div> *@
+          <div class="form-row single">
+            <div class="field">
+              <label asp-for="ConfirmPassword" >Confirm Password <span style="color:var(--muted);font-size:10px;"></span></label>
+              <input asp-for="ConfirmPassword" name="ConfirmPassword" type="password" id="password" placeholder="Confirm Password">
+              <span asp-validation-for="ConfirmPassword" class="err-msg"></span>
+            </div>
+          </div>
 
-      @* <div class="form-row single">
-        <div class="field">
-          <label>New Password <span style="color:var(--muted);font-size:10px;">(leave blank to keep current)</span></label>
-          <input type="password" id="password" placeholder="Leave blank to keep current">
+          @* <div class="form-row single">
+            <div class="field">
+              <label>Notes (optional)</label>
+              <textarea id="notes">Primary content editor for the EU region.</textarea>
+            </div>
+          </div> *@
         </div>
-      </div>
 
-      <div class="form-row single">
-        <div class="field">
-          <label>Notes (optional)</label>
-          <textarea id="notes">Primary content editor for the EU region.</textarea>
+        <div class="card-footer">
+          @* <button class="btn-cancel">Cancel</button> *@
+          <div class="footer-right">
+            @* <button class="btn-delete" onclick="openDelete()">Delete User</button> *@
+            <button type="submit" class="btn-save">Save Changes</button>
+          </div>
         </div>
-      </div> *@
-    </div>
-
-    <div class="card-footer">
-      @* <button class="btn-cancel">Cancel</button> *@
-      <div class="footer-right">
-        @* <button class="btn-delete" onclick="openDelete()">Delete User</button> *@
-        <button type="submit" class="btn-save">Save Changes</button>
-      </div>
-    </div>
     </form>
   </div>
 </main>

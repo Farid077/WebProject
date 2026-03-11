@@ -3,16 +3,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebProject.DataAccess;
+using WebProject.ExternalServices.Interfaces;
 using WebProject.Models;
 using WebProject.ViewModels;
 
 namespace WebProject.Controllers
 {
     [Authorize]
-    public class UsersController(WebProjectDbContext _context, IPasswordHasher<User> _hasher) : Controller
+    public class UsersController(WebProjectDbContext _context, ISessionService _sessionService, IPasswordHasher<User> _hasher) : Controller
     {
         
-        public async Task<IActionResult> Index(CancellationToken cancellationToken)
+        public async Task<IActionResult> Index(CancellationToken ct = default)
         {
             var users = await _context.Users
             .AsNoTracking()
@@ -21,27 +22,29 @@ namespace WebProject.Controllers
             {
                 Username = x.Username,
             })
-            .ToListAsync(cancellationToken);
+            .ToListAsync(ct);
+
+            users.ForEach(async x => x.IsActive = await _sessionService.IsActiveAsync(x.Username, ct));
 
             return View(users);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(UserCreateViewModel vm, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(UserCreateViewModel vm, CancellationToken ct = default)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
+            if (!ModelState.IsValid) return View(vm);
 
             if (vm.Password != vm.ConfirmPassword)
             {
                 ModelState.AddModelError("ConfirmPassword", "The password and confirmation password do not match");
+                return View(vm);
+            }
+
+            if (await _context.Users.AnyAsync(x => x.Username == vm.Username))
+            {
+                ModelState.AddModelError("Username", "This username already exists");
                 return View(vm);
             }
 
@@ -52,54 +55,68 @@ namespace WebProject.Controllers
 
             user.PasswordHash = _hasher.HashPassword(user, vm.Password);
 
-            await _context.Users.AddAsync(user, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.Users.AddAsync(user, ct);
+            await _context.SaveChangesAsync(ct);
             return Redirect("Index");
         }
 
-        public async Task<IActionResult> Update(string username, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(string id, CancellationToken ct = default)
         {
-            User user = await _getUserAsync(username, cancellationToken);
-            UserUpdateViewModel vm = new()
-            {
-                Username = user.Username,
-            };
-
-            return View(vm);
+            //User user = await _getUserAsync(id, ct);
+            //UserUpdateViewModel vm = new()
+            //{
+            //    Username = user.Username,
+            //};
+            ViewData["Id"] = id;
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string username, UserUpdateViewModel vm, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(string id, UserUpdateViewModel vm, CancellationToken ct = default)
         {
+            //vm.Username = id;
+
             if (!ModelState.IsValid)
             {
+                ViewData["Id"] = id;
                 return View(vm);
             }
 
-            if (vm.Password != vm.ConfirmPassword)
+            if(vm.Password != null) { 
+                if (vm.Password != vm.ConfirmPassword)
+                {
+                    ViewData["Id"] = id;
+                    ModelState.AddModelError("ConfirmPassword", "The password and confirmation password do not match");
+                    return View(vm);
+                }
+            }
+            else
+                return RedirectToAction("Index", "Users");
+
+            User user = await _getUserAsync(id, ct);
+
+            if(vm.Password != null)
             {
-                ModelState.AddModelError("ConfirmPassword", "The password and confirmation password do not match");
-                return View(vm);
+                user.PasswordHash = _hasher.HashPassword(user, vm.Password);
+                await _context.SaveChangesAsync(ct);
             }
+            //else if(vm.Username == user.Username)
+            //    return RedirectToAction("Index", "Users");
 
-            User user = await _getUserAsync(username, cancellationToken);
-
-            user.Username = vm.Username;
-            user.PasswordHash = _hasher.HashPassword(user, vm.Password);
-            await _context.SaveChangesAsync(cancellationToken);
+            //user.Username = vm.Username;
             return RedirectToAction("Index", "Users");
         }
 
-        public async Task<IActionResult> Delete(string username, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(string id, CancellationToken ct = default)
         {
-            User user = await _getUserAsync(username, cancellationToken);
+            User user = await _getUserAsync(id, ct);
             _context.Users.Remove(user);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(ct);
             return RedirectToAction("Index", "Users");
         }
-        async Task<User> _getUserAsync(string username, CancellationToken cancellationToken)
+        async Task<User> _getUserAsync(string id, CancellationToken ct = default)
         {
-            return await _context.Users.FindAsync(username, cancellationToken) ?? throw new Exception("User not found with this username");
+            return await _context.Users.FindAsync(id, ct) ?? throw new Exception("User not found with this id");
         }
     }
 }

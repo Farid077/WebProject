@@ -5,7 +5,7 @@
 namespace WebProject.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class InitialPostgre : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,15 +14,18 @@ namespace WebProject.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false)
+                    Username = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Username);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Username", "PasswordHash" },
+                values: new object[] { "admin", "AQAAAAIAAYagAAAAEMzFSuS1OlYOV9tcCWe4vgqVLIjBwbr+fxJRUHkcqWT+/HNadAqQJDOOHIgB3HSdLA==" });
         }
 
         /// <inheritdoc />

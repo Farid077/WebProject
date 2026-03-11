@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebProject.DataAccess;
+using WebProject.ExternalServices.Implements;
+using WebProject.ExternalServices.Interfaces;
+using WebProject.Middlewares;
 using WebProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,20 +15,16 @@ builder.Services.AddDbContext<WebProjectDbContext>(options =>
 builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("Redis"));
 
-//builder.Services.AddDbContext<WebProjectDbContext>(options =>
-//  options.UseSqlServer(builder.Configuration.GetConnectionString("WebProjectDB")));
-
 builder.Services.AddMvc();
-builder.Services.AddControllersWithViews();
-//builder.Services.AddRazorPages();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<ISessionService, SessionService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/Auth/Login";
         options.LogoutPath = "/Auth/Login";
-        options.AccessDeniedPath = "/Home/Index";
+        options.AccessDeniedPath = "/";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
         options.SlidingExpiration = true;
 
@@ -44,6 +43,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthentication();
+app.UseMiddleware<SessionValidationMiddleware>();
 app.UseAuthorization();
 
 app.MapStaticAssets();
