@@ -114,6 +114,20 @@ namespace WebProject.Controllers
             await _context.SaveChangesAsync(ct);
             return RedirectToAction("Index", "Users");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RevokeSession(string id, CancellationToken ct = default)
+        {
+            var user = await _getUserAsync(id, ct);
+            //if (user is null) return NotFound();
+
+            await _sessionService.RevokeAsync(id, ct);
+
+            //TempData["Message"] = $"{user.UserName}'s session has been revoked.";
+            return RedirectToAction("Index", "Users");
+        }
+
         async Task<User> _getUserAsync(string id, CancellationToken ct = default)
         {
             return await _context.Users.FindAsync(id, ct) ?? throw new Exception("User not found with this id");

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebProject.Models;
 
@@ -21,7 +20,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             new User
             {
                 Username = "admin",
-                PasswordHash = "AQAAAAIAAYagAAAAEMzFSuS1OlYOV9tcCWe4vgqVLIjBwbr+fxJRUHkcqWT+/HNadAqQJDOOHIgB3HSdLA=="
+                PasswordHash = "AQAAAAIAAYagAAAAEMzFSuS1OlYOV9tcCWe4vgqVLIjBwbr=="
             });
     }
 }

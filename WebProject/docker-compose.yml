@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   postgres:
-    image: postgres:16
+    image: postgres:latest
     container_name: web_project_postgres
     restart: always
     environment:
@@ -13,10 +13,10 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
 
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
@@ -24,7 +24,7 @@ services:
       - "8080:80"
 
   redis:
-    image: redis:7-alpine
+    image: redis:latest
     container_name: web_project_redis
     restart: always
     ports:
@@ -32,6 +32,13 @@ services:
     volumes:
       - redis_data:/data
     command: redis-server --appendonly yes
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    ports:
+      - "5540:5540"
+    depends_on:
+      - redis
 
 volumes:
   postgres_data:
