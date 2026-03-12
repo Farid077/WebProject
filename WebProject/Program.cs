@@ -32,11 +32,52 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 var app = builder.Build();
 
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<WebProjectDbContext>();
+
+    if(!await db.Roles.AnyAsync(r => r.Name == "SuperAdmin"))
+    {
+        Role role = new()
+        {
+            Name = "SuperAdmin"
+        };
+
+        foreach (int i in Enum.GetValues<Pages>().Select(p => (int)p | (int)Permissions.Read_Write))
+        {
+            int a = i;
+            //int a = i | (int)Permissions.Read_Write;
+            role.Permissions.Add(a);
+        }
+
+        await db.Roles.AddAsync(role);
+        await db.SaveChangesAsync();
+    }
+
+    var hasher = new PasswordHasher<User>();
+
+    if (!await db.Users.AnyAsync(u => u.Username == "admin"))
+    {
+         await db.Users.AddAsync(new User
+        {
+            Username = "admin",
+            PasswordHash = hasher.HashPassword(null!, "admin"),
+            RoleId = "SuperAdmin"
+        });
+        await db.SaveChangesAsync();
+    }
+    else if (!await db.Users.AnyAsync(u => u.Username == "admin" && u.RoleId == "SuperAdmin"))
+    {
+        User user = await db.Users.FindAsync("admin") ?? throw new Exception("admin not found");
+        user!.RoleId = "SuperAdmin";
+        await db.SaveChangesAsync();
+    }
 }
 
 app.UseHttpsRedirection();

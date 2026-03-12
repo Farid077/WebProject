@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Farid\\Desktop\\WebProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\configurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\configurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserConfiguration.cs",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Configurations\\UserConfiguration.cs",
-              "RelativeDocumentMoniker": "WebProject\\Configurations\\UserConfiguration.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Configurations\\UserConfiguration.cs*",
-              "RelativeToolTip": "WebProject\\Configurations\\UserConfiguration.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\BaseEntity.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\BaseEntity.cs",
+              "RelativeToolTip": "WebProject\\Models\\BaseEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-11T12:45:28.36Z",
+              "WhenOpened": "2026-03-12T06:00:59.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Role.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\Role.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Role.cs",
+              "RelativeToolTip": "WebProject\\Models\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T06:00:39.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\User.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\User.cs",
+              "RelativeToolTip": "WebProject\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T05:40:34.623Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "WebProject\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "WebProject\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAgwHcAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T13:13:02.917Z",
               "EditorCaption": ""
             }
           ]

@@ -759,6 +759,10 @@
                             <td>
                                 <a asp-action="Update" asp-route-id="@user.Username" class="action-btn" style="text-decoration:none;">Edit</a>
                                 <a asp-action="Delete" asp-route-id = "@user.Username" class="action-btn del" style="text-decoration:none;">Delete</a>
+                                <a asp-action="RevokeSession" asp-route-id = "@user.Username" class="action-btn del" style="text-decoration:none;">End Session</a>
+                                @* <form method="POST" asp-controller="Users" asp-action="RevokeSession" class="action" >
+                                    <button type="submit">End Session</button>
+                                </form> *@
                             </td>
                         </tr>
                     }
