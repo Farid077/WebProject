@@ -10,17 +10,28 @@ namespace WebProject.Controllers
     {
         public async Task<IActionResult> Index(CancellationToken ct = default)
         {
-            //ICollection<Role> roles = await _context.Roles.ToListAsync(ct);
+            var roles = await _context.Roles
+                .AsNoTracking()
+                .Include(x => x.Users)
+                .Select(r => new RoleManagementViewModel
+                    {
+                        Name = r.Name,
 
-            ICollection<Role> roles = (ICollection<Role>)await _context.Roles.Select(r => new RoleManagementViewModel
-            {
-                Name = r.Name,
-                Permissions = r.Permissions,
-                Users = r.Users == null ? new() : r.Users.Select(u => new UserManagementViewModel
-                {
-                    Username = u.Username
-                }).ToList()
-            }).ToListAsync(ct);
+                        Permissions = r.Permissions.Select(p => new Dictionary<string, string>
+                        {
+                                    { Enum.GetValues<Pages>().FirstOrDefault(x => (p & (int)x) == (int)x).ToString(), (p & (int)Permissions.Read_Write) == (int)Permissions.Read_Write ? Permissions.Read_Write.ToString() : Permissions.Read.ToString()}
+                        }).ToList(),
+
+                        Users = r.Users!.Select(u => new RoleUsersViewModel
+                        {
+                            Username = u.Username
+                        }).ToList()
+                })
+                .ToListAsync(ct);
+
+            //Console.WriteLine(System.Enum.GetNames(typeof(Pages)).Length);
+            //Console.WriteLine(System.Enum.GetValues<Pages>().Length);
+            //Console.WriteLine(Enum.GetValues<Permissions>().FirstOrDefault(x => (6 & (int)x) == (int)x));
 
             return View(roles);
         }

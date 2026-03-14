@@ -14,7 +14,7 @@ public class SessionService(IDistributedCache _cache) : ISessionService
             sessionToken,
             new DistributedCacheEntryOptions
             {
-                SlidingExpiration = TimeSpan.FromMinutes(2)
+                SlidingExpiration = TimeSpan.FromMinutes(10)
             }, ct);
     }
 

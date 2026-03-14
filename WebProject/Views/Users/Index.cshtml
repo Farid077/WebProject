@@ -685,12 +685,12 @@
             <div class="nav-label">Main</div>
             <a asp-action="Index" asp-controller="Home"><span class="icon">▦</span> Dashboard</a>
             <a asp-action="Index" class="active"><span class="icon">◈</span> Users</a>
-              <form asp-controller="Auth" asp-action="Logout" method="post">
-                 @Html.AntiForgeryToken()
-                 <button style="width:max-content; height: max-content;" type="submit">
-                    <span class="icon">◉</span> Logout
-                 </button>
-              </form>
+            <form asp-controller="Auth" asp-action="Logout" method="post">
+                @Html.AntiForgeryToken()
+                <button style="width:max-content; height: max-content;" type="submit">
+                <span class="icon">◉</span> Logout
+                </button>
+            </form>
         </nav>
     </aside>
 
@@ -744,7 +744,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="role-tag">Admin</span></td>
+                            <td><span class="role-tag">@user.Role</span></td>
                             <td>
                             @if (user.IsActive)
                             {
@@ -754,12 +754,12 @@
                                 <span class="status-pill s-inactive">Inactive</span>
                             }
                             </td>
-                            <td>Feb 28, 2026</td>
+                            <td>@user.CreatedTime</td>
                             @* <td>@user.PasswordHash</td> *@
                             <td>
                                 <a asp-action="Update" asp-route-id="@user.Username" class="action-btn" style="text-decoration:none;">Edit</a>
                                 <a asp-action="Delete" asp-route-id = "@user.Username" class="action-btn del" style="text-decoration:none;">Delete</a>
-                                <a asp-action="RevokeSession" asp-route-id = "@user.Username" class="action-btn del" style="text-decoration:none;">End Session</a>
+                                @* <a asp-action="RevokeSession" asp-route-id = "@user.Username" class="action-btn del" style="text-decoration:none;">End Session</a> *@
                                 @* <form method="POST" asp-controller="Users" asp-action="RevokeSession" class="action" >
                                     <button type="submit">End Session</button>
                                 </form> *@

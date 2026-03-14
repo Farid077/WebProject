@@ -1,12 +1,250 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Farid\\Desktop\\WebProject\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\middlewares\\sessionvalidationmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\middlewares\\sessionvalidationmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\externalservices\\implements\\sessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\externalservices\\implements\\sessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\enums\\permissions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\enums\\permissions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\enums\\pages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\enums\\pages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\role\\roleusersviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\viewmodels\\role\\roleusersviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\role\\rolemanagementviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\viewmodels\\role\\rolemanagementviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\user\\usermanagementviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\viewmodels\\user\\usermanagementviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Program.cs",
+              "RelativeDocumentMoniker": "WebProject\\Program.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Program.cs",
+              "RelativeToolTip": "WebProject\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T08:56:18.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SessionValidationMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Middlewares\\SessionValidationMiddleware.cs",
+              "RelativeDocumentMoniker": "WebProject\\Middlewares\\SessionValidationMiddleware.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Middlewares\\SessionValidationMiddleware.cs",
+              "RelativeToolTip": "WebProject\\Middlewares\\SessionValidationMiddleware.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAUwBAAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T08:51:35.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "WebProject\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "WebProject\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAABtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T08:49:24.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Permissions.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Enums\\Permissions.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\Enums\\Permissions.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Enums\\Permissions.cs",
+              "RelativeToolTip": "WebProject\\Models\\Enums\\Permissions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T19:34:40.1Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Pages.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Enums\\Pages.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\Enums\\Pages.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Enums\\Pages.cs",
+              "RelativeToolTip": "WebProject\\Models\\Enums\\Pages.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T18:59:43.631Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "WebProject\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "WebProject\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T07:10:50.43Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UserManagementViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserManagementViewModel.cs",
+              "RelativeDocumentMoniker": "WebProject\\ViewModels\\User\\UserManagementViewModel.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\User\\UserManagementViewModel.cs",
+              "RelativeToolTip": "WebProject\\ViewModels\\User\\UserManagementViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T06:46:29.386Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "RoleUsersViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\Role\\RoleUsersViewModel.cs",
+              "RelativeDocumentMoniker": "WebProject\\ViewModels\\Role\\RoleUsersViewModel.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\Role\\RoleUsersViewModel.cs",
+              "RelativeToolTip": "WebProject\\ViewModels\\Role\\RoleUsersViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T07:02:12.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RolesController.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\RolesController.cs",
+              "RelativeDocumentMoniker": "WebProject\\Controllers\\RolesController.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\RolesController.cs",
+              "RelativeToolTip": "WebProject\\Controllers\\RolesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T06:44:52.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SessionService.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ExternalServices\\Implements\\SessionService.cs",
+              "RelativeDocumentMoniker": "WebProject\\ExternalServices\\Implements\\SessionService.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ExternalServices\\Implements\\SessionService.cs",
+              "RelativeToolTip": "WebProject\\ExternalServices\\Implements\\SessionService.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T06:14:58.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Role.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\Role.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Role.cs",
+              "RelativeToolTip": "WebProject\\Models\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T05:49:32.868Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RoleManagementViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\Role\\RoleManagementViewModel.cs",
+              "RelativeDocumentMoniker": "WebProject\\ViewModels\\Role\\RoleManagementViewModel.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\Role\\RoleManagementViewModel.cs",
+              "RelativeToolTip": "WebProject\\ViewModels\\Role\\RoleManagementViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T05:49:01.597Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Users\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebProject\\Views\\Users\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Users\\Index.cshtml",
+              "RelativeToolTip": "WebProject\\Views\\Users\\Index.cshtml",
+              "ViewState": "AgIAAOICAAAAAAAAAAAAAPQCAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-13T05:46:18.584Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Roles\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebProject\\Views\\Roles\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Roles\\Index.cshtml",
+              "RelativeToolTip": "WebProject\\Views\\Roles\\Index.cshtml",
+              "ViewState": "AgIAAN8CAAAAAAAAAAAAAPECAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-13T05:33:53.758Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -14,10 +14,10 @@ public class SessionValidationMiddleware(RequestDelegate _next)
             
             string sessionToken = context.User.FindFirstValue("SessionToken") ?? throw new Exception($"SessionToken not found for user with id: {userId}");
 
-            if(!await sessionService.IsActiveAsync(userId) && !await sessionService.IsValidAsync(userId, sessionToken))
+            if(!await sessionService.IsValidAsync(userId, sessionToken))
             {
                 await context.SignOutAsync();
-                context.Response.Redirect("/");
+                context.Response.Redirect("/Auth/Login");
                 return;
             }
         }

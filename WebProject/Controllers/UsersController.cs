@@ -17,14 +17,19 @@ namespace WebProject.Controllers
         {
             var users = await _context.Users
             .AsNoTracking()
-            .Select(x => 
-            new UserManagementViewModel 
+            .Include(x => x.Role)
+            .Select(x =>
+            new UserManagementViewModel
             {
                 Username = x.Username,
+                Role = x.RoleId!,
+                CreatedTime = x.CreatedTime,
             })
             .ToListAsync(ct);
 
-            users.ForEach(async x => x.IsActive = await _sessionService.IsActiveAsync(x.Username, ct));
+            await Task.WhenAll(
+                users.Select(async x => x.IsActive = await _sessionService.IsActiveAsync(x.Username, ct))
+            );
 
             return View(users);
         }
@@ -53,14 +58,14 @@ namespace WebProject.Controllers
                 Username = vm.Username,
             };
 
-            user.PasswordHash = _hasher.HashPassword(user, vm.Password);
+            user.PasswordHash = await Task.Run(() => _hasher.HashPassword(user, vm.Password));
 
             await _context.Users.AddAsync(user, ct);
             await _context.SaveChangesAsync(ct);
             return Redirect("Index");
         }
 
-        public async Task<IActionResult> Update(string id, CancellationToken ct = default)
+        public async Task<IActionResult> Update(string id)
         {
             //User user = await _getUserAsync(id, ct);
             //UserUpdateViewModel vm = new()
@@ -97,7 +102,7 @@ namespace WebProject.Controllers
 
             if(vm.Password != null)
             {
-                user.PasswordHash = _hasher.HashPassword(user, vm.Password);
+                user.PasswordHash = await Task.Run(() => _hasher.HashPassword(user, vm.Password));
                 await _context.SaveChangesAsync(ct);
             }
             //else if(vm.Username == user.Username)
@@ -110,23 +115,25 @@ namespace WebProject.Controllers
         public async Task<IActionResult> Delete(string id, CancellationToken ct = default)
         {
             User user = await _getUserAsync(id, ct);
+            //string userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new Exception("ClaimTypes NameIdentifier not found");
+            await _sessionService.RevokeAsync(id, ct);
             _context.Users.Remove(user);
             await _context.SaveChangesAsync(ct);
             return RedirectToAction("Index", "Users");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RevokeSession(string id, CancellationToken ct = default)
-        {
-            var user = await _getUserAsync(id, ct);
-            //if (user is null) return NotFound();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> RevokeSession(string id, CancellationToken ct = default)
+        //{
+        //    var user = await _getUserAsync(id, ct);
+        //    //if (user is null) return NotFound();
 
-            await _sessionService.RevokeAsync(id, ct);
+        //    await _sessionService.RevokeAsync(id, ct);
 
-            //TempData["Message"] = $"{user.UserName}'s session has been revoked.";
-            return RedirectToAction("Index", "Users");
-        }
+        //    //TempData["Message"] = $"{user.UserName}'s session has been revoked.";
+        //    return RedirectToAction("Index", "Users");
+        //}
 
         async Task<User> _getUserAsync(string id, CancellationToken ct = default)
         {

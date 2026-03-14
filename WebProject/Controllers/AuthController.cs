@@ -15,7 +15,7 @@ public class AuthController(WebProjectDbContext _context, ISessionService _sessi
     public IActionResult Login() => View();
 
     [HttpPost]
-    public async Task<IActionResult> Login(UserLoginViewModel vm, CancellationToken ct)
+    public async Task<IActionResult> Login(UserLoginViewModel vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid) return View(vm);
 
@@ -28,7 +28,7 @@ public class AuthController(WebProjectDbContext _context, ISessionService _sessi
         }
         string userId = user.Username;
 
-        var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, vm.Password);
+        var result = await Task.Run(() => _hasher.VerifyHashedPassword(user, user.PasswordHash, vm.Password));
 
         if (result == PasswordVerificationResult.Failed)
         {
@@ -38,7 +38,7 @@ public class AuthController(WebProjectDbContext _context, ISessionService _sessi
         
         string sessionToken = Guid.NewGuid().ToString();
 
-        _ = _sessionService.CreateAsync(userId, sessionToken, ct);
+        await _sessionService.CreateAsync(userId, sessionToken, ct);
 
         List<Claim> claims = 
         [
@@ -47,18 +47,18 @@ public class AuthController(WebProjectDbContext _context, ISessionService _sessi
         ];
 
         ClaimsPrincipal principal = new (new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
-        _ = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
         return RedirectToAction("Index", "Home");
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Logout(CancellationToken ct)
+    public async Task<IActionResult> Logout(CancellationToken ct = default)
     {
         string userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new Exception("ClaimTypes NameIdentifier not found");
-        _ = _sessionService.RevokeAsync(userId, ct);
-        _ = HttpContext.SignOutAsync();
+        await _sessionService.RevokeAsync(userId, ct);
+        await HttpContext.SignOutAsync();
         return Redirect("Login");
     }
 }

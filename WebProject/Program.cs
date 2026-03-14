@@ -14,6 +14,7 @@ builder.Services.AddDbContext<WebProjectDbContext>(options =>
 
 builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("Redis"));
+ThreadPool.SetMinThreads(workerThreads: 10, completionPortThreads: 10);
 
 builder.Services.AddMvc();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
@@ -25,7 +26,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Auth/Login";
         options.LogoutPath = "/Auth/Login";
         options.AccessDeniedPath = "/";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
         options.SlidingExpiration = true;
 
     });

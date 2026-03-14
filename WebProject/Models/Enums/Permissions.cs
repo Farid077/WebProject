@@ -3,5 +3,5 @@
 public enum Permissions
 {
     Read = 1,
-    Read_Write = 3,
+    Read_Write = 1 | 2,
 }
