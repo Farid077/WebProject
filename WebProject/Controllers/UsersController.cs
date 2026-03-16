@@ -137,7 +137,7 @@ namespace WebProject.Controllers
 
         async Task<User> _getUserAsync(string id, CancellationToken ct = default)
         {
-            return await _context.Users.FindAsync(id, ct) ?? throw new Exception("User not found with this id");
+            return await _context.Users.FindAsync(id, ct) ?? throw new Exception($"User not found with this id: {id}");
         }
     }
 }

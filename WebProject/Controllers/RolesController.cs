@@ -36,12 +36,49 @@ namespace WebProject.Controllers
             return View(roles);
         }
 
-        public IActionResult Create() => View();
+        public async Task<IActionResult> Create()
+        {
+            var vm = new RoleCreateViewModel
+            {
+                PageOptions = Enum.GetNames<Pages>(),
+                PermissionOptions = Enum.GetNames<Permissions>(),
+            };
+
+            return View(vm);
+        }
 
         [HttpPost]
-        public IActionResult Create(CancellationToken ct = default)
+        public IActionResult Create(RoleCreateViewModel vm, CancellationToken ct = default)
         {
+            if (!ModelState.IsValid)
+            {
+                vm.PageOptions = Enum.GetNames<Pages>();
+                vm.PermissionOptions = Enum.GetNames<Permissions>();
+                return View(vm);
+            }
+
+
+            return Redirect("Index");
+        }
+
+        public async Task<IActionResult> Update(string id, CancellationToken ct)
+        {
+            var role = await _getRoleAsync(id, ct);
+
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Update(CancellationToken ct)
+        {
+
+
+            return View();
+        }
+
+        public async Task<Role> _getRoleAsync(string id, CancellationToken ct = default)
+        {
+            return await _context.Roles.FindAsync(id, ct) ?? throw new Exception($"Role is not found with this id: {id}");
         }
     }
 }
