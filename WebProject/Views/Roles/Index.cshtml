@@ -477,6 +477,7 @@
                 font-size: 13px;
                 color: var(--text);
                 vertical-align: middle;
+                width: max-content;
             }
 
             .cell-user {
@@ -549,6 +550,7 @@
                 padding: 3px 9px;
                 border-radius: 4px;
                 letter-spacing: .04em;
+                width: max-content;
             }
 
             .action-btn {
@@ -573,6 +575,14 @@
                     color: var(--red);
                     border-color: var(--red);
                 }
+                .action-btn.edit:hover {
+                    color: var(--accent);
+                    border-color: var(--accent);
+                }
+                /* .action-btn.revoke:hover {
+                    color: var(--red);
+                    border-color: var(--red);
+                } */
 
             .table-footer {
                 display: flex;
@@ -727,9 +737,8 @@
                     <tr>
                         @* <th>User</th> *@
                         <th>Role</th>
-                        <th>Permissions</th>
+                        <th>Page - Access</th>
                         <th>Users</th>
-                        @* <th>Password</th> *@
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -751,35 +760,26 @@
                                 {
                                         foreach(var dict in perm)
                                         {
-                                            <span class="role-tag">@dict.Key @dict.Value</span>
+                                            <div class="role-tag">@dict.Key - @dict.Value</div>
                                         }
                                 }
                             </td>
                             @* <td><span class="role-tag">-</span></td> *@
-                            @* <td>
-                                @if (user.IsActive)
-                                {
-                                    <span class="status-pill s-active">Active</span>
-                                }
-                                else
-                                {
-                                    <span class="status-pill s-inactive">Inactive</span>
-                                }
-                            </td> *@
-                                <td>@foreach(var user in role.Users)
+                                <td>
+                                    @foreach(var user in role.Users)
                                     {
-                                        @user.Username
+                                        <div>@user.Username</div>
                                     }
                                 </td>
                             @* <td>-</td> *@
-                            @* <td>@user.PasswordHash</td> *@
                             <td>
-                                <a asp-action="Update" asp-route-id="@role.Name" class="action-btn" style="text-decoration:none;">Edit</a>
-                                <a asp-action="Delete" asp-route-id="@role.Name" class="action-btn del" style="text-decoration:none;">Delete</a>
+                                <a asp-action="Update" asp-route-id="@role.Name" class="action-btn edit" style="text-decoration:none;">Edit</a>
+                                @* <a asp-action="Delete" asp-route-id="@role.Name" class="action-btn del" style="text-decoration:none;">Delete</a> *@
                                 @* <a asp-action="RevokeSession" asp-route-id="@role.Name" class="action-btn del" style="text-decoration:none;">End Session</a> *@
-                                @* <form method="POST" asp-controller="Users" asp-action="RevokeSession" class="action" >
-                                    <button type="submit">End Session</button>
-                                </form> *@
+                                <form method="POST" asp-controller="Roles" asp-action="Delete" asp-route-id="@role.Name" class="action">
+                                    @Html.AntiForgeryToken()
+                                    <button class="action-btn del" type="submit">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     }

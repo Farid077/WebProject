@@ -140,7 +140,7 @@
     <div class="nav-label">Main</div>
     <a asp-action="Index" asp-controller="Home" class=""><span class="icon">▦</span> Dashboard</a>
     <a asp-action="Index" asp-controller="Users" class="active"><span class="icon">◈</span> Users</a>
-    <a asp-action="Index" class=""><span class="icon">◈</span> Roles</a>
+    <a asp-action="Index" asp-controller="Roles" class=""><span class="icon">◈</span> Roles</a>
     <form asp-controller="Auth" asp-action="Logout" method="post">
         @Html.AntiForgeryToken()
         <button style="width:max-content; height: max-content;" type="submit">

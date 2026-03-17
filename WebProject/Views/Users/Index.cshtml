@@ -574,6 +574,16 @@
                 border-color: var(--red);
             }
 
+            .action-btn.edit:hover {
+                color: var(--accent);
+                border-color: var(--accent);
+            }
+
+            .action-btn.revoke:hover {
+                color: var(--red);
+                border-color: var(--red);
+            }
+
         .table-footer {
             display: flex;
             align-items: center;
@@ -758,12 +768,15 @@
                             <td>@user.CreatedTime</td>
                             @* <td>@user.PasswordHash</td> *@
                             <td>
-                                <a asp-action="Update" asp-route-id="@user.Username" class="action-btn" style="text-decoration:none;">Edit</a>
-                                <a asp-action="Delete" asp-route-id = "@user.Username" class="action-btn del" style="text-decoration:none;">Delete</a>
-                                @* <a asp-action="RevokeSession" asp-route-id = "@user.Username" class="action-btn del" style="text-decoration:none;">End Session</a> *@
-                                @* <form method="POST" asp-controller="Users" asp-action="RevokeSession" class="action" >
-                                    <button type="submit">End Session</button>
-                                </form> *@
+                                <a asp-action="Update" asp-route-id="@user.Username" class="action-btn edit" style="text-decoration:none;">Edit</a>
+                                <span>
+                                    <form method="POST" class="action" >
+                                    @Html.AntiForgeryToken()
+                                    @* <a asp-action="Delete" asp-route-id = "@user.Username" class="action-btn del" style="text-decoration:none;">Delete</a> *@
+                                        <button class="action-btn del" type="submit" formaction="Users/Delete?id=@user.Username">Delete</button>
+                                        <button class="action-btn revoke" type="submit" formaction="Users/RevokeSession?id=@user.Username">End Session</button>
+                                    </form>
+                                </span>
                             </td>
                         </tr>
                     }

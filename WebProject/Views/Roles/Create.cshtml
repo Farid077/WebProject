@@ -43,15 +43,15 @@
   .breadcrumb .sep { color: var(--muted); }
   .breadcrumb .current { color: var(--text); }
 
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 480px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 500px; }
 
   .card-header { padding: 24px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; }
   .card-icon { width: 40px; height: 40px; background: var(--accent-dim); border: 1px solid rgba(200,255,62,.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent); }
   .card-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
   .card-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
 
-  .form-body { padding: 28px 32px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .form-body { padding: 28px 25px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 10px; }
   .form-row.single { grid-template-columns: 1fr; }
   .field { display: flex; flex-direction: column; gap: 8px; }
   .field label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
@@ -66,8 +66,8 @@
   .field select option { background: #111118; }
   .field textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
   .field.error input, .field.error select { border-color: rgba(255,78,106,.45); box-shadow: 0 0 0 3px rgba(255,78,106,.07); }
-  .field .err-msg { font-size: 11px; color: var(--red);}
-  .field.error .err-msg { display: block; }
+  .err-msg { font-size: 11px; color: var(--red);}
+  .err-msg { display: block; }
 
   .card-footer { padding: 20px 32px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
   .btn-cancel { background: none; border: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-dim); padding: 9px 22px; border-radius: 7px; cursor: pointer; transition: all .15s; }
@@ -339,123 +339,76 @@
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="field" id="f-role">
-          @* <span asp-validation-for="" class="err-msg"></span> *@
-          <label asp-for="PageOptions">Page</label>
-          <select  id="Page" name="permissions[0].page">
-            <option value="">Select page...</option>
-            @foreach (var p in Model.PageOptions)
-            {
-                <option value="@p">@p</option>
-            }
-            @* <option value="Super Admin">Super Admin</option> *@
-          </select>
-          <span asp-validation-for="PageOptions" class="err-msg"></span>
+
+      <div id="pairsContainer">
+        @for (int i = 0; i < Model.Permissions.Count; i++)
+        {
+            <div class="pair-row">
+                <div class="field">
+                    <label>Page</label>
+                    <select name="Permissions[@i].Page">
+                        <option value="">Select page...</option>
+                        @foreach (var p in Model.PageOptions)
+                        {
+                            <option selected = "@(Model.Permissions[i].Page == p ? "selected" : null)" value="@p">@p</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Accessibility</label>
+                    <select name="Permissions[@i].Access">
+                        <option value="">Select access...</option>
+                        @foreach (var access in Model.AccessOptions)
+                        {
+                            <option selected = "@(Model.Permissions[i].Access == access ? "selected" : null)" value="@access">@access</option>         
+                        }
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-remove" formaction="/Roles/RemovePair?index=@i">✕</button>
+                @* <span asp-validation-for="Permissions" class="err-msg"></span> *@
+                <span asp-validation-for="Permissions[i].Page" class="err-msg"></span>
+                <span asp-validation-for="Permissions[i].Access" class="err-msg"></span>
+            </div>
+        }
+      </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-add" formaction="/Roles/AddPair">+ Add Pair</button>
         </div>
 
-        <div class="field">
+        <button type="submit" class="btn-save">Create Role</button>
+    </form>
+
+
+    @* <div class="form-row">
+        <div class="field" id="f-role">
+          <label asp-for="PageOptions">Page</label>
+          <select  id="Page" name="permissions[0].page">
+            <option value="">Select page...</option> *@
+            @* @foreach (var p in Model.PageOptions)
+            {
+                <option value="@p">@p</option>
+            } *@
+            @* <option value="Super Admin">Super Admin</option> *@
+        @*   </select>
+          <span asp-validation-for="PageOptions" class="err-msg"></span>
+        </div> *@
+
+        @* <div class="field">
           <label asp-for="PermissionOptions" >Permission</label>
           <select  id="Permission" name="Permissions[0].permission">
             @foreach (var perm in Model.PermissionOptions)
             {
                 <option value="@perm">@perm</option>
-            }
+            } *@
             @* <option value="pending">Pending</option>
             <option value="inactive">Inactive</option> *@
-          </select>
+      @*     </select>
           <span asp-validation-for="PermissionOptions" class="err-msg"></span>
         </div>
-      </div>
-
-      <div id="pairsContainer">
-            @for (int i = 0; i < Model.Permissions.Count; i++)
-            {
-                <div class="pair-row">
-                    <div class="field">
-                        <label>Page</label>
-                        <select name="Permissions[@i].Page">
-                            <option value="">Select page...</option>
-                            @foreach (var p in Model.PageOptions)
-                            {
-                                <option value="@p">@p</option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="field">
-                        <label>Permission</label>
-                        <select name="Permissions[@i].Permission">
-                            <option value="">Select permission...</option>
-                            @foreach (var perm in Model.PermissionOptions)
-                            {
-                                <option value="@perm">@perm</option>         
-                            }
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn-remove"
-                            formaction="/Home/RemovePair?index=@i">✕</button>
-                </div>
-            }
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn-add"
-                    formaction="/Home/AddPair">+ Add Pair</button>
-            @* <button type="submit" class="btn-submit"
-                    formaction="/Roles/Create">Create</button> *@
-        </div>
-
-      <button type="submit" class="btn-save">Create Role</button>
-    </form>
-
-    @* <form method="post" class=" form-body">
-        <h2>Permissions</h2>
-
-        <div id="pairsContainer">
-            @for (int i = 0; i < Model.Permissions.Count; i++)
-            {
-                <div class="pair-row">
-                    <div class="field">
-                        <label>Page</label>
-                        <select name="Permissions[@i].Page">
-                            <option value="">Select page...</option>
-                            @foreach (var p in Model.PageOptions)
-                            {
-                                <option value="@p">@p</option>
-                            } *@
-                            @* <option value="key2" @(Model.Pairs[i].FirstValue == "key2" ? "selected" : "")>Key Option 2</option>
-                            <option value="key3" @(Model.Pairs[i].FirstValue == "key3" ? "selected" : "")>Key Option 3</option> *@
-                    @*     </select>
-                    </div>
-
-                    <div class="field">
-                        <label>Permission</label>
-                        <select name="Permissions[@i].Permission">
-                            <option value="">Select permission...</option>
-                            @foreach (var perm in Model.PermissionOptions)
-                            {
-                                <option value="@perm">@perm</option>         
-                            } *@
-                            @* <option value="val2" @(Model.Pairs[i].SecondValue == "val2" ? "selected" : "")>Write</option>
-                            <option value="val3" @(Model.Pairs[i].SecondValue == "val3" ? "selected" : "")>Admin</option> *@
-                    @*     </select>
-                    </div> *@
-
-    @*                 <button type="submit" class="btn-remove"
-                            formaction="/Home/RemovePair?index=@i">✕</button>
-                </div>
-            }
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn-add"
-                    formaction="/Home/AddPair">+ Add Pair</button>
-            <button type="submit" class="btn-submit"
-                    formaction="/Roles/Create">Create</button>
-        </div>
-    </form> *@
+      </div> *@
 
   </div>
 </main>

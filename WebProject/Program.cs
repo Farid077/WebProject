@@ -50,7 +50,7 @@ using (var scope = app.Services.CreateScope())
             Name = "SuperAdmin"
         };
 
-        foreach (int i in Enum.GetValues<Pages>().Select(p => (int)p | (int)Permissions.Read_Write))
+        foreach (int i in Enum.GetValues<Pages>().Select(p => (int)p | (int)PageAccess.Read_Write))
         {
             int a = i;
             //int a = i | (int)Permissions.Read_Write;
