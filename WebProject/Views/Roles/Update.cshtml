@@ -1,18 +1,18 @@
-﻿@model RoleCreateViewModel
+﻿@model RoleUpdateViewModel
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Console — Add User</title>
+<title>Admin Console — Edit User</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0a0f; --surface: #111118; --border: #1e1e2e;
     --accent: #c8ff3e; --accent-dim: rgba(200,255,62,0.10);
     --muted: #3a3a52; --text: #e8e8f0; --text-dim: #6b6b8a;
-    --red: #ff4e6a;
+    --red: #ff4e6a; --blue: #4ea8ff;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; }
@@ -43,15 +43,29 @@
   .breadcrumb .sep { color: var(--muted); }
   .breadcrumb .current { color: var(--text); }
 
+  .last-edited { font-size: 11px; color: var(--text-dim); }
+  .last-edited span { color: var(--muted); }
+
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 500px; }
 
   .card-header { padding: 24px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; }
-  .card-icon { width: 40px; height: 40px; background: var(--accent-dim); border: 1px solid rgba(200,255,62,.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent); }
+  .card-icon { width: 40px; height: 40px; background: rgba(78,168,255,.1); border: 1px solid rgba(78,168,255,.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--blue); }
   .card-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
   .card-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
 
-  .form-body { padding: 28px 25px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 10px; }
+  /* Avatar preview row */
+  .avatar-row { display: flex; align-items: center; gap: 20px; padding: 20px 32px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.01); }
+  .big-avatar { width: 52px; height: 52px; border-radius: 10px; background: linear-gradient(135deg, rgba(78,168,255,.25), rgba(200,255,62,.25)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); flex-shrink: 0; }
+  .avatar-meta strong { display: block; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+  .avatar-meta small { font-size: 12px; color: var(--text-dim); margin-top: 2px; display: block; }
+  .status-pill { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-top: 6px; }
+  .status-pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .s-active  { background: rgba(200,255,62,.1); color: var(--accent); }
+  .s-pending { background: rgba(255,179,71,.1); color: #ffb347; }
+  .s-inactive{ background: rgba(255,78,106,.1); color: var(--red); }
+
+  .form-body { padding: 20px 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
   .form-row.single { grid-template-columns: 1fr; }
   .field { display: flex; flex-direction: column; gap: 8px; }
   .field label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
@@ -66,14 +80,32 @@
   .field select option { background: #111118; }
   .field textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
   .field.error input, .field.error select { border-color: rgba(255,78,106,.45); box-shadow: 0 0 0 3px rgba(255,78,106,.07); }
-  .err-msg { font-size: 11px; color: var(--red);}
-  .err-msg { display: block; }
+  .err-msg { font-size: 11px; color: var(--red); }
+  .field.error .err-msg { display: block; }
+
+  /* live preview on name input */
+  .field input:focus { }
 
   .card-footer { padding: 20px 32px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
   .btn-cancel { background: none; border: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-dim); padding: 9px 22px; border-radius: 7px; cursor: pointer; transition: all .15s; }
   .btn-cancel:hover { color: var(--text); border-color: var(--muted); }
-  .btn-save { background: var(--accent); color: #0a0a0f; border: none; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .04em; padding: 9px 28px; border-radius: 7px; cursor: pointer; transition: opacity .15s, transform .12s, box-shadow .15s; margin-top: 20px;}
+  .footer-right { display: flex; gap: 10px; }
+  .btn-delete { background: rgba(255,78,106,.08); border: 1px solid rgba(255,78,106,.2); font-family: 'DM Mono', monospace; font-size: 12px; color: var(--red); padding: 9px 22px; border-radius: 7px; cursor: pointer; transition: all .15s; }
+  .btn-delete:hover { background: rgba(255,78,106,.16); }
+  .btn-save { background: var(--accent); color: #0a0a0f; border: none; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .04em; padding: 9px 28px; border-radius: 7px; cursor: pointer; transition: opacity .15s, transform .12s, box-shadow .15s; margin-top: 20px; }
   .btn-save:hover { opacity: .9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,255,62,.2); }
+
+  /* confirm delete overlay */
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); display: flex; align-items: center; justify-content: center; z-index: 200; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .overlay.show { opacity: 1; pointer-events: all; }
+  .dialog { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; max-width: 380px; width: 90%; animation: rise .3s cubic-bezier(.22,1,.36,1) both; }
+  @@keyframes rise { from { transform: translateY(16px) scale(.97); opacity: 0; } to { transform: none; opacity: 1; } }
+  .dialog-icon { font-size: 28px; margin-bottom: 14px; }
+  .dialog h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .dialog p { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 24px; }
+  .dialog-btns { display: flex; gap: 10px; justify-content: flex-end; }
+  .btn-confirm-delete { background: var(--red); color: #fff; border: none; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; padding: 9px 22px; border-radius: 7px; cursor: pointer; transition: opacity .15s; }
+  .btn-confirm-delete:hover { opacity: .85; }
 
   .toast { position: fixed; bottom: 32px; right: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; box-shadow: 0 12px 40px rgba(0,0,0,.5); transform: translateY(20px); opacity: 0; transition: all .3s cubic-bezier(.22,1,.36,1); pointer-events: none; z-index: 100; }
   .toast.show { transform: translateY(0); opacity: 1; }
@@ -82,24 +114,24 @@
   .toast-text small { font-size: 11px; color: var(--text-dim); }
   .toggle-pw:hover{cursor:pointer !important;}
     nav form button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: 6px;
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: .02em;
-    transition: all .15s;
-    background: var(--bg);
-    box-shadow: none;
-    border: none;
-    border-width: 0px;
-    border-style: solid;
-    width: 195px !important;
-    margin-left: -13px !important;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 6px;
+        color: var(--text-dim);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: .02em;
+        transition: all .15s;
+        background: var(--bg);
+        box-shadow: none;
+        border: none;
+        border-width: 0px;
+        border-style: solid;
+        width: 195px !important;
+        margin-left: -13px !important;
     }
 
     nav form {
@@ -116,7 +148,7 @@
         transition: all .15s;
         width: 300px !important;
     }
-
+  
     nav form button:hover {
         color: var(--text);
         background: var(--border);
@@ -127,33 +159,6 @@
         width: 18px;
         text-align: center;
     }
-
-
-    /* --- Variables --- */
-    /* :root {
-        --bg:         #0f1117;
-        --surface:    #1a1d27;
-        --border:     #2e3248;
-        --accent:     #4f6ef7;
-        --accent-red: #e05a5a;
-        --text:       #e2e4f0;
-        --text-muted: #6b7094;
-        --radius:     8px;
-        --font:       'Courier New', monospace;
-    } */
-
-    /* * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    } */
-
-    /* body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: var(--font);
-        padding: 40px;
-    } */
 
     /* --- Form Container --- */
     .pairs-form {
@@ -316,37 +321,49 @@
       <span class="sep">/</span>
       <a asp-action="Index">Roles</a>
       <span class="sep">/</span>
-      <span class="current">Add Role</span>
+      <span class="current">Edit Role</span>
     </div>
+    @* <span class="last-edited">Last edited <span>2 days ago</span></span> *@
   </div>
 
   <div class="card">
     <div class="card-header">
-      <div class="card-icon">◈</div>
+      <div class="card-icon">✎</div>
       <div>
-        <div class="card-title">Add New Role</div>
-        <div class="card-sub">Fill in the details to create a new role.</div>
+        <div class="card-title">Edit Role</div>
+        <div class="card-sub">Update the details for this role.</div>
       </div>
     </div>
 
-    <form method="post" asp asp-action="Create" class="form-body">
+    <!-- Avatar preview -->
+    <div class="avatar-row">
+      <div class="big-avatar" id="big-avatar">@Model.RoleName.ToUpper()[0]@Model.RoleName.ToUpper()[1]</div>
+      <div class="avatar-meta">
+        <strong id="preview-name">@Model.RoleName</strong>
+        @* <small id="preview-email">m.reyes@example.com</small> *@
+        @* <span class="status-pill s-active">Active</span> *@
+      </div>
+    </div>
+
+    <form method="post" asp asp-action="Update" class="form-body">
       @* <div asp-validation-summary="All" class="err-msg"></div> *@
-      <div class="form-row single">
+      @* <div class="form-row single">
         <div class="field" id="f-first">
           <label asp-for="RoleName">Role Name</label>
           <input asp-for="RoleName" type="text" id="first-name" name="RoleName" placeholder="Admin">
           <span asp-validation-for="RoleName" class="err-msg"></span>
         </div>
-      </div>
+      </div> *@
 
+      <input type="hidden" name="RoleName" value="@Model.RoleName"/>
 
       <div id="pairsContainer">
         @for (int i = 0; i < Model.Permissions.Count; i++)
         {
             <div class="pair-row">
                 <div class="field">
-                    <label>Page</label>
-                    <select name="Permissions[@i].Page">
+                    <label asp-for="Permissions[i].Page">Page</label>
+                    <select asp-for="Permissions[i].Page" name="Permissions[@i].Page">
                         <option value="">Select page...</option>
                         @foreach (var p in Model.PageOptions)
                         {
@@ -356,8 +373,8 @@
                 </div>
 
                 <div class="field">
-                    <label>Accessibility</label>
-                    <select name="Permissions[@i].Access">
+                    <label asp-for="Permissions[i].Access">Accessibility</label>
+                    <select asp-for="Permissions[i].Access" name="Permissions[@i].Access">
                         <option value="">Select access...</option>
                         @foreach (var access in Model.AccessOptions)
                         {
@@ -366,7 +383,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn-remove" formaction="/Roles/RemovePair?index=@i">✕</button>
+                <button type="submit" class="btn-remove" formaction="/Roles/RemovePairUpdate?index=@i">✕</button>
                 @* <span asp-validation-for="Permissions" class="err-msg"></span> *@
                 <span asp-validation-for="Permissions[i].Page" class="err-msg"></span>
                 <span asp-validation-for="Permissions[i].Access" class="err-msg"></span>
@@ -375,11 +392,60 @@
       </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn-add" formaction="/Roles/AddPair">+ Add Pair</button>
+            <button type="submit" class="btn-add" formaction="/Roles/AddPairUpdate">+ Add Pair</button>
         </div>
 
-        <button type="submit" class="btn-save">Create Role</button>
+        <button type="submit" class="btn-save">Save Changes</button>
+
+        @* <div class="card-footer">
+          <div class="footer-right">
+            <button type="submit" class="btn-save">Save Changes</button>
+          </div>
+        </div> *@
     </form>
+
+    @* <form asp-action="Update" asp-controller="Users" method="post" asp-route-id="@ViewData["Id"]?.ToString()">
+        <div class="form-body">
+
+          <div class="form-row single">
+            <div class="field" id="f-role">
+              <label asp-for="Role">Role</label>
+              <select asp-for="Role" id="role">
+                <option value="">Select role...</option>
+                @foreach(var role in Model.RoleOptions)
+                {
+                    <option selected="@(role == Model.Role ? role : null)" value="@role">@role</option>
+                }
+              </select>
+              <span asp-validation-for="Role" class="err-msg"></span>
+            </div>
+          </div>
+
+          <div class="form-row single">
+            <div class="field">
+              <label asp-for="Password" >New Password <span style="color:var(--muted);font-size:10px;">(leave blank to keep current)</span></label>
+              <input asp-for="Password" name="Password" type="password" id="password" placeholder="Leave blank to keep current">
+              <span class="input-icon toggle-pw" style="font-size: 12px;" id="pw-toggle" onclick="togglePw()">◷ show password</span>
+              <span asp-validation-for="Password" class="err-msg"></span>
+            </div>
+          </div>
+
+          <div class="form-row single">
+            <div class="field">
+              <label asp-for="ConfirmPassword" >Confirm Password <span style="color:var(--muted);font-size:10px;"></span></label>
+              <input asp-for="ConfirmPassword" name="ConfirmPassword" type="password" id="confirmpassword" placeholder="Confirm Password">
+              <span class="input-icon toggle-pw" style="font-size: 12px;" id="pw-toggle-confirm" onclick="togglePwConfirm()">◷ show password</span>
+              <span asp-validation-for="ConfirmPassword" class="err-msg"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="footer-right">
+            <button type="submit" class="btn-save">Save Changes</button>
+          </div>
+        </div>
+    </form> *@
   </div>
 </main>
 </body>

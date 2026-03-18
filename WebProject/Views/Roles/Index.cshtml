@@ -695,7 +695,7 @@
             <div class="nav-label">Main</div>
             <a asp-action="Index" asp-controller="Home"><span class="icon">▦</span> Dashboard</a>
             <a asp-action="Index" asp-controller="Users" class=""><span class="icon">◈</span> Users</a>
-            <a asp-action="Index" class="active"><span class="icon">◈</span> Roles</a>
+            <a asp-action="Index" class="active"><span class="icon">◫</span> Roles</a>
             <form asp-controller="Auth" asp-action="Logout" method="post">
                 @Html.AntiForgeryToken()
                 <button style="width:max-content; height: max-content;" type="submit">
@@ -758,10 +758,10 @@
                             <td>
                                 @foreach(var perm in role.Permissions)
                                 {
-                                        foreach(var dict in perm)
-                                        {
-                                            <div class="role-tag">@dict.Key - @dict.Value</div>
-                                        }
+                                    foreach(var dict in perm)
+                                    {
+                                        <div class="role-tag">@dict.Key - @dict.Value</div>
+                                    }
                                 }
                             </td>
                             @* <td><span class="role-tag">-</span></td> *@
@@ -772,14 +772,15 @@
                                     }
                                 </td>
                             @* <td>-</td> *@
-                            <td>
-                                <a asp-action="Update" asp-route-id="@role.Name" class="action-btn edit" style="text-decoration:none;">Edit</a>
-                                @* <a asp-action="Delete" asp-route-id="@role.Name" class="action-btn del" style="text-decoration:none;">Delete</a> *@
-                                @* <a asp-action="RevokeSession" asp-route-id="@role.Name" class="action-btn del" style="text-decoration:none;">End Session</a> *@
-                                <form method="POST" asp-controller="Roles" asp-action="Delete" asp-route-id="@role.Name" class="action">
-                                    @Html.AntiForgeryToken()
-                                    <button class="action-btn del" type="submit">Delete</button>
-                                </form>
+                            <td style="display: flex;">
+                                @if(role.Name != "SuperAdmin")
+                                {
+                                    <a asp-action="Update" asp-route-id="@role.Name" class="action-btn edit" style="text-decoration:none;">Edit</a>
+                                    <form method="POST" asp-controller="Roles" asp-action="Delete" asp-route-id="@role.Name" class="action">
+                                        @Html.AntiForgeryToken()
+                                        <button class="action-btn del" type="submit">Delete</button>
+                                    </form>
+                                }
                             </td>
                         </tr>
                     }

@@ -4,4 +4,5 @@ public enum Pages
 {
     Dashboard = 4,
     Users = 8,
+    Roles = 16,
 }

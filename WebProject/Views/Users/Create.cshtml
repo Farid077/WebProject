@@ -50,9 +50,9 @@
   .card-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
   .card-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
 
-  .form-body { padding: 28px 32px; }
+  .form-body { padding: 20px 30px; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-  .form-row.single { grid-template-columns: 1fr; }
+  .form-row.single { grid-template-columns: 1fr;}
   .field { display: flex; flex-direction: column; gap: 8px; }
   .field label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
   .field input, .field select, .field textarea {
@@ -140,7 +140,7 @@
     <div class="nav-label">Main</div>
     <a asp-action="Index" asp-controller="Home" class=""><span class="icon">▦</span> Dashboard</a>
     <a asp-action="Index" asp-controller="Users" class="active"><span class="icon">◈</span> Users</a>
-    <a asp-action="Index" asp-controller="Roles" class=""><span class="icon">◈</span> Roles</a>
+    <a asp-action="Index" asp-controller="Roles" class=""><span class="icon">◫</span> Roles</a>
     <form asp-controller="Auth" asp-action="Logout" method="post">
         @Html.AntiForgeryToken()
         <button style="width:max-content; height: max-content;" type="submit">
@@ -206,16 +206,19 @@
         </div>
       </div> *@
 
-      @* <div class="form-row single"> *@
-        @* <div class="field" id="f-role">
-          <label>Role</label>
-          <select id="role">
+      <div class="form-row single">
+        <div class="field" id="f-role">
+          <label asp-for="Role">Role</label>
+          <select asp-for="Role" id="role">
             <option value="">Select role...</option>
-            <option value="Admin">Admin</option>
-            <option value="Super Admin">Super Admin</option>
+            @foreach(var role in Model.RoleOptions)
+            {
+                <option selected="@(role == Model.Role ? role : null)" value="@role">@role</option>
+            }
+            @* <option value="Super Admin">Super Admin</option> *@
           </select>
-          <span class="err-msg">Required</span>
-        </div> *@
+          <span asp-validation-for="Role" class="err-msg"></span>
+        </div>
 
         @* ---------------------------------------------------------------------------------------------------------------------- *@
         @* <div class="field">
@@ -226,13 +229,13 @@
             <option value="inactive">Inactive</option>
           </select>
         </div> *@
-      @* </div> *@
+      </div>
 
       <div class="form-row single">
         <div class="field" id="f-pw">
           <label asp-for="Password">Password</label>
           <input asp-for="Password" name="Password" type="password" id="password" placeholder="Min. 8 characters">
-          <span class="input-icon toggle-pw" id="pw-toggle" onclick="togglePw()">◷ show password</span>
+          <span class="input-icon toggle-pw" style="font-size: 12px;" id="pw-toggle" onclick="togglePw()">◷ show password</span>
           <span asp-validation-for="Password" class="err-msg"></span>
         </div>
       </div>
@@ -241,7 +244,7 @@
         <div class="field" id="f-pw">
           <label asp-for="ConfirmPassword">Confirm Password</label>
           <input asp-for="ConfirmPassword" name="ConfirmPassword" type="password" id="confirmpassword" placeholder="Confirm password">
-          <span class="input-icon toggle-pw" id="pw-toggle-confirm" onclick="togglePwConfirm()">◷ show password</span>
+          <span class="input-icon toggle-pw" style="font-size: 12px;" id="pw-toggle-confirm" onclick="togglePwConfirm()">◷ show password</span>
           <span asp-validation-for="ConfirmPassword" class="err-msg"></span>
         </div>
       </div>

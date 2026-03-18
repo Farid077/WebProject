@@ -42,7 +42,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         {
             PageOptions = Enum.GetNames<Pages>(),
             AccessOptions = Enum.GetNames<PageAccess>(),
-            Permissions = [new Pare()]
+            Permissions = [new Pair()]
         };
 
         return View(vm);
@@ -74,7 +74,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
     [HttpPost]
     public async Task<IActionResult> AddPair(RoleCreateViewModel vm)
     {
-        vm.Permissions.Add(new Pare());
+        vm.Permissions.Add(new Pair());
         vm.PageOptions = Enum.GetNames<Pages>();
         vm.AccessOptions = Enum.GetNames<PageAccess>();
 
@@ -97,17 +97,54 @@ public class RolesController(WebProjectDbContext _context) : Controller
     {
         var role = await _getRoleAsync(id, ct);
 
+        RoleUpdateViewModel vm = new()
+        {
+            RoleName = role.Name,
+            Permissions = [.. role.Permissions.Select(perm => new Pair() 
+            { 
+                Page = Enum.GetValues<Pages>().FirstOrDefault(page => (perm & (int)page) == (int)page).ToString(),
+                Access = Enum.GetValues<PageAccess>().FirstOrDefault(pageaccess => (perm & (int)pageaccess) == (int)pageaccess).ToString()
+            })],
+            PageOptions = Enum.GetNames<Pages>(),
+            AccessOptions = Enum.GetNames<PageAccess>()
+        };
 
-
-        return View();
+        return View(vm);
     }
 
     [HttpPost]
-    public IActionResult Update(CancellationToken ct = default)
+    public IActionResult Update(RoleUpdateViewModel vm, CancellationToken ct = default)
     {
+        if (!ModelState.IsValid)
+        {
+            vm.PageOptions = Enum.GetNames<Pages>();
+            vm.AccessOptions = Enum.GetNames<PageAccess>();
+            return View(vm);
+        }
 
+        return Redirect("Index");
+    }
 
-        return View();
+    [HttpPost]
+    public async Task<IActionResult> AddPairUpdate(RoleUpdateViewModel vm)
+    {
+        vm.Permissions.Add(new Pair());
+        vm.PageOptions = Enum.GetNames<Pages>();
+        vm.AccessOptions = Enum.GetNames<PageAccess>();
+
+        return View("Update", vm);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RemovePairUpdate(RoleUpdateViewModel vm, int index)
+    {
+        if (vm.Permissions.Count > 1)
+            vm.Permissions.RemoveAt(index);
+
+        vm.PageOptions = Enum.GetNames<Pages>();
+        vm.AccessOptions = Enum.GetNames<PageAccess>();
+
+        return View("Update", vm);
     }
 
     public async Task<IActionResult> Delete(string id, CancellationToken ct = default)

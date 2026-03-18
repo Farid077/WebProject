@@ -46,7 +46,7 @@
   .last-edited { font-size: 11px; color: var(--text-dim); }
   .last-edited span { color: var(--muted); }
 
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 680px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 400px; }
 
   .card-header { padding: 24px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; }
   .card-icon { width: 40px; height: 40px; background: rgba(78,168,255,.1); border: 1px solid rgba(78,168,255,.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--blue); }
@@ -112,6 +112,7 @@
   .toast-icon { font-size: 16px; }
   .toast-text strong { display: block; font-family: 'Syne', sans-serif; font-size: 13px; }
   .toast-text small { font-size: 11px; color: var(--text-dim); }
+  .toggle-pw:hover{cursor:pointer !important;}
     nav form button {
         display: flex;
         align-items: center;
@@ -171,7 +172,7 @@
     <div class="nav-label">Main</div>
     <a asp-action="Index" asp-controller="Home" class=""><span class="icon">▦</span> Dashboard</a>
     <a asp-action="Index" asp-controller="Users" class="active"><span class="icon">◈</span> Users</a>
-    <a asp-action="Index" class=""><span class="icon">◈</span> Roles</a>
+    <a asp-action="Index" class=""><span class="icon">◫</span> Roles</a>
     <form asp-controller="Auth" asp-action="Logout" method="post">
         @Html.AntiForgeryToken()
         <button style="width:max-content; height: max-content;" type="submit">
@@ -233,9 +234,24 @@
           </div> *@
 
           <div class="form-row single">
+            <div class="field" id="f-role">
+              <label asp-for="Role">Role</label>
+              <select asp-for="Role" id="role">
+                <option value="">Select role...</option>
+                @foreach(var role in Model.RoleOptions)
+                {
+                    <option selected="@(role == Model.Role ? role : null)" value="@role">@role</option>
+                }
+              </select>
+              <span asp-validation-for="Role" class="err-msg"></span>
+            </div>
+          </div>
+
+          <div class="form-row single">
             <div class="field">
               <label asp-for="Password" >New Password <span style="color:var(--muted);font-size:10px;">(leave blank to keep current)</span></label>
               <input asp-for="Password" name="Password" type="password" id="password" placeholder="Leave blank to keep current">
+              <span class="input-icon toggle-pw" style="font-size: 12px;" id="pw-toggle" onclick="togglePw()">◷ show password</span>
               <span asp-validation-for="Password" class="err-msg"></span>
             </div>
           </div>
@@ -243,7 +259,8 @@
           <div class="form-row single">
             <div class="field">
               <label asp-for="ConfirmPassword" >Confirm Password <span style="color:var(--muted);font-size:10px;"></span></label>
-              <input asp-for="ConfirmPassword" name="ConfirmPassword" type="password" id="password" placeholder="Confirm Password">
+              <input asp-for="ConfirmPassword" name="ConfirmPassword" type="password" id="confirmpassword" placeholder="Confirm Password">
+              <span class="input-icon toggle-pw" style="font-size: 12px;" id="pw-toggle-confirm" onclick="togglePwConfirm()">◷ show password</span>
               <span asp-validation-for="ConfirmPassword" class="err-msg"></span>
             </div>
           </div>
@@ -289,6 +306,30 @@
 </div> *@
 
 <script>
+    function togglePw() {
+        const input = document.getElementById('password');
+        const icon  = document.getElementById('pw-toggle');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = '◉ hide password';
+        } else {
+            input.type = 'password';
+            icon.textContent = '◷ show password';
+        }
+    }
+
+    function togglePwConfirm() {
+        const input = document.getElementById('confirmpassword');
+        const icon  = document.getElementById('pw-toggle-confirm');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = '◉ hide password';
+        } else {
+            input.type = 'password';
+            icon.textContent = '◷ show password';
+        }
+    }
+
   // function updatePreview() {
   //   const first = document.getElementById('first-name').value.trim();
   //   const last  = document.getElementById('last-name').value.trim();

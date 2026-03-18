@@ -34,21 +34,35 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
         return View(users);
     }
 
-    public IActionResult Create() => View();
+    public async Task<IActionResult> Create()
+    {
+        UserCreateViewModel vm = new()
+        {
+            RoleOptions = await _context.Roles.Select(r => r.Name).ToListAsync()
+        };
+
+        return View(vm);
+    }
 
     [HttpPost]
     public async Task<IActionResult> Create(UserCreateViewModel vm, CancellationToken ct = default)
     {
-        if (!ModelState.IsValid) return View(vm);
+        if (!ModelState.IsValid)
+        {
+            vm.RoleOptions = await _context.Roles.Select(r => r.Name).ToListAsync();
+            return View(vm);
+        }
 
         if (vm.Password != vm.ConfirmPassword)
         {
+            vm.RoleOptions = await _context.Roles.Select(r => r.Name).ToListAsync();
             ModelState.AddModelError("ConfirmPassword", "The password and confirmation password do not match");
             return View(vm);
         }
 
         if (await _context.Users.AnyAsync(x => x.Username == vm.Username))
         {
+            vm.RoleOptions = await _context.Roles.Select(r => r.Name).ToListAsync();
             ModelState.AddModelError("Username", "This username already exists");
             return View(vm);
         }
@@ -56,7 +70,7 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
         User user = new()
         {
             Username = vm.Username,
-            RoleId = "User"
+            RoleId = vm.Role == "" || vm.Role == null ? "User" : vm.Role
         };
 
         user.PasswordHash = await Task.Run(() => _hasher.HashPassword(user, vm.Password));
@@ -66,17 +80,22 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
         return Redirect("Index");
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Update(string id)
+    public async Task<IActionResult> Update(string id, CancellationToken ct = default)
     {
-        //User user = await _getUserAsync(id, ct);
+        User user = await _getUserAsync(id, ct);
         //UserUpdateViewModel vm = new()
         //{
         //    Username = user.Username,
         //};
+
+        UserUpdateViewModel vm = new()
+        {
+            RoleOptions = await _context.Roles.Select(r => r.Name).ToListAsync(),
+            Role = user.RoleId!
+        };
+
         ViewData["Id"] = id;
-        return View();
+        return View(vm);
     }
 
     [HttpPost]
@@ -86,32 +105,30 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
 
         if (!ModelState.IsValid)
         {
+            vm.RoleOptions = await _context.Roles.Select(r => r.Name).ToListAsync();
             ViewData["Id"] = id;
             return View(vm);
         }
 
-        if(vm.Password != null) { 
+        if(vm.Password != null) {
             if (vm.Password != vm.ConfirmPassword)
             {
+                vm.RoleOptions = await _context.Roles.Select(r => r.Name).ToListAsync();
                 ViewData["Id"] = id;
                 ModelState.AddModelError("ConfirmPassword", "The password and confirmation password do not match");
                 return View(vm);
             }
         }
-        else
-            return RedirectToAction("Index", "Users");
 
         User user = await _getUserAsync(id, ct);
 
         if(vm.Password != null)
-        {
             user.PasswordHash = await Task.Run(() => _hasher.HashPassword(user, vm.Password));
-            await _context.SaveChangesAsync(ct);
-        }
-        //else if(vm.Username == user.Username)
-        //    return RedirectToAction("Index", "Users");
 
-        //user.Username = vm.Username;
+        if (vm.Role != user.RoleId)
+            user.RoleId = vm.Role;
+
+        await _context.SaveChangesAsync(ct);
         return RedirectToAction("Index", "Users");
     }
 

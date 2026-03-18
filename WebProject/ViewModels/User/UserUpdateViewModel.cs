@@ -7,7 +7,11 @@ public class UserUpdateViewModel
     //[Required(ErrorMessage = "Username cannot be empty!"), MaxLength(16, ErrorMessage = "Username must not exceed 16 characters!"), MinLength(3, ErrorMessage = "Username must contain minimum 3 characters!")]
     //public string Username { get; set; }
 
-    [MinLength(8, ErrorMessage = "Password must contain minimum 8 characters")]
+    [Required(ErrorMessage = "Select the role")]
+    public string Role { get; set; }
+    public ICollection<string> RoleOptions { get; set; } = [];
+
+    [MinLength(8, ErrorMessage = "Password must contain minimum 8 characters"), MaxLength(32, ErrorMessage = "Password must not exceed 32 characters")]
     [DataType(DataType.Password)]
     public string? Password { get; set; }
 
