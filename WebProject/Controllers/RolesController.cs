@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebProject.Attributes;
 using WebProject.DataAccess;
 using WebProject.Models;
 using WebProject.ViewModels;
 
 namespace WebProject.Controllers;
 
-[Authorize]
+[AuthorizePermission((int)Pages.Roles)]
 public class RolesController(WebProjectDbContext _context) : Controller
 {
     public async Task<IActionResult> Index(CancellationToken ct = default)
@@ -15,20 +16,20 @@ public class RolesController(WebProjectDbContext _context) : Controller
         var roles = await _context.Roles
             .AsNoTracking()
             .Include(x => x.Users)
-            .Select(r => new RoleManagementViewModel
+            .Select(role => new RoleManagementViewModel
             {
-                Name = r.Name,
+                Name = role.Name,
 
-                Permissions = r.Permissions.Select(p => new Dictionary<string, string>
+                Permissions = role.Permissions.Select(perm => new Dictionary<string, string>
                 {{
-                    Enum.GetValues<Pages>().FirstOrDefault(x => (p & (int)x) == (int)x).ToString(), 
-                    (p & (int)PageAccess.Read_Write) == (int)PageAccess.Read_Write ? PageAccess.Read_Write.ToString() : PageAccess.Read.ToString()
+                    Enum.GetValues<Pages>().FirstOrDefault(page => (perm & (int)page) == (int)page).ToString(), 
+                    (perm & (int)PageAccess.Read_Write) == (int)PageAccess.Read_Write ? PageAccess.Read_Write.ToString() : PageAccess.Read.ToString()
 
                 }}).ToList(),
 
-                Users = r.Users!.Select(u => new RoleUsersViewModel
+                Users = role.Users!.Select(user => new RoleUsersViewModel
                 {
-                    Username = u.Username
+                    Username = user.Username
                 }).ToList()
             })
             .ToListAsync(ct);
@@ -36,6 +37,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         return View(roles);
     }
 
+    [AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create()
     {
         var vm = new RoleCreateViewModel
@@ -58,11 +60,28 @@ public class RolesController(WebProjectDbContext _context) : Controller
             return View(vm);
         }
 
+        if (await _context.Roles.AnyAsync(x => x.Name.ToLower() == vm.RoleName.ToLower(), ct))
+        {
+            vm.PageOptions = Enum.GetNames<Pages>();
+            vm.AccessOptions = Enum.GetNames<PageAccess>();
+            ModelState.AddModelError("RoleName", "This role already exists");
+            return View(vm);
+        }
+
+        for (int i = 0; i < vm.Permissions.Count - 1; i++)
+        {
+            for (int j = i + 1; j < vm.Permissions.Count; j++)
+            {
+                if (vm.Permissions[i].Page == vm.Permissions[j].Page)
+                    vm.Permissions.RemoveAt(j);
+            }
+        }
+
         Role role = new()
         {
             Name = vm.RoleName,
-            Permissions = vm.Permissions.Select(p => (int)Enum.GetValues<Pages>().FirstOrDefault(e => e.ToString() == p.Page) 
-            | (int)Enum.GetValues<PageAccess>().FirstOrDefault(a => a.ToString() == p.Access)).ToList()
+            Permissions = [.. vm.Permissions.Select(perm => (int)Enum.GetValues<Pages>().FirstOrDefault(page => page.ToString() == perm.Page) 
+            | (int)Enum.GetValues<PageAccess>().FirstOrDefault(access => access.ToString() == perm.Access))]
         };
 
         await _context.Roles.AddAsync(role, ct);
@@ -93,6 +112,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         return View("Create", vm);
     }
 
+    [AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(string id, CancellationToken ct = default)
     {
         var role = await _getRoleAsync(id, ct);
@@ -103,7 +123,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
             Permissions = [.. role.Permissions.Select(perm => new Pair() 
             { 
                 Page = Enum.GetValues<Pages>().FirstOrDefault(page => (perm & (int)page) == (int)page).ToString(),
-                Access = Enum.GetValues<PageAccess>().FirstOrDefault(pageaccess => (perm & (int)pageaccess) == (int)pageaccess).ToString()
+                Access = (perm & (int)PageAccess.Read_Write) == (int)PageAccess.Read_Write ? PageAccess.Read_Write.ToString() : PageAccess.Read.ToString()
             })],
             PageOptions = Enum.GetNames<Pages>(),
             AccessOptions = Enum.GetNames<PageAccess>()
@@ -113,7 +133,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
     }
 
     [HttpPost]
-    public IActionResult Update(RoleUpdateViewModel vm, CancellationToken ct = default)
+    public async Task<IActionResult> Update(RoleUpdateViewModel vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
         {
@@ -122,6 +142,21 @@ public class RolesController(WebProjectDbContext _context) : Controller
             return View(vm);
         }
 
+        Role role = await _getRoleAsync(vm.RoleName, ct);
+
+        for (int i = 0; i < vm.Permissions.Count - 1; i++)
+        {
+            for (int j = i + 1; j < vm.Permissions.Count; j++)
+            {
+                if (vm.Permissions[i].Page == vm.Permissions[j].Page)
+                    vm.Permissions.RemoveAt(j);
+            }
+        }
+
+        role.Permissions = [.. vm.Permissions.Select(perm => (int)Enum.GetValues<Pages>().FirstOrDefault(page => page.ToString() == perm.Page)
+            | (int)Enum.GetValues<PageAccess>().FirstOrDefault(access => access.ToString() == perm.Access))];
+
+        await _context.SaveChangesAsync(ct);
         return Redirect("Index");
     }
 
@@ -147,6 +182,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         return View("Update", vm);
     }
 
+    [AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Delete(string id, CancellationToken ct = default)
     {
         var role = await _getRoleAsync(id, ct);
@@ -155,7 +191,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         return RedirectToAction("Index", "Roles");
     }
 
-    public async Task<Role> _getRoleAsync(string id, CancellationToken ct = default)
+    private async Task<Role> _getRoleAsync(string id, CancellationToken ct = default)
     {
         return await _context.Roles.FindAsync(id, ct) ?? throw new Exception($"Role is not found with this id: {id}");
     }

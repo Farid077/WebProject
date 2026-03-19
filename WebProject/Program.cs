@@ -61,6 +61,17 @@ using (var scope = app.Services.CreateScope())
         await db.SaveChangesAsync();
     }
 
+    if(!await db.Roles.AnyAsync(r => r.Name == "User"))
+    {
+        Role role = new()
+        {
+            Name = "User"
+        };
+
+        await db.Roles.AddAsync(role);
+        await db.SaveChangesAsync();
+    }
+
     var hasher = new PasswordHasher<User>();
 
     if (!await db.Users.AnyAsync(u => u.Username == "admin"))
