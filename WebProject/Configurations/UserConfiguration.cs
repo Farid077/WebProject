@@ -18,7 +18,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasOne(x => x.Role)
             .WithMany(x => x.Users)
-            .HasForeignKey(x => x.RoleId);
+            .HasForeignKey(x => x.RoleId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.SetNull);
 
         //builder.HasData(
         //    new User

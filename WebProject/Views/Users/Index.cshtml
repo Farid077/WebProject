@@ -774,11 +774,11 @@
                                     <input type="hidden" name="id" value="@user.Username"/>
                                     @if(user.Role != "SuperAdmin")
                                     {
-                                        <button class="action-btn del" type="submit" formaction="Users/Delete=@user.Username">Delete</button>
+                                        <button class="action-btn del" type="submit" formaction="Users/Delete/@user.Username">Delete</button>
                                     }
                                     @if (user.IsActive)
                                     {
-                                        <button class="action-btn revoke" type="submit" formaction="Users/RevokeSession=@user.Username">End Session</button>
+                                        <button class="action-btn revoke" type="submit" formaction="Users/RevokeSession/@user.Username">End Session</button>
                                     }
                                 </form>
                             </td>

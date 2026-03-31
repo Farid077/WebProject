@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -131,6 +130,8 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
             user.RoleId = vm.Role;
             user.UpdatedTime = DateOnly.FromDateTime(DateTime.Now);
         }
+
+        user.UpdatedTime = DateOnly.FromDateTime(DateTime.Now);
 
         await _sessionService.RevokeAsync(id, ct);
         await _context.SaveChangesAsync(ct);

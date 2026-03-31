@@ -8,7 +8,7 @@ using WebProject.ViewModels;
 
 namespace WebProject.Controllers;
 
-[AuthorizePermission((int)Pages.Roles)]
+//[AuthorizePermission((int)Pages.Roles)]
 public class RolesController(WebProjectDbContext _context) : Controller
 {
     public async Task<IActionResult> Index(CancellationToken ct = default)
@@ -37,7 +37,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         return View(roles);
     }
 
-    [AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
+    //[AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create()
     {
         var vm = new RoleCreateViewModel
@@ -112,7 +112,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         return View("Create", vm);
     }
 
-    [AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
+    //[AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(string id, CancellationToken ct = default)
     {
         var role = await _getRoleAsync(id, ct);
@@ -182,7 +182,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         return View("Update", vm);
     }
 
-    [AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
+    //[AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Delete(string id, CancellationToken ct = default)
     {
         var role = await _getRoleAsync(id, ct);
