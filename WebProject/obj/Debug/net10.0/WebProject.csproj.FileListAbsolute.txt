@@ -18,7 +18,6 @@ C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\WebProject.RazorA
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
-C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\scopedcss\bundle\WebProject.styles.css
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\scopedcss\projectbundle\WebProject.bundle.scp.css
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\kkxofi4ml1-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -80,8 +79,6 @@ C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\tjyv2w
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\5bxp8tg7qb-{0}-muycvpuwrr-muycvpuwrr.gz
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\ah4ypndcbh-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\mxs35nza4d-{0}-mlv21k5csn-mlv21k5csn.gz
-C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\k1ex093rpm-{0}-bjj20zkc03-bjj20zkc03.gz
-C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\nwujvfodwl-{0}-bjj20zkc03-bjj20zkc03.gz
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\staticwebassets.build.json.cache
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\staticwebassets.development.json
@@ -227,3 +224,8 @@ C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\Npgsql.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\Pipelines.Sockets.Unofficial.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\StackExchange.Redis.dll
+C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\scopedcss\Views2\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\fca6j75913-{0}-lljwq3amqk-lljwq3amqk.gz
+C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\w5vimncr91-{0}-h694cbu15l-h694cbu15l.gz
+C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\k1ex093rpm-{0}-jfoi96t0o4-jfoi96t0o4.gz
+C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\nwujvfodwl-{0}-jfoi96t0o4-jfoi96t0o4.gz

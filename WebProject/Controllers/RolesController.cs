@@ -16,7 +16,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         var roles = await _context.Roles
             .AsNoTracking()
             .Include(x => x.Users)
-            .Select(role => new RoleManagementViewModel
+            .Select(role => new RoleManagementVM
             {
                 Name = role.Name,
 
@@ -27,7 +27,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
 
                 }}).ToList(),
 
-                Users = role.Users!.Select(user => new RoleUsersViewModel
+                Users = role.Users!.Select(user => new RoleUsersVM
                 {
                     Username = user.Username
                 }).ToList()
@@ -40,7 +40,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
     //[AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create()
     {
-        var vm = new RoleCreateViewModel
+        var vm = new RoleCreateVM
         {
             PageOptions = Enum.GetNames<Pages>(),
             AccessOptions = Enum.GetNames<PageAccess>(),
@@ -51,7 +51,8 @@ public class RolesController(WebProjectDbContext _context) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(RoleCreateViewModel vm, CancellationToken ct = default)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(RoleCreateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
         {
@@ -91,7 +92,8 @@ public class RolesController(WebProjectDbContext _context) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddPair(RoleCreateViewModel vm)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddPair(RoleCreateVM vm)
     {
         vm.Permissions.Add(new Pair());
         vm.PageOptions = Enum.GetNames<Pages>();
@@ -101,7 +103,8 @@ public class RolesController(WebProjectDbContext _context) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> RemovePair(RoleCreateViewModel vm, int index)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RemovePair(RoleCreateVM vm, int index)
     {
         if(vm.Permissions.Count > 1)
             vm.Permissions.RemoveAt(index);
@@ -117,7 +120,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
     {
         var role = await _getRoleAsync(id, ct);
 
-        RoleUpdateViewModel vm = new()
+        RoleUpdateVM vm = new()
         {
             RoleName = role.Name,
             Permissions = [.. role.Permissions.Select(perm => new Pair() 
@@ -133,7 +136,8 @@ public class RolesController(WebProjectDbContext _context) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(RoleUpdateViewModel vm, CancellationToken ct = default)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(RoleUpdateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
         {
@@ -161,7 +165,8 @@ public class RolesController(WebProjectDbContext _context) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddPairUpdate(RoleUpdateViewModel vm)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddPairUpdate(RoleUpdateVM vm)
     {
         vm.Permissions.Add(new Pair());
         vm.PageOptions = Enum.GetNames<Pages>();
@@ -171,7 +176,8 @@ public class RolesController(WebProjectDbContext _context) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> RemovePairUpdate(RoleUpdateViewModel vm, int index)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RemovePairUpdate(RoleUpdateVM vm, int index)
     {
         if (vm.Permissions.Count > 1)
             vm.Permissions.RemoveAt(index);

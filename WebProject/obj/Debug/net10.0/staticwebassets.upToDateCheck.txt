@@ -1,3 +1,5 @@
+wwwroot\css\login.css
+wwwroot\css\site.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
@@ -117,3 +119,5 @@ C:\Users\Farid\Desktop\WebProject\WebProject\wwwroot\lib\jquery\dist\jquery.slim
 C:\Users\Farid\Desktop\WebProject\WebProject\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\Farid\Desktop\WebProject\WebProject\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\Farid\Desktop\WebProject\WebProject\wwwroot\lib\jquery\LICENSE.txt
+C:\Users\Farid\Desktop\WebProject\WebProject\wwwroot\css\site.css
+C:\Users\Farid\Desktop\WebProject\WebProject\wwwroot\css\login.css

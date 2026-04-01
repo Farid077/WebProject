@@ -20,7 +20,7 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
         .AsNoTracking()
         .Include(x => x.Role)
         .Select(x =>
-        new UserManagementViewModel
+        new UserManagementVM
         {
             Username = x.Username,
             Role = x.RoleId!,
@@ -38,7 +38,7 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
     [AuthorizePermission((int)Pages.Users, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create(CancellationToken ct = default)
     {
-        UserCreateViewModel vm = new()
+        UserCreateVM vm = new()
         {
             RoleOptions = await _context.Roles.Select(r => r.Name).ToListAsync(ct)
         };
@@ -47,7 +47,8 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(UserCreateViewModel vm, CancellationToken ct = default)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(UserCreateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
         {
@@ -87,7 +88,7 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
     {
         User user = await _getUserAsync(id, ct);
 
-        UserUpdateViewModel vm = new()
+        UserUpdateVM vm = new()
         {
             RoleOptions = await _context.Roles.Select(r => r.Name).ToListAsync(ct),
             Role = user.RoleId!
@@ -98,7 +99,8 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(string id, UserUpdateViewModel vm, CancellationToken ct = default)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(string id, UserUpdateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
         {

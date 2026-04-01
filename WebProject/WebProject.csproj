@@ -22,8 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\login.css" />
+    <None Include="wwwroot\css\site.css" />
   </ItemGroup>
 
 </Project>

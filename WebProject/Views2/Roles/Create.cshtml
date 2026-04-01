@@ -1,0 +1,386 @@
+﻿@model RoleCreateVM
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Console — Add User</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f; --surface: #111118; --border: #1e1e2e;
+    --accent: #c8ff3e; --accent-dim: rgba(200,255,62,0.10);
+    --muted: #3a3a52; --text: #e8e8f0; --text-dim: #6b6b8a;
+    --red: #ff4e6a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; }
+
+  aside { width: 220px; min-height: 100vh; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 32px 0; flex-shrink: 0; }
+  .logo { padding: 0 24px 32px; border-bottom: 1px solid var(--border); }
+  .logo-mark { width: 36px; height: 36px; background: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; color: #0a0a0f; margin-bottom: 10px; }
+  .logo h1 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: var(--text-dim); letter-spacing: .12em; text-transform: uppercase; }
+  nav { padding: 24px 12px; flex: 1; }
+  .nav-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 0 12px; margin-bottom: 8px; }
+  nav a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 6px; color: var(--text-dim); text-decoration: none; font-size: 13px; transition: all .15s; margin-bottom: 2px; }
+  nav a:hover { color: var(--text); background: var(--border); }
+  nav a.active { color: var(--accent); background: var(--accent-dim); }
+  nav a .icon { font-size: 15px; width: 18px; text-align: center; }
+  .sidebar-footer { padding: 16px 24px; border-top: 1px solid var(--border); }
+  .user-chip { display: flex; align-items: center; gap: 10px; }
+  .avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #6e6ef0, var(--accent)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: #fff; }
+  .user-info small { display: block; font-size: 11px; color: var(--text-dim); }
+  .user-info strong { display: block; font-size: 12px; font-family: 'Syne', sans-serif; font-weight: 600; }
+
+  main { flex: 1; padding: 40px 48px; overflow-y: auto; animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both; }
+  @@keyframes fadeUp { from { transform: translateY(14px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-dim); }
+  .breadcrumb a { color: var(--text-dim); text-decoration: none; transition: color .15s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb .sep { color: var(--muted); }
+  .breadcrumb .current { color: var(--text); }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 500px; }
+
+  .card-header { padding: 24px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; }
+  .card-icon { width: 40px; height: 40px; background: var(--accent-dim); border: 1px solid rgba(200,255,62,.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent); }
+  .card-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+  .card-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  .form-body { padding: 28px 25px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 10px; }
+  .form-row.single { grid-template-columns: 1fr; }
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
+  .field input, .field select, .field textarea {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 7px;
+    padding: 10px 14px; font-family: 'DM Mono', monospace; font-size: 13px;
+    color: var(--text); outline: none; transition: border-color .18s, box-shadow .18s; width: 100%;
+  }
+  .field input::placeholder, .field textarea::placeholder { color: var(--muted); }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: rgba(200,255,62,.45); box-shadow: 0 0 0 3px rgba(200,255,62,.07); }
+  .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b6b8a'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; }
+  .field select option { background: #111118; }
+  .field textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  .field.error input, .field.error select { border-color: rgba(255,78,106,.45); box-shadow: 0 0 0 3px rgba(255,78,106,.07); }
+  .err-msg { font-size: 11px; color: var(--red);}
+  .err-msg { display: block; }
+
+  .card-footer { padding: 20px 32px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .btn-cancel { background: none; border: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-dim); padding: 9px 22px; border-radius: 7px; cursor: pointer; transition: all .15s; }
+  .btn-cancel:hover { color: var(--text); border-color: var(--muted); }
+  .btn-save { background: var(--accent); color: #0a0a0f; border: none; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .04em; padding: 9px 28px; border-radius: 7px; cursor: pointer; transition: opacity .15s, transform .12s, box-shadow .15s; margin-top: 20px;}
+  .btn-save:hover { opacity: .9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,255,62,.2); }
+
+  .toast { position: fixed; bottom: 32px; right: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; display: flex; align-items: center; gap: 12px; font-size: 13px; box-shadow: 0 12px 40px rgba(0,0,0,.5); transform: translateY(20px); opacity: 0; transition: all .3s cubic-bezier(.22,1,.36,1); pointer-events: none; z-index: 100; }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-icon { font-size: 16px; }
+  .toast-text strong { display: block; font-family: 'Syne', sans-serif; font-size: 13px; }
+  .toast-text small { font-size: 11px; color: var(--text-dim); }
+  .toggle-pw:hover{cursor:pointer !important;}
+    nav form button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .02em;
+    transition: all .15s;
+    background: var(--bg);
+    box-shadow: none;
+    border: none;
+    border-width: 0px;
+    border-style: solid;
+    width: 195px !important;
+    margin-left: -13px !important;
+    }
+
+    nav form {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 6px;
+        color: var(--text-dim);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: .02em;
+        transition: all .15s;
+        width: 300px !important;
+    }
+
+    nav form button:hover {
+        color: var(--text);
+        background: var(--border);
+    }
+
+    nav form button {
+        font-size: 15px;
+        width: 18px;
+        text-align: center;
+    }
+
+
+    /* --- Variables --- */
+    /* :root {
+        --bg:         #0f1117;
+        --surface:    #1a1d27;
+        --border:     #2e3248;
+        --accent:     #4f6ef7;
+        --accent-red: #e05a5a;
+        --text:       #e2e4f0;
+        --text-muted: #6b7094;
+        --radius:     8px;
+        --font:       'Courier New', monospace;
+    } */
+
+    /* * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    } */
+
+    /* body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font);
+        padding: 40px;
+    } */
+
+    /* --- Form Container --- */
+    .pairs-form {
+        max-width: 700px;
+    }
+
+    /* --- Pair Row --- */
+    .pair-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 12px;
+        align-items: end;
+        margin-bottom: 12px;
+        padding: 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        transition: border-color 0.2s;
+    }
+
+    .pair-row:hover {
+        border-color: var(--accent);
+    }
+
+    /* --- Field --- */
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .field label {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+    }
+
+    /* --- Select --- */
+    select {
+        appearance: none;
+        -webkit-appearance: none;
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 10px 36px 10px 12px;
+        /* font-family: var(--font); */
+        /* font-size: 13px; */
+        cursor: pointer;
+        width: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7094' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    select:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.15);
+    }
+
+    select option {
+        background: var(--surface);
+        color: var(--text);
+    }
+
+    /* --- Buttons --- */
+    /* button {
+        font-family: var(--font);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.1s;
+    } */
+
+    button:active {
+        transform: scale(0.97);
+    }
+
+    .btn-remove {
+        background: transparent;
+        color: var(--accent-red);
+        border: 1px solid var(--accent-red);
+        padding: 10px 14px;
+        align-self: end;
+    }
+
+    .btn-remove:hover {
+        background: rgba(224, 90, 90, 0.1);
+    }
+
+    /* --- Form Actions --- */
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 8px;
+    }
+
+    .btn-add {
+        background: transparent;
+        color: var(--accent);
+        border: 1px dashed var(--accent);
+        padding: 10px 20px;
+        flex: 1;
+    }
+
+    .btn-add:hover {
+        background: rgba(79, 110, 247, 0.08);
+    }
+
+    .btn-submit {
+        background: var(--accent);
+        color: #fff;
+        padding: 10px 28px;
+    }
+
+    .btn-submit:hover {
+        opacity: 0.85;
+    }
+</style>
+</head>
+<body>
+
+<aside>
+  <div class="logo">
+    <div class="logo-mark">A</div>
+    <h1>Admin Console</h1>
+  </div>
+  <nav>
+    <div class="nav-label">Main</div>
+    <a asp-action="Index" asp-controller="Home" class=""><span class="icon">▦</span> Dashboard</a>
+    <a asp-action="Index" asp-controller="Users" class=""><span class="icon">◈</span> Users</a>
+    <a asp-action="Index" class="active"><span class="icon">◫</span> Roles</a>
+    <form asp-controller="Auth" asp-action="Logout" method="post">
+        @Html.AntiForgeryToken()
+        <button style="width:max-content; height: max-content;" type="submit">
+            <span class="icon">◉</span> Logout
+        </button>
+    </form>
+  </nav>
+  @* <div class="sidebar-footer">
+    <div class="user-chip">
+      <div class="avatar">JD</div>
+      <div class="user-info">
+        <strong>J. Doe</strong>
+        <small>Super Admin</small>
+      </div>
+    </div>
+  </div> *@
+</aside>
+
+<main>
+  <div class="topbar">
+    <div class="breadcrumb">
+      <a asp-action="Index" asp-controller="Home">Dashboard</a>
+      <span class="sep">/</span>
+      <a asp-action="Index">Roles</a>
+      <span class="sep">/</span>
+      <span class="current">Add Role</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">◈</div>
+      <div>
+        <div class="card-title">Add New Role</div>
+        <div class="card-sub">Fill in the details to create a new role.</div>
+      </div>
+    </div>
+
+    <form method="post" asp asp-action="Create" class="form-body">
+      @* <div asp-validation-summary="All" class="err-msg"></div> *@
+      <div class="form-row single">
+        <div class="field" id="f-first">
+          <label asp-for="RoleName">Role Name</label>
+          <input asp-for="RoleName" type="text" id="first-name" name="RoleName" placeholder="Admin">
+          <span asp-validation-for="RoleName" class="err-msg"></span>
+        </div>
+      </div>
+
+
+      <div id="pairsContainer">
+        @for (int i = 0; i < Model.Permissions.Count; i++)
+        {
+            <div class="pair-row">
+                <div class="field">
+                    <label>Page</label>
+                    <select name="Permissions[@i].Page">
+                        <option value="">Select page...</option>
+                        @foreach (var p in Model.PageOptions)
+                        {
+                            <option selected = "@(Model.Permissions[i].Page == p ? "selected" : null)" value="@p">@p</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Accessibility</label>
+                    <select name="Permissions[@i].Access">
+                        <option value="">Select access...</option>
+                        @foreach (var access in Model.AccessOptions)
+                        {
+                            <option selected = "@(Model.Permissions[i].Access == access ? "selected" : null)" value="@access">@access</option>         
+                        }
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-remove" formaction="/Roles/RemovePair?index=@i">✕</button>
+                @* <span asp-validation-for="Permissions" class="err-msg"></span> *@
+                <span asp-validation-for="Permissions[i].Page" class="err-msg"></span>
+                <span asp-validation-for="Permissions[i].Access" class="err-msg"></span>
+            </div>
+        }
+      </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-add" formaction="/Roles/AddPair">+ Add Pair</button>
+        </div>
+
+        <button type="submit" class="btn-save">Create Role</button>
+    </form>
+  </div>
+</main>
+</body>
+</html>

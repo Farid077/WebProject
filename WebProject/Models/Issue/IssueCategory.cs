@@ -1,6 +1,6 @@
 ﻿namespace WebProject.Models;
 
-public class IssueCategory : BaseEntity
+public class IssueCategory
 {
     public int Id { get; set; }
     public string Name { get; set; }

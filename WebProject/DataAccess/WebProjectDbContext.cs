@@ -9,6 +9,8 @@ namespace WebProject.DataAccess
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Issue> Issues { get; set; }
+        public DbSet<IssueCategory> IssueCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -23,7 +23,7 @@ public class AuthController(WebProjectDbContext _context, ISessionService _sessi
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(UserLoginViewModel vm, CancellationToken ct = default)
+    public async Task<IActionResult> Login(UserLoginVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid) return View(vm);
 
