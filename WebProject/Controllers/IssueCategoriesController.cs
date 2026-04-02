@@ -6,12 +6,13 @@ using WebProject.ViewModels;
 
 namespace WebProject.Controllers;
 
-public class IssueCategoryController(WebProjectDbContext _context) : Controller
+public class IssueCategoriesController(WebProjectDbContext _context) : Controller
 {
     // ============ INDEX ============
     public async Task<IActionResult> Index(CancellationToken ct = default)
     {
         var data = await _context.IssueCategories
+            .AsNoTracking()
             .Select(x => new IssueCategoryManagementVM
             {
                 Id = x.Id,
@@ -40,10 +41,7 @@ public class IssueCategoryController(WebProjectDbContext _context) : Controller
     //}
 
     // ============ CREATE ============
-    public IActionResult Create()
-    {
-        return View();
-    }
+    public IActionResult Create() => View();
 
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -51,6 +49,12 @@ public class IssueCategoryController(WebProjectDbContext _context) : Controller
     {
         if (!ModelState.IsValid)
             return View(vm);
+
+        if (await _context.IssueCategories.AnyAsync(x => x.Name.ToLower() == vm.Name.ToLower(), ct))
+        {
+            ModelState.AddModelError("Name", "This category already exists");
+            return View(vm);
+        }
 
         IssueCategory issueCategory = new()
         {
@@ -66,8 +70,7 @@ public class IssueCategoryController(WebProjectDbContext _context) : Controller
     // ============ Update ============
     public async Task<IActionResult> Update(int id, CancellationToken ct = default)
     {
-        var category = await _context.IssueCategories.FindAsync(id, ct);
-        if (category == null) return NotFound(ct);
+        IssueCategory category = await _getIssueCategoryAsync(id, ct);
 
         IssueCategoryUpdateVM vm = new()
         {
@@ -84,11 +87,16 @@ public class IssueCategoryController(WebProjectDbContext _context) : Controller
     {
         if (id != vm.Id) return BadRequest(ct);
 
-        var category = await _context.IssueCategories.FindAsync(id);
-        if (category == null) return NotFound(ct);
+        IssueCategory category = await _getIssueCategoryAsync(id, ct);
 
         if (!ModelState.IsValid)
             return View(vm);
+
+        if (await _context.IssueCategories.AnyAsync(x => x.Name.ToLower() == vm.Name.ToLower(), ct))
+        {
+            ModelState.AddModelError("Name", "This category already exists");
+            return View(vm);
+        }
 
         category.Name = vm.Name;
 
@@ -126,7 +134,7 @@ public class IssueCategoryController(WebProjectDbContext _context) : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    public async Task<IssueCategory> _getIssueCategoryAsync(int id, CancellationToken ct = default)
+    private async Task<IssueCategory> _getIssueCategoryAsync(int id, CancellationToken ct = default)
     {
         return await _context.IssueCategories.FindAsync(id) ?? throw new Exception($"Category is not found with this id: {id}");
     }

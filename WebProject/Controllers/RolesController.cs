@@ -189,6 +189,8 @@ public class RolesController(WebProjectDbContext _context) : Controller
     }
 
     //[AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(string id, CancellationToken ct = default)
     {
         var role = await _getRoleAsync(id, ct);

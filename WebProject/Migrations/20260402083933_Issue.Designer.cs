@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebProject.DataAccess;
@@ -11,9 +12,11 @@ using WebProject.DataAccess;
 namespace WebProject.Migrations
 {
     [DbContext(typeof(WebProjectDbContext))]
-    partial class WebProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260402083933_Issue")]
+    partial class Issue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,0 +1,67 @@
+﻿@model List<IssueManagementVM>
+
+@{
+    ViewData["Title"] = "Issues";
+    ViewData["ActivePage"] = "Issues";
+}
+
+<div class="topbar">
+    <div class="page-title">Issues</div>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card" style="--accent-color: var(--accent)">
+        <div class="stat-icon">◈</div>
+        <div class="stat-label">Total Issues</div>
+        <div class="stat-value">@Model.Count()</div>
+    </div>
+</div>
+
+<div class="section-header">
+    <div class="section-title">Issue Management</div>
+    <a style="text-decoration:none" asp-action="Create" class="btn-accent">+ New Issue</a>
+</div>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Subtitle</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Reported</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var issue in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="cell-Issue">
+                            @* <div class="mini-avatar" style="background:rgba(200,255,62,.15);color:var(--accent)">
+                                @Issue.ame.ToUpper()[0]@Issue.Issuename.ToUpper()[1]
+                            </div> *@
+                            <div>
+                                <div class="cell-name">@issue.Title</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="role-tag">@issue.Subtitle</span></td>
+                    <td>@issue.Category</td>
+                    <td>-</td>
+                    <td>@issue.CreatedTime</td>
+                    <td style="display:flex;">
+                        <a asp-action="Update" asp-route-id="@issue.Id" class="action-btn edit" style="text-decoration:none;">Edit</a>
+                        <form method="POST" class="action">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@issue.Id" />
+                            <button class="action-btn del" type="submit" formaction="Issues/Delete/@issue.Id">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
