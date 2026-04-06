@@ -10,9 +10,9 @@ public class SessionValidationMiddleware(RequestDelegate _next)
     {
         if(context.User.Identity?.IsAuthenticated == true)
         {
-            string userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new Exception("ClaimTypes NameIdentifier not found");
+            string userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new Exception("ClaimTypes NameIdentifier is not found");
             
-            string sessionToken = context.User.FindFirstValue("SessionToken") ?? throw new Exception($"SessionToken not found for user with id: {userId}");
+            string sessionToken = context.User.FindFirstValue("SessionToken") ?? throw new Exception($"SessionToken is not found for user with id: {userId}");
 
             if(!await sessionService.IsValidAsync(userId, sessionToken))
             {

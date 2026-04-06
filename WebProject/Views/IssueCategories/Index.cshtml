@@ -54,10 +54,10 @@
                     <td>@issue.CreatedTime</td> *@
                     <td style="display:flex;">
                         <a asp-action="Update" asp-route-id="@category.Id" class="action-btn edit" style="text-decoration:none;">Edit</a>
-                        <form method="POST" class="action">
+                        <form method="POST" class="action" asp-action="Delete">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="id" value="@category.Id" />
-                            <button class="action-btn del" type="submit" formaction="Issues/Delete/@category.Id">Delete</button>
+                            <button class="action-btn del" type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>

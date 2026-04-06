@@ -20,6 +20,7 @@ public class IssuesController(WebProjectDbContext _context) : Controller
                 Id = x.Id,
                 Title = x.Title,
                 Subtitle = x.Subtitle,
+                Description = x.Description!,
                 CreatedTime = x.CreatedTime,
                 Category = x.Category != null ? x.Category.Name : "-"
             })

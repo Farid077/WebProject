@@ -9,21 +9,35 @@ namespace WebProject.Configurations
         public void Configure(EntityTypeBuilder<Issue> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Title)
-                .IsRequired()
-                .HasMaxLength(16);
-            
-            builder.Property(x => x.Subtitle)
-                .IsRequired()
-                .HasMaxLength(16);
 
             builder.Property(x => x.Description)
                 .HasMaxLength(64)
-                .IsRequired(false);
+                .HasDefaultValue("");
+
+            builder.Property(x => x.Status)
+                .HasDefaultValue(IssueStatuses.Pending);
 
             builder.HasOne(x => x.Category)
                 .WithMany(x => x.Issues)
                 .HasForeignKey(x => x.CategoryId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasOne(x => x.Reporter)
+                .WithMany(x => x.ReportedIssues)
+                .HasForeignKey(x => x.ReporterId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasOne(x => x.Assignee)
+                .WithMany(x => x.AssignedIssues)
+                .HasForeignKey(x => x.AssigneeId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasOne(x => x.Urgency)
+                .WithMany(x => x.Issues)
+                .HasForeignKey(x => x.UrgencyId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
         }

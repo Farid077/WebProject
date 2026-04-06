@@ -53,11 +53,11 @@
                     <td>-</td>
                     <td>@issue.CreatedTime</td>
                     <td style="display:flex;">
-                        <a asp-action="Update" asp-route-id="@issue.Id" class="action-btn edit" style="text-decoration:none;">Edit</a>
+                        <a asp-action="Update" class="action-btn edit" style="text-decoration:none;">Edit</a>
                         <form method="POST" class="action">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="id" value="@issue.Id" />
-                            <button class="action-btn del" type="submit" formaction="Issues/Delete/@issue.Id">Delete</button>
+                            <button class="action-btn del" type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>

@@ -3,40 +3,84 @@
   "WorkspaceRootPath": "C:\\Users\\Farid\\Desktop\\WebProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\issuecategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\issuecategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\issue\\urgency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\issue\\urgency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issuecategories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\issuecategories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\issue\\enums\\statuses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\issue\\enums\\statuses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issues\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\issues\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\issue\\enums\\urgency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\issue\\enums\\urgency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\configurations\\issueconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\configurations\\issueconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\models\\issue\\issue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\models\\issue\\issue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\issuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\issuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\issue\\issuemanagementvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\viewmodels\\issue\\issuemanagementvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issues\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\issues\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issuecategories\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\issuecategories\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issuecategories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\issuecategories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\controllers\\issuecategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\controllers\\issuecategoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Migrations\\20260402083933_Issue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebProject\\Migrations\\20260402083933_Issue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issuecategories\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\issuecategories\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\issue\\issuemanagementvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\viewmodels\\issue\\issuemanagementvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\roles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\roles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\users\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\users\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\middlewares\\sessionvalidationmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\middlewares\\sessionvalidationmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\viewmodels\\issue\\issuedetailsvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -45,14 +89,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issues\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\issues\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issuecategories\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\issuecategories\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issuecategories\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|solutionrelative:webproject\\views\\issuecategories\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE979D8A-B637-6477-6E83-D80402547000}|WebProject\\WebProject.csproj|c:\\users\\farid\\desktop\\webproject\\webproject\\views\\issues\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -78,25 +114,150 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 13,
               "Title": "IssueCategoriesController.cs",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\IssueCategoriesController.cs",
               "RelativeDocumentMoniker": "WebProject\\Controllers\\IssueCategoriesController.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\IssueCategoriesController.cs*",
-              "RelativeToolTip": "WebProject\\Controllers\\IssueCategoriesController.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABRAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\IssueCategoriesController.cs",
+              "RelativeToolTip": "WebProject\\Controllers\\IssueCategoriesController.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAowAsAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-01T06:45:27.905Z",
-              "IsPinned": true,
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Urgency.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Issue\\Urgency.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\Issue\\Urgency.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Issue\\Urgency.cs",
+              "RelativeToolTip": "WebProject\\Models\\Issue\\Urgency.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T07:55:11.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Statuses.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Issue\\Enums\\Statuses.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\Issue\\Enums\\Statuses.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Issue\\Enums\\Statuses.cs",
+              "RelativeToolTip": "WebProject\\Models\\Issue\\Enums\\Statuses.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T07:53:49.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IssueConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Configurations\\IssueConfiguration.cs",
+              "RelativeDocumentMoniker": "WebProject\\Configurations\\IssueConfiguration.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Configurations\\IssueConfiguration.cs",
+              "RelativeToolTip": "WebProject\\Configurations\\IssueConfiguration.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T07:48:05.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Urgency.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Issue\\Enums\\Urgency.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\Issue\\Enums\\Urgency.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Issue\\Enums\\Urgency.cs",
+              "RelativeToolTip": "WebProject\\Models\\Issue\\Enums\\Urgency.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T07:35:57.872Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "Issue.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Issue\\Issue.cs",
+              "RelativeDocumentMoniker": "WebProject\\Models\\Issue\\Issue.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Models\\Issue\\Issue.cs",
+              "RelativeToolTip": "WebProject\\Models\\Issue\\Issue.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T07:21:50.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebProject\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "WebProject\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-03T07:47:50.75Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Roles\\Create.cshtml",
+              "RelativeDocumentMoniker": "WebProject\\Views\\Roles\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Roles\\Create.cshtml",
+              "RelativeToolTip": "WebProject\\Views\\Roles\\Create.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEYAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-03T07:02:36.164Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Users\\Create.cshtml",
+              "RelativeDocumentMoniker": "WebProject\\Views\\Users\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Users\\Create.cshtml",
+              "RelativeToolTip": "WebProject\\Views\\Users\\Create.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAArwCMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-03T06:59:30.913Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "SessionValidationMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Middlewares\\SessionValidationMiddleware.cs",
+              "RelativeDocumentMoniker": "WebProject\\Middlewares\\SessionValidationMiddleware.cs",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Middlewares\\SessionValidationMiddleware.cs",
+              "RelativeToolTip": "WebProject\\Middlewares\\SessionValidationMiddleware.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAACIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T06:44:32.532Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Users\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebProject\\Views\\Users\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Users\\Index.cshtml",
+              "RelativeToolTip": "WebProject\\Views\\Users\\Index.cshtml",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-02T09:11:53.626Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Roles\\Index.cshtml",
               "RelativeDocumentMoniker": "WebProject\\Views\\Roles\\Index.cshtml",
@@ -104,64 +265,47 @@
               "RelativeToolTip": "WebProject\\Views\\Roles\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-02T08:45:14.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T08:45:14.173Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "20260402083933_Issue.cs",
-              "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Migrations\\20260402083933_Issue.cs",
-              "RelativeDocumentMoniker": "WebProject\\Migrations\\20260402083933_Issue.cs",
-              "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Migrations\\20260402083933_Issue.cs",
-              "RelativeToolTip": "WebProject\\Migrations\\20260402083933_Issue.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-02T08:39:33.623Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "Update.cshtml",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\IssueCategories\\Update.cshtml",
               "RelativeDocumentMoniker": "WebProject\\Views\\IssueCategories\\Update.cshtml",
               "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\IssueCategories\\Update.cshtml",
               "RelativeToolTip": "WebProject\\Views\\IssueCategories\\Update.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAkwBgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-02T08:18:18.331Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T08:18:18.331Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\IssueCategories\\Create.cshtml",
               "RelativeDocumentMoniker": "WebProject\\Views\\IssueCategories\\Create.cshtml",
               "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\IssueCategories\\Create.cshtml",
               "RelativeToolTip": "WebProject\\Views\\IssueCategories\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-02T08:18:06.038Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T08:18:06.038Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 12,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\IssueCategories\\Index.cshtml",
               "RelativeDocumentMoniker": "WebProject\\Views\\IssueCategories\\Index.cshtml",
               "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\IssueCategories\\Index.cshtml",
               "RelativeToolTip": "WebProject\\Views\\IssueCategories\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAABsAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADcAAABqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-02T08:17:54.601Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T08:17:54.601Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 22,
               "Title": "Update.cshtml",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Issues\\Update.cshtml",
               "RelativeDocumentMoniker": "WebProject\\Views\\Issues\\Update.cshtml",
@@ -169,12 +313,11 @@
               "RelativeToolTip": "WebProject\\Views\\Issues\\Update.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-02T08:17:33.827Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T08:17:33.827Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 23,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Issues\\Create.cshtml",
               "RelativeDocumentMoniker": "WebProject\\Views\\Issues\\Create.cshtml",
@@ -182,12 +325,11 @@
               "RelativeToolTip": "WebProject\\Views\\Issues\\Create.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-02T08:17:19.594Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T08:17:19.594Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 21,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Issues\\Details.cshtml",
               "RelativeDocumentMoniker": "WebProject\\Views\\Issues\\Details.cshtml",
@@ -195,38 +337,35 @@
               "RelativeToolTip": "WebProject\\Views\\Issues\\Details.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-02T08:17:03.753Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T08:17:03.753Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Issues\\Index.cshtml",
               "RelativeDocumentMoniker": "WebProject\\Views\\Issues\\Index.cshtml",
               "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Issues\\Index.cshtml",
               "RelativeToolTip": "WebProject\\Views\\Issues\\Index.cshtml",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAEEAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADoAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-02T08:16:46.745Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T08:16:46.745Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "WebProject\\Views\\Shared\\_Layout.cshtml",
               "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "WebProject\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAADwvxoAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAAAABoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-02T08:13:50.68Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T08:13:50.68Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 20,
               "Title": "IssueDetailsVM.cs",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\Issue\\IssueDetailsVM.cs",
               "RelativeDocumentMoniker": "WebProject\\ViewModels\\Issue\\IssueDetailsVM.cs",
@@ -234,25 +373,23 @@
               "RelativeToolTip": "WebProject\\ViewModels\\Issue\\IssueDetailsVM.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-02T06:19:46.134Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-02T06:19:46.134Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "IssuesController.cs",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\IssuesController.cs",
               "RelativeDocumentMoniker": "WebProject\\Controllers\\IssuesController.cs",
               "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\IssuesController.cs",
               "RelativeToolTip": "WebProject\\Controllers\\IssuesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBYAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T06:49:48.658Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-01T06:49:48.658Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 25,
               "Title": "IssueCreateVM.cs",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\Issue\\IssueCreateVM.cs",
               "RelativeDocumentMoniker": "WebProject\\ViewModels\\Issue\\IssueCreateVM.cs",
@@ -260,25 +397,23 @@
               "RelativeToolTip": "WebProject\\ViewModels\\Issue\\IssueCreateVM.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAQAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T08:29:48.015Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-01T08:29:48.015Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "IssueManagementVM.cs",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\Issue\\IssueManagementVM.cs",
               "RelativeDocumentMoniker": "WebProject\\ViewModels\\Issue\\IssueManagementVM.cs",
               "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\Issue\\IssueManagementVM.cs",
               "RelativeToolTip": "WebProject\\ViewModels\\Issue\\IssueManagementVM.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAQwA0AAABlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T08:29:44.409Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-01T08:29:44.409Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 24,
               "Title": "IssueUpdateVM.cs",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\ViewModels\\Issue\\IssueUpdateVM.cs",
               "RelativeDocumentMoniker": "WebProject\\ViewModels\\Issue\\IssueUpdateVM.cs",
@@ -286,21 +421,19 @@
               "RelativeToolTip": "WebProject\\ViewModels\\Issue\\IssueUpdateVM.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T08:29:40.015Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-01T08:29:40.015Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "RolesController.cs",
               "DocumentMoniker": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\RolesController.cs",
               "RelativeDocumentMoniker": "WebProject\\Controllers\\RolesController.cs",
               "ToolTip": "C:\\Users\\Farid\\Desktop\\WebProject\\WebProject\\Controllers\\RolesController.cs",
               "RelativeToolTip": "WebProject\\Controllers\\RolesController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAI4AAAAAAAAAAAAowA0AAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T07:11:08.269Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-01T07:11:08.269Z"
             }
           ]
         }
