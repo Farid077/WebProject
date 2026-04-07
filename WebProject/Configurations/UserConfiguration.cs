@@ -16,17 +16,16 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.PasswordHash)
             .IsRequired();
 
+        builder.Property(x => x.CreatedTime)
+            .HasDefaultValueSql("GETDATE()");
+
+        builder.Property(x => x.IsDeleted)
+            .HasDefaultValue(false);
+
         builder.HasOne(x => x.Role)
             .WithMany(x => x.Users)
             .HasForeignKey(x => x.RoleId)
             .IsRequired(false)
             .OnDelete(DeleteBehavior.SetNull);
-
-        //builder.HasData(
-        //    new User
-        //    {
-        //        Username = "admin",
-        //        PasswordHash = "AQAAAAIAAYagAAAAEMzFSuS1OlYOV9tcCWe4vgqVLIjBwbr=="
-        //    });
     }
 }

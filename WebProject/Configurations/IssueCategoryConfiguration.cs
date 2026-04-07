@@ -10,6 +10,9 @@ public class IssueCategoryConfiguration : IEntityTypeConfiguration<IssueCategory
     {
         builder.HasKey(x => x.Id);
 
+        builder.HasIndex(x => x.Name)
+            .IsUnique();
+
         builder.Property(x => x.Name)
             .IsRequired()
             .HasMaxLength(16);

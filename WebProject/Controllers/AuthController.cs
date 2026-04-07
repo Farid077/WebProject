@@ -27,8 +27,6 @@ public class AuthController(WebProjectDbContext _context, ISessionService _sessi
     {
         if (!ModelState.IsValid) return View(vm);
 
-        //User? user = await _context.Users.FindAsync(vm.Username, ct);
-
         User? user = await _context.Users.Include(x => x.Role).FirstOrDefaultAsync(u => u.Username == vm.Username, ct);
 
         if (user == null)
@@ -37,8 +35,6 @@ public class AuthController(WebProjectDbContext _context, ISessionService _sessi
             return View(vm);
         }
         string userId = user.Username;
-
-        //Role role = (await _context.Roles.FindAsync(user.RoleId, ct))!;
 
         var result = await Task.Run(() => _hasher.VerifyHashedPassword(user, user.PasswordHash, vm.Password));
 

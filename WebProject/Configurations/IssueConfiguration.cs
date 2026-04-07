@@ -10,18 +10,18 @@ namespace WebProject.Configurations
         {
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.CreatedTime)
+                .HasDefaultValueSql("GETDATE()");
+
+            builder.Property(x => x.IsDeleted)
+                .HasDefaultValue(false);
+
             builder.Property(x => x.Description)
                 .HasMaxLength(64)
                 .HasDefaultValue("");
 
             builder.Property(x => x.Status)
-                .HasDefaultValue(IssueStatuses.Pending);
-
-            builder.HasOne(x => x.Category)
-                .WithMany(x => x.Issues)
-                .HasForeignKey(x => x.CategoryId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.SetNull);
+                .HasDefaultValue(IssueStatuses.Pending.ToString());
 
             builder.HasOne(x => x.Reporter)
                 .WithMany(x => x.ReportedIssues)

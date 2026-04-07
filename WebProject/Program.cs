@@ -47,15 +47,16 @@ using (var scope = app.Services.CreateScope())
     {
         Role role = new()
         {
-            Name = "SuperAdmin"
+            Name = "SuperAdmin",
+            Permissions = (ICollection<int>)Enum.GetValues<Pages>().Select(p => (int)p | (int)PageAccess.Read_Write)
         };
 
-        foreach (int i in Enum.GetValues<Pages>().Select(p => (int)p | (int)PageAccess.Read_Write))
-        {
-            int a = i;
-            //int a = i | (int)Permissions.Read_Write;
-            role.Permissions.Add(a);
-        }
+        //foreach (int i in Enum.GetValues<Pages>().Select(p => (int)p | (int)PageAccess.Read_Write))
+        //{
+        //    int a = i;
+        //    //int a = i | (int)Permissions.Read_Write;
+        //    role.Permissions.Add(a);
+        //}
 
         await db.Roles.AddAsync(role);
         await db.SaveChangesAsync();

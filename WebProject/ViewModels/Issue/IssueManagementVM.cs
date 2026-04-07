@@ -1,15 +1,16 @@
-﻿using Microsoft.Identity.Client;
-using WebProject.Models;
+﻿using WebProject.Models;
 
 namespace WebProject.ViewModels;
 
 public class IssueManagementVM
 {
     public int Id { get; set; }
-    public string Title { get; set; }
-    public string Subtitle { get; set; }
-    public string Description { get; set; } = "-";
-    public DateOnly CreatedTime { get; set; }
-    public string Category { get; set; } = "-";
-    public ICollection<User> Users { get; set; } = [new() { Username = "s", PasswordHash = "asda" }];
+    public DateTime CreatedTime { get; set; }
+    public string Category { get; set; }
+    public string SubCategory { get; set; }
+    public string Status { get; set; }
+    public string Urgency {  get; set; }
+    public string ReporterName { get; set; }
+    public string AssigneeName { get; set; }
+
 }

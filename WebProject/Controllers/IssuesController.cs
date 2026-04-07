@@ -18,11 +18,13 @@ public class IssuesController(WebProjectDbContext _context) : Controller
             .Select(x => new IssueManagementVM
             {
                 Id = x.Id,
-                Title = x.Title,
-                Subtitle = x.Subtitle,
-                Description = x.Description!,
                 CreatedTime = x.CreatedTime,
-                Category = x.Category != null ? x.Category.Name : "-"
+                Category = x.Category,
+                SubCategory = x.SubCategory,
+                Status = x.Status,
+                Urgency = x.Urgency != null ? x.Urgency.Name : "-",
+                ReporterName = x.ReporterId ?? "",
+                AssigneeName = x.AssigneeId ?? "-",
             })
             .ToListAsync(ct);
 

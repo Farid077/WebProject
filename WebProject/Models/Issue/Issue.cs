@@ -4,9 +4,9 @@ public class Issue : BaseEntity
 {
     public int Id { get; set; }
     public string Description { get; set; } = "";
-    public IssueStatuses Status { get; set; } = IssueStatuses.Pending;
-    public int? CategoryId { get; set; }
-    public IssueCategory? Category { get; set; }
+    public string Status { get; set; } = IssueStatuses.Pending.ToString();
+    public string Category { get; set; }
+    public string SubCategory { get; set; }
     public int? UrgencyId { get; set; }
     public Urgency? Urgency { get; set; }
     public string? ReporterId { get; set; }

@@ -2,7 +2,7 @@
 
 public class BaseEntity
 {
-    public DateOnly CreatedTime { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    public DateOnly? UpdatedTime { get; set; } = null;
+    public DateTime CreatedTime { get; set; } = DateTime.Now;
+    public DateTime? UpdatedTime { get; set; } = null;
     public bool IsDeleted { get; set; } = false;
 }

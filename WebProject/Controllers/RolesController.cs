@@ -22,7 +22,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
 
                 Permissions = role.Permissions.Select(perm => new Dictionary<string, string>
                 {{
-                    Enum.GetValues<Pages>().FirstOrDefault(page => (perm & (int)page) == (int)page).ToString(), 
+                    Enum.GetValues<Pages>().FirstOrDefault(page => (perm & (int)page) == (int)page).ToString(),
                     (perm & (int)PageAccess.Read_Write) == (int)PageAccess.Read_Write ? PageAccess.Read_Write.ToString() : PageAccess.Read.ToString()
 
                 }}).ToList(),
@@ -69,6 +69,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
             return View(vm);
         }
 
+        // Eyniləri silmək
         for (int i = 0; i < vm.Permissions.Count - 1; i++)
         {
             for (int j = i + 1; j < vm.Permissions.Count; j++)
@@ -194,6 +195,12 @@ public class RolesController(WebProjectDbContext _context) : Controller
     public async Task<IActionResult> Delete(string id, CancellationToken ct = default)
     {
         var role = await _getRoleAsync(id, ct);
+        
+        foreach (User user in role.Users)
+        {
+            user.RoleId = "User";
+        }
+        
         _context.Roles.Remove(role);
         await _context.SaveChangesAsync(ct);
         return RedirectToAction("Index", "Roles");
