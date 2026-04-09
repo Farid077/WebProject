@@ -4,5 +4,5 @@ public class IssueCategory
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public ICollection<string> SubCategories { get; set; } = ["Other"];
+    public HashSet<string> SubCategories { get; set; }
 }

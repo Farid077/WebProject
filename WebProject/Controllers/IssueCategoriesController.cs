@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebProject.Attributes;
 using WebProject.DataAccess;
 using WebProject.Models;
 using WebProject.ViewModels;
 
 namespace WebProject.Controllers;
 
+[AuthorizePermission((int)Pages.IssueCategories, (int)PageAccess.Read)]
 public class IssueCategoriesController(WebProjectDbContext _context) : Controller
 {
     // ============ INDEX ============
@@ -16,7 +18,8 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
             .Select(x => new IssueCategoryManagementVM
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                SubCategories = x.SubCategories,
             })
             .ToListAsync(ct);
 
@@ -41,10 +44,12 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
     //}
 
     // ============ CREATE ============
+    [AuthorizePermission((int)Pages.IssueCategories, (int)PageAccess.Read_Write)]
     public IActionResult Create() => View();
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.IssueCategories, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create(IssueCategoryCreateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
@@ -56,9 +61,12 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
             return View(vm);
         }
 
+        vm.SubCategories.Add("Other");
+
         IssueCategory issueCategory = new()
         {
-            Name = vm.Name
+            Name = vm.Name,
+            SubCategories = vm.SubCategories,
         };
 
         await _context.IssueCategories.AddAsync(issueCategory, ct);
@@ -68,6 +76,7 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
     }
 
     // ============ Update ============
+    [AuthorizePermission((int)Pages.IssueCategories, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(int id, CancellationToken ct = default)
     {
         IssueCategory category = await _getIssueCategoryAsync(id, ct);
@@ -83,6 +92,7 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.IssueCategories, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(int id, IssueCategoryUpdateVM vm, CancellationToken ct = default)
     {
         if (id != vm.Id) return BadRequest(ct);
@@ -99,6 +109,7 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
         }
 
         category.Name = vm.Name;
+        category.SubCategories = vm.SubCategories;
 
         await _context.SaveChangesAsync(ct);
 
@@ -124,6 +135,7 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
 
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.IssueCategories, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
     {
         IssueCategory category = await _getIssueCategoryAsync(id, ct);

@@ -16,9 +16,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.PasswordHash)
             .IsRequired();
 
-        builder.Property(x => x.CreatedTime)
-            .HasDefaultValueSql("GETDATE()");
-
         builder.Property(x => x.IsDeleted)
             .HasDefaultValue(false);
 

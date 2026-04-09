@@ -32,7 +32,72 @@
                 <span asp-validation-for="Name" class="err-msg"></span>
             </div>
         </div>
+        <div class="form-row single" id="subCategoryRow">
+            <div class="field">
+                <label asp-for="SubCategories">SubCategory Name</label>
+                <input asp-for="SubCategories" type="text" name="SubCategories" placeholder="e.g. Cartridge">
+                <span asp-validation-for="SubCategories" class="err-msg"></span>
+            </div>
+        </div>
 
+        @* <div class="pair-row">
+            <div class="field">
+                <label>Page</label>
+                <select name="Permissions[@i].Page">
+                    <option value="">Select page...</option>
+                    @foreach (var p in Model.PageOptions)
+                    {
+                        <option selected="@(Model.Permissions[i].Page == p ? "selected" : null)" value="@p">@p</option>
+                    }
+                </select>
+            </div>
+            <div class="field">
+                <label>Accessibility</label>
+                <select name="Permissions[@i].Access">
+                    <option value="">Select access...</option>
+                    @foreach (var access in Model.AccessOptions)
+                    {
+                        <option selected="@(Model.Permissions[i].Access == access ? "selected" : null)" value="@access">@access</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn-remove" formaction="/Roles/RemovePair?index=@i">✕</button>
+            <span asp-validation-for="Permissions[i].Page" class="err-msg"></span>
+            <span asp-validation-for="Permissions[i].Access" class="err-msg"></span>
+        </div> *@
+
+        <div class="form-actions">
+            <button type="button" class="btn-add" onclick="AddRow()">+ Add Row</button>
+        </div>
         <button type="submit" class="btn-save">Create Category</button>
     </form>
 </div>
+
+<script>
+    let Index = 1;
+
+    function AddRow() {
+        const container = document.getElementById('subCategoryRow');
+
+        const div = document.createElement('div');
+        div.className = 'field';
+
+        div.innerHTML = `
+            <label asp-for="SubCategories">SubCategory Name</label>
+            <input asp-for="SubCategories" type="text" name="SubCategories" placeholder="e.g. Cartridge">
+            <span asp-validation-for="SubCategories" class="err-msg"></span>
+
+            <button type="button" onclick="removePair(this)">Remove</button>
+        `;
+
+        container.appendChild(div);
+        Index++;
+    }
+
+    function removePair(btn) {
+        const rows = document.querySelectorAll('.pair-row');
+        if (rows.length > 1) {  // Keep at least one pair
+            btn.closest('.pair-row').remove();
+        }
+    }
+</script>

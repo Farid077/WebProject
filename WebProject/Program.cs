@@ -48,7 +48,7 @@ using (var scope = app.Services.CreateScope())
         Role role = new()
         {
             Name = "SuperAdmin",
-            Permissions = (ICollection<int>)Enum.GetValues<Pages>().Select(p => (int)p | (int)PageAccess.Read_Write)
+            Permissions = Enum.GetValues<Pages>().Select(p => (int)p | (int)PageAccess.Read_Write).ToList()
         };
 
         //foreach (int i in Enum.GetValues<Pages>().Select(p => (int)p | (int)PageAccess.Read_Write))

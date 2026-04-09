@@ -48,6 +48,7 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.Users, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create(UserCreateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
@@ -100,6 +101,7 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.Users, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(string id, UserUpdateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
@@ -121,21 +123,18 @@ public class UsersController(WebProjectDbContext _context, ISessionService _sess
 
         User user = await _getUserAsync(id, ct);
 
-        if(vm.Password != null)
-        {
+        if (vm.Password == null && vm.Role == user.RoleId && vm.Role.IsNullOrEmpty())
+            return RedirectToAction("Index", "Users");
+
+        if (vm.Password != null)
             user.PasswordHash = await Task.Run(() => _hasher.HashPassword(user, vm.Password));
-            user.UpdatedTime = DateOnly.FromDateTime(DateTime.Now);
-        }
 
         if (vm.Role != user.RoleId && !vm.Role.IsNullOrEmpty())
-        {
             user.RoleId = vm.Role;
-            user.UpdatedTime = DateOnly.FromDateTime(DateTime.Now);
-        }
-
-        user.UpdatedTime = DateOnly.FromDateTime(DateTime.Now);
 
         await _sessionService.RevokeAsync(id, ct);
+        user.UpdatedTime = DateTime.UtcNow;
+        
         await _context.SaveChangesAsync(ct);
         return RedirectToAction("Index", "Users");
     }

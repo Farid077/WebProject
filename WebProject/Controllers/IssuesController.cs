@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebProject.Attributes;
 using WebProject.DataAccess;
 using WebProject.Models;
 using WebProject.ViewModels;
 
 namespace WebProject.Controllers;
 
+[AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read)]
 public class IssuesController(WebProjectDbContext _context) : Controller
 {
     // ================= INDEX =================
@@ -40,12 +42,11 @@ public class IssuesController(WebProjectDbContext _context) : Controller
             .Where(x => x.Id == id && !x.IsDeleted)
             .Select(x => new IssueDetailsVM
             {
-                Title = x.Title,
-                Subtitle = x.Subtitle,
-                Description = x.Description!,
-                Category = x.Category != null ? x.Category.Name : "-",
+                Category = x.Category,
+                SubCategory = x.SubCategory,
+                Description = x.Description,
                 CreatedTime = x.CreatedTime,
-                UpdatedTime = x.UpdatedTime
+                UpdatedTime = x.UpdatedTime,
             })
             .FirstOrDefaultAsync(ct);
 
@@ -55,18 +56,17 @@ public class IssuesController(WebProjectDbContext _context) : Controller
     }
 
     // ================= CREATE =================
+    [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create(CancellationToken ct = default)
     {
         IssueCreateVM vm = new()
         {
-            Categories = await _context.IssueCategories
-                .AsNoTracking()
-                .Select(x => new IssueCategoryManagementVM
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                })
-                .ToListAsync(ct)
+            //Categories = 
+            //new Dictionary<string, IReadOnlyCollection<string>> { await _context.IssueCategories.AsNoTracking().Select(x => x.Name),  }
+            
+            //await _context.IssueCategories
+            //.AsNoTracking()
+            //.Select(x => new Dictionary<string, IReadOnlyCollection<string>> { { x.Name, x.SubCategories } }).ToListAsync()
         };
 
         return View(vm);
@@ -74,28 +74,27 @@ public class IssuesController(WebProjectDbContext _context) : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create(IssueCreateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
         {
-            vm.Categories = await _context.IssueCategories
-                .AsNoTracking()
-                .Select(x => new IssueCategoryManagementVM
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                })
-                .ToListAsync(ct);
+            //vm.Categories = await _context.IssueCategories
+            //    .AsNoTracking()
+            //    .Select(x => new IssueCategoryManagementVM
+            //    {
+            //        Id = x.Id,  
+            //        Name = x.Name
+            //    })
+            //    .ToListAsync(ct);
 
             return View(vm);
         }
 
         Issue issue = new()
         {
-            Title = vm.Title,
-            Subtitle = vm.Subtitle,
             Description = vm.Description,
-            CategoryId = vm.CategoryId,
+            //CategoryId = vm.CategoryId,
         };
 
         await _context.Issues.AddAsync(issue, ct);
@@ -105,6 +104,7 @@ public class IssuesController(WebProjectDbContext _context) : Controller
     }
 
     // ================= Update =================
+    [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(int id, CancellationToken ct = default)
     {
         var issue = await _getIssueAsync(id, ct);
@@ -112,10 +112,8 @@ public class IssuesController(WebProjectDbContext _context) : Controller
         IssueUpdateVM vm = new()
         {
             Id = issue.Id,
-            Title = issue.Title,
-            Subtitle = issue.Subtitle,
             Description = issue.Description!,
-            CategoryId = issue.CategoryId,
+            //CategoryId = issue.CategoryId,
             Categories = await _context.IssueCategories
                 .AsNoTracking()
                 .Select(x => new IssueCategoryManagementVM
@@ -131,6 +129,7 @@ public class IssuesController(WebProjectDbContext _context) : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(int id, IssueUpdateVM vm, CancellationToken ct = default)
     {
         if (id != vm.Id) return BadRequest(ct);
@@ -150,15 +149,15 @@ public class IssuesController(WebProjectDbContext _context) : Controller
             return View(vm);
         }
 
-        if (issue.Title != vm.Title || issue.Subtitle != vm.Subtitle || issue.Description != vm.Description || issue.CategoryId != vm.CategoryId)
-        {
-            issue.Title = vm.Title;
-            issue.Subtitle = vm.Subtitle;
-            issue.Description = vm.Description;
-            issue.CategoryId = vm.CategoryId;
-            issue.UpdatedTime = DateOnly.FromDateTime(DateTime.Now);
-            await _context.SaveChangesAsync(ct);
-        }
+        //if (issue.Title != vm.Title || issue.Subtitle != vm.Subtitle || issue.Description != vm.Description || issue.CategoryId != vm.CategoryId)
+        //{
+        //    issue.Title = vm.Title;
+        //    issue.Subtitle = vm.Subtitle;
+        //    issue.Description = vm.Description;
+        //    issue.CategoryId = vm.CategoryId;
+        //    issue.UpdatedTime = DateOnly.FromDateTime(DateTime.Now);
+        //    await _context.SaveChangesAsync(ct);
+        //}
 
         return RedirectToAction(nameof(Index));
     }
@@ -184,6 +183,7 @@ public class IssuesController(WebProjectDbContext _context) : Controller
 
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> DeleteConfirmed(int id, CancellationToken ct = default)
     {
         var issue = await _getIssueAsync(id, ct, true);

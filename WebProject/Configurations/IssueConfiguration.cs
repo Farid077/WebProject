@@ -10,9 +10,6 @@ namespace WebProject.Configurations
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.CreatedTime)
-                .HasDefaultValueSql("GETDATE()");
-
             builder.Property(x => x.IsDeleted)
                 .HasDefaultValue(false);
 

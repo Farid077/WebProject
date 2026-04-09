@@ -9,5 +9,5 @@ public class Urgency
     /// time the issue should be solved (by minutes)
     /// </summary>
     public int Time { get; set; } = 0;
-    public IReadOnlyCollection<Issue> Issues { get; set; } = [];
+    public ICollection<Issue> Issues { get; set; } = [];
 }
