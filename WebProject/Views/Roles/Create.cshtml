@@ -25,6 +25,7 @@
     </div>
 
     <form method="post" asp-action="Create" class="form-body">
+        @Html.AntiForgeryToken()
         <div class="form-row single">
             <div class="field">
                 <label asp-for="RoleName">Role Name</label>
@@ -68,6 +69,6 @@
             <button type="submit" class="btn-add" formaction="/Roles/AddPair">+ Add Pair</button>
         </div>
 
-        <button style="margin-top: 10px;" type="submit" class="btn-save">Create Role</button>
+        <button type="submit" class="btn-save">Create Role</button>
     </form>
 </div>

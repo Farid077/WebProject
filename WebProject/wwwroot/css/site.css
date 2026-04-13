@@ -384,7 +384,8 @@ td { padding: 14px 20px; font-size: 13px; color: var(--text); vertical-align: mi
     background: transparent; color: var(--accent);
     border: 1px dashed var(--accent); padding: 10px 20px; flex: 1;
     font-family: 'DM Mono', monospace; font-size: 12px;
-    border-radius: var(--radius); cursor: pointer; transition: background .15s;
+    border-radius: var(--radius); cursor: pointer;
+    transition: background .15s; margin-bottom: 10px;
 }
 
 .btn-add:hover { background: rgba(200,255,62, 0.08); }

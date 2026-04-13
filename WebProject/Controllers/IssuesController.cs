@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using WebProject.Attributes;
 using WebProject.DataAccess;
 using WebProject.Models;
@@ -8,15 +9,17 @@ using WebProject.ViewModels;
 namespace WebProject.Controllers;
 
 [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read)]
-public class IssuesController(WebProjectDbContext _context) : Controller
+public class IssuesController(WebProjectDbContext _context, HttpContext _httpContext) : Controller
 {
     // ================= INDEX =================
     public async Task<IActionResult> Index(CancellationToken ct = default)
     {
         var data = await _context.Issues
             .AsNoTracking()
+            .Include(x => x.Reporter)
+            .Include(x => x.Assignee)
+            .Include(x => x.Urgency)
             .Where(x => !x.IsDeleted)
-            .Include(x => x.Category)
             .Select(x => new IssueManagementVM
             {
                 Id = x.Id,
@@ -25,7 +28,7 @@ public class IssuesController(WebProjectDbContext _context) : Controller
                 SubCategory = x.SubCategory,
                 Status = x.Status,
                 Urgency = x.Urgency != null ? x.Urgency.Name : "-",
-                ReporterName = x.ReporterId ?? "",
+                ReporterName = x.ReporterId ?? "-",
                 AssigneeName = x.AssigneeId ?? "-",
             })
             .ToListAsync(ct);
@@ -61,12 +64,13 @@ public class IssuesController(WebProjectDbContext _context) : Controller
     {
         IssueCreateVM vm = new()
         {
-            //Categories = 
-            //new Dictionary<string, IReadOnlyCollection<string>> { await _context.IssueCategories.AsNoTracking().Select(x => x.Name),  }
-            
-            //await _context.IssueCategories
-            //.AsNoTracking()
-            //.Select(x => new Dictionary<string, IReadOnlyCollection<string>> { { x.Name, x.SubCategories } }).ToListAsync()
+            Statuses = Enum.GetNames<IssueStatuses>(),
+
+            Urgencies = await _context.Urgencies.AsNoTracking().Select(u => u.Name).ToListAsync(ct),
+
+            Categories = await _context.IssueCategories
+                .AsNoTracking()
+                .Select(x => new { x.Name, x.SubCategories }).ToDictionaryAsync(y => y.Name, y => y.SubCategories, ct)
         };
 
         return View(vm);
@@ -79,22 +83,29 @@ public class IssuesController(WebProjectDbContext _context) : Controller
     {
         if (!ModelState.IsValid)
         {
-            //vm.Categories = await _context.IssueCategories
-            //    .AsNoTracking()
-            //    .Select(x => new IssueCategoryManagementVM
-            //    {
-            //        Id = x.Id,  
-            //        Name = x.Name
-            //    })
-            //    .ToListAsync(ct);
+            vm.Statuses = Enum.GetNames<IssueStatuses>();
+
+            vm.Urgencies = await _context.Urgencies.AsNoTracking().Select(u => u.Name).ToListAsync(ct);
+
+            vm.Categories = await _context.IssueCategories
+                .AsNoTracking()
+                .Select(x => new { x.Name, x.SubCategories }).ToDictionaryAsync(y => y.Name, y => y.SubCategories, ct);
 
             return View(vm);
         }
 
+        string userId = _httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new Exception("ClaimTypes NameIdentifier is not found");
+
+        Urgency Urgency = await _context.Urgencies.FirstOrDefaultAsync(u => u.Name == vm.Urgency) ?? throw new Exception($"Urgency is not found with this name: {vm.Urgency}"); ;
+
         Issue issue = new()
         {
+            Category = vm.Category,
+            SubCategory = vm.SubCategory,
+            Status = vm.Status,
             Description = vm.Description,
-            //CategoryId = vm.CategoryId,
+            ReporterId = userId,
+            UrgencyId = Urgency.Id,
         };
 
         await _context.Issues.AddAsync(issue, ct);

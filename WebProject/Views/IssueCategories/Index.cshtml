@@ -18,7 +18,7 @@
 </div>
 
 <div class="section-header">
-    <div class="section-title">Issue Management</div>
+    <div class="section-title">Category Management</div>
     <a style="text-decoration:none" asp-action="Create" class="btn-accent">+ New Category</a>
 </div>
 
@@ -52,7 +52,7 @@
                     <td>
                         @foreach (var i in category.SubCategories)
                         {
-                            @i
+                            <div>@i</div>
                         }
                     </td>
                     @* <td>-</td> *@

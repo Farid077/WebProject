@@ -1,0 +1,65 @@
+﻿@model UrgencyUpdateVM
+
+@{
+    ViewData["Title"] = "Edit Urgency";
+    ViewData["ActivePage"] = "Urgencies";
+}
+
+<div class="topbar">
+    <div class="breadcrumb">
+        <a asp-action="Index" asp-controller="Home">Dashboard</a>
+        <span class="sep">/</span>
+        <a asp-action="Index">Urgencies</a>
+        <span class="sep">/</span>
+        <span class="current">Edit Urgency</span>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-icon blue">✎</div>
+        <div>
+            <div class="card-title">Edit Urgency</div>
+            <div class="card-sub">Update the details for this Urgency.</div>
+        </div>
+    </div>
+
+    <div class="avatar-row">
+        <div class="big-avatar">
+            @Model.Name.ToUpper()[0]@Model.Name.ToUpper()[1]
+        </div>
+        <div class="avatar-meta">
+            <strong>@Model.Name</strong>
+        </div>
+    </div>
+
+    <form method="post" asp-action="Update" class="form-body">
+        @Html.AntiForgeryToken()
+        <div class="form-row single">
+            <div class="field">
+                <label asp-for="Name">Urgency Name</label>
+                <input asp-for="Name" type="text" name="Name">
+                <span asp-validation-for="Name" class="err-msg"></span>
+            </div>
+        </div>
+        <div class="form-row" id="subUrgencyRow">
+            <div class="field">
+                <label asp-for="Days">Days</label>
+                <input asp-for="Days" type="number" min="0" name="Days" placeholder="e.g. 2">
+                <span asp-validation-for="Days" class="err-msg"></span>
+            </div>
+            <div class="field">
+                <label asp-for="Hours">Hours</label>
+                <input asp-for="Hours" type="number" min="0" max="23" name="Hours" placeholder="e.g. 2">
+                <span asp-validation-for="Hours" class="err-msg"></span>
+            </div>
+            <div class="field">
+                <label asp-for="Minutes">Minutes</label>
+                <input asp-for="Minutes" type="number" min="0" max="59" name="Minutes" placeholder="e.g. 15">
+                <span asp-validation-for="Minutes" class="err-msg"></span>
+            </div>
+        </div>
+
+            <button type="submit" class="btn-save">Save Changes</button>
+        </form>
+    </div>

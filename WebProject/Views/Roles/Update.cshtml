@@ -34,6 +34,7 @@
     </div>
 
     <form method="post" asp-action="Update" class="form-body">
+        @Html.AntiForgeryToken()
         <input type="hidden" name="RoleName" value="@Model.RoleName" />
 
         <div id="pairsContainer">

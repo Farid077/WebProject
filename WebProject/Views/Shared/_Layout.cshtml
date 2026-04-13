@@ -37,6 +37,10 @@
                class="@(ViewData["ActivePage"]?.ToString() == "IssueCategories" ? "active" : "")">
                 <span class="icon">◫</span> Issue Categories
             </a>
+            <a asp-action="Index" asp-controller="Urgencies"
+               class="@(ViewData["ActivePage"]?.ToString() == "Urgencies" ? "active" : "")">
+                <span class="icon">◫</span> Urgencies
+            </a>
             <form asp-controller="Auth" asp-action="Logout" method="post">
                 @Html.AntiForgeryToken()
                 <button type="submit">

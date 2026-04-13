@@ -84,7 +84,8 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
         IssueCategoryUpdateVM vm = new()
         {
             Id = category.Id,
-            Name = category.Name
+            Name = category.Name,
+            SubCategories = category.SubCategories ?? [],
         };
 
         return View(vm);
@@ -97,18 +98,23 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
     {
         if (id != vm.Id) return BadRequest(ct);
 
-        IssueCategory category = await _getIssueCategoryAsync(id, ct);
-
         if (!ModelState.IsValid)
             return View(vm);
 
-        if (await _context.IssueCategories.AnyAsync(x => x.Name.ToLower() == vm.Name.ToLower(), ct))
+        IssueCategory category = await _getIssueCategoryAsync(id, ct);
+
+        if(category.Name != vm.Name)
         {
-            ModelState.AddModelError("Name", "This category already exists");
-            return View(vm);
+            if (await _context.IssueCategories.AnyAsync(x => x.Name.ToLower() == vm.Name.ToLower(), ct))
+            {
+                ModelState.AddModelError("Name", "This category already exists");
+                return View(vm);
+            }
+            category.Name = vm.Name;
         }
 
-        category.Name = vm.Name;
+        vm.SubCategories.Add("Other");
+
         category.SubCategories = vm.SubCategories;
 
         await _context.SaveChangesAsync(ct);

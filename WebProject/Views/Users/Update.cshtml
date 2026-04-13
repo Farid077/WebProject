@@ -34,6 +34,7 @@
     </div>
 
     <form asp-action="Update" asp-controller="Users" method="post" asp-route-id="@ViewData["Id"]?.ToString()">
+        @Html.AntiForgeryToken()
         <div class="form-body">
             <div class="form-row single">
                 <div class="field">
