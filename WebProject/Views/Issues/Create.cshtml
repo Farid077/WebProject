@@ -40,22 +40,28 @@
             </div>
         </div> *@
 
-        <div class="field">
-            <label>Category</label>
-            <select name="Category" id="categorySelect" onchange="onCategoryChange(this.value)">
-                <option value="">Select category...</option>
-                @foreach (var category in Model.Categories)
-                {
-                    <option selected="@(category.Key == Model.Category ? category.Key : null)" value="@category.Key">@category.Key</option>
-                }
-            </select>
+        <div class="form-row single">
+            <div class="field">
+                <label asp-for="Category">Category</label>
+                <select asp-for="Category" name="Category" id="categorySelect" onchange="onCategoryChange(this.value)">
+                    <option value="">Select category...</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option selected="@(category.Key == Model.Category ? category.Key : null)" value="@category.Key">@category.Key</option>
+                    }
+                </select>
+                <span asp-validation-for="Category" class="err-msg"></span>
+            </div>
         </div>
 
-        <div class="field">
-            <label>Sub Category</label>
-            <select name="SubCategory" id="subCategorySelect" disabled>
-                <option value="">Select category first...</option>
-            </select>
+        <div class="form-row single">
+            <div class="field">
+                <label asp-for="SubCategory">Sub Category</label>
+                <select asp-for="SubCategory" name="SubCategory" id="subCategorySelect" disabled>
+                    <option value="">Select category first...</option>
+                </select>
+                <span asp-validation-for="SubCategory" class="err-msg"></span>
+            </div>
         </div>
 
         <div class="form-row single">
@@ -71,12 +77,12 @@
             <div class="field" id="f-Issue">
                 <label asp-for="Urgency">Urgency</label>
                 <select asp-for="Urgency" id="Issue">
-                    <option value="">Select Issue...</option>
+                    <option value="">Select Urgency...</option>
                     @foreach (var urgency in Model.Urgencies)
                     {
                         <option selected="@(urgency == Model.Urgency ? urgency : null)" value="@urgency">@urgency</option>
                     }
-                    <option value="Super Admin">Super Admin</option>
+                    @* <option value="Super Admin">Super Admin</option> *@
                 </select>
                 <span asp-validation-for="Urgency" class="err-msg"></span>
             </div>
@@ -84,11 +90,12 @@
             <div class="field">
                 <label asp-for="Status">Status</label>
                 <select asp-for ="Status" id="status">
+                    <option value="">Select Status...</option>
                     @foreach (var status in Model.Statuses)
                     {
                         <option selected="@(status == Model.Status ? status : null)" value="@status">@status</option>
                     }
-                    <option value="inactive">Inactive</option>
+                    @* <option value="inactive">Inactive</option> *@
                 </select>
             </div>
         </div>

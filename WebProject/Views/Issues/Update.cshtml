@@ -1,5 +1,146 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IssueUpdateVM
+
 @{
+    ViewData["Title"] = "Edit Issue";
+    ViewData["ActivePage"] = "Issues";
 }
+
+<div class="topbar">
+    <div class="breadcrumb">
+        <a asp-action="Index" asp-controller="Home">Dashboard</a>
+        <span class="sep">/</span>
+        <a asp-action="Index">Issues</a>
+        <span class="sep">/</span>
+        <span class="current">Edit Issue</span>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-icon blue">✎</div>
+        <div>
+            <div class="card-title">Edit Issue</div>
+            <div class="card-sub">Update the details for this Issue.</div>
+        </div>
+    </div>
+
+    <form method="post" asp-action="Update" class="form-body" asp-route-id="@Model.Id" id="form">
+        @Html.AntiForgeryToken()
+        <div class="form-row single">
+            <div class="field">
+                <label asp-for="Category">Category</label>
+                <select asp-for="Category" name="Category" id="categorySelect" onchange="onCategoryChange(this.value)">
+                    <option value="">Select category...</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option selected="@(category.Key == Model.Category ? category.Key : null)" value="@category.Key">@category.Key</option>
+                    }
+                </select>
+                <span asp-validation-for="Category" class="err-msg"></span>
+            </div>
+        </div>
+
+        <div class="form-row single">
+            <div class="field">
+                <label asp-for="SubCategory">Sub Category</label>
+                <select asp-for = "SubCategory" name="SubCategory" id="subCategorySelect" disabled>
+                    <option value="">Select category first...</option>
+                </select>
+                <span asp-validation-for="SubCategory" class="err-msg"></span>
+            </div>
+        </div>
+
+        <div class="form-row single">
+            <div class="field" id="f-first">
+                <label asp-for="Description">Description</label>
+                <textarea id="msg" asp-for="Description" name="Description" rows="4" cols="50" placeholder="Type your note here..."></textarea>
+                <span asp-validation-for="Description" class="err-msg"></span>
+            </div>
+        </div>
+
+        <div class="form-row single">
+            <div class="field" id="f-Issue">
+                <label asp-for="Urgency">Urgency</label>
+                <select asp-for="Urgency" id="Issue">
+                    <option value="">Select Urgency...</option>
+                    @foreach (var urgency in Model.Urgencies)
+                    {
+                        <option selected="@(urgency == Model.Urgency ? urgency : null)" value="@urgency">@urgency</option>
+                    }
+                </select>
+                <span asp-validation-for="Urgency" class="err-msg"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Status">Status</label>
+                <select asp-for="Status" id="status">
+                    <option value="">Select Status...</option>
+                    @foreach (var status in Model.Statuses)
+                    {
+                        <option selected="@(status == Model.Status ? status : null)" value="@status">@status</option>
+                    }
+                </select>
+            </div>
+
+            <div class="field">
+                <label asp-for="AssigneeId">Assignee Name</label>
+                <select asp-for="AssigneeId">
+                    <option value="">Select Assignee Name...</option>
+                    @foreach (var assignee in Model.Users)
+                    {
+                        <option selected="@(assignee == Model.AssigneeId ? assignee : null)" value="@assignee">@assignee</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn-save">Save Changes</button>
+    </form>
+</div>
+
+<script>
+    const categoryMap = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Categories));
+
+    const subSelect = document.getElementById('subCategorySelect');
+    const categorySelect = document.getElementById('categorySelect');
+
+    const selectedSubCategory = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.SubCategory));
+
+    categoryMap[categorySelect.value].forEach(sub => {
+        const option = document.createElement('option');
+        option.value = sub;
+        option.textContent = sub;
+        option.selected = (selectedSubCategory == sub ? sub : null);
+        subSelect.appendChild(option);
+    });
+
+    subSelect.disabled = false;
+
+    function onCategoryChange(selectedCategory) {
+        const subSelect = document.getElementById('subCategorySelect');
+
+        // Clear existing options
+        subSelect.innerHTML = '';
+
+        // if (!selectedCategory || !categoryMap[selectedCategory]) {
+        //     subSelect.innerHTML = '<option value="">Select category first...</option>';
+        //     subSelect.disabled = true;
+        //     return;
+        // }
+
+        // Add placeholder
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Select sub category...';
+        subSelect.appendChild(placeholder);
+
+        // Add subcategories of selected category
+        categoryMap[selectedCategory].forEach(sub => {
+            const option = document.createElement('option');
+            option.value = sub;
+            option.textContent = sub;
+            subSelect.appendChild(option);
+        });
+
+        subSelect.disabled = false;
+    }
+</script>

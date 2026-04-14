@@ -9,15 +9,13 @@ using WebProject.ViewModels;
 namespace WebProject.Controllers;
 
 [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read)]
-public class IssuesController(WebProjectDbContext _context, HttpContext _httpContext) : Controller
+public class IssuesController(WebProjectDbContext _context) : Controller
 {
     // ================= INDEX =================
     public async Task<IActionResult> Index(CancellationToken ct = default)
     {
         var data = await _context.Issues
             .AsNoTracking()
-            .Include(x => x.Reporter)
-            .Include(x => x.Assignee)
             .Include(x => x.Urgency)
             .Where(x => !x.IsDeleted)
             .Select(x => new IssueManagementVM
@@ -93,19 +91,18 @@ public class IssuesController(WebProjectDbContext _context, HttpContext _httpCon
 
             return View(vm);
         }
+        string userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new Exception("ClaimTypes NameIdentifier is not found");
 
-        string userId = _httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new Exception("ClaimTypes NameIdentifier is not found");
-
-        Urgency Urgency = await _context.Urgencies.FirstOrDefaultAsync(u => u.Name == vm.Urgency) ?? throw new Exception($"Urgency is not found with this name: {vm.Urgency}"); ;
+        Urgency urgency = await _context.Urgencies.FirstOrDefaultAsync(u => u.Name == vm.Urgency) ?? throw new Exception($"Urgency is not found with this name: {vm.Urgency}"); ;
 
         Issue issue = new()
         {
             Category = vm.Category,
             SubCategory = vm.SubCategory,
             Status = vm.Status,
-            Description = vm.Description,
+            Description = vm.Description!,
             ReporterId = userId,
-            UrgencyId = Urgency.Id,
+            UrgencyId = urgency.Id,
         };
 
         await _context.Issues.AddAsync(issue, ct);
@@ -118,22 +115,65 @@ public class IssuesController(WebProjectDbContext _context, HttpContext _httpCon
     [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(int id, CancellationToken ct = default)
     {
-        var issue = await _getIssueAsync(id, ct);
+        //var issue = await _getIssueAsync(id, ct);
 
-        IssueUpdateVM vm = new()
-        {
-            Id = issue.Id,
-            Description = issue.Description!,
-            //CategoryId = issue.CategoryId,
-            Categories = await _context.IssueCategories
-                .AsNoTracking()
-                .Select(x => new IssueCategoryManagementVM
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                })
-                .ToListAsync(ct)
-        };
+        //IssueUpdateVM VM = new()
+        //{
+        //    Id = issue.Id,
+        //    Category = issue.Category,
+        //    SubCategory = issue.SubCategory,
+        //    Description = issue.Description,
+        //    Status = issue.Status,
+        //    Urgency = issue.Urgency != null ? issue.Urgency.Name : "-",
+        //    AssigneeId = issue.AssigneeId ?? "-",
+        //    Statuses = Enum.GetNames<IssueStatuses>(),
+        //    Urgencies = await _context.Urgencies.AsNoTracking().Select(u => u.Name).ToListAsync(ct),
+        //    Categories = await _context.IssueCategories
+        //        .AsNoTracking()
+        //        .Select(x => new { x.Name, x.SubCategories }).ToDictionaryAsync(y => y.Name, y => y.SubCategories, ct),
+        //    Users = await _context.Users.AsNoTracking().Select(u => u.Username).ToListAsync(ct)
+        //};
+
+        IssueUpdateVM vm = await _context.Issues
+            .Where(i => !i.IsDeleted && i.Id == id)
+            .Select(i => new IssueUpdateVM
+            {
+                Id = i.Id,
+                Category = i.Category,
+                SubCategory = i.SubCategory,
+                Description = i.Description,
+                Status = i.Status,
+                Urgency = i.Urgency != null ? i.Urgency.Name : "-",
+                AssigneeId = i.AssigneeId ?? "-",
+                Statuses = Enum.GetNames<IssueStatuses>(),
+            })
+            .FirstOrDefaultAsync(ct) ?? throw new Exception($"Issue is not found with this Id: {id}");
+
+        vm.Urgencies = await _context.Urgencies.AsNoTracking().Select(u => u.Name).ToListAsync(ct);
+        vm.Users = await _context.Users.AsNoTracking().Select(u => u.Username).ToListAsync(ct);
+        vm.Categories = await _context.IssueCategories.AsNoTracking()
+                .Select(x => new { x.Name, x.SubCategories }).ToDictionaryAsync(y => y.Name, y => y.SubCategories, ct);
+
+        //IssueUpdateVM vm = await _context.Issues
+        //    .Where(i => !i.IsDeleted && i.Id == id)
+        //    .Select(i => new IssueUpdateVM
+        //    {
+        //        Id = i.Id,
+        //        Category = i.Category,
+        //        SubCategory= i.SubCategory,
+        //        Description = i.Description,
+        //        Status = i.Status,
+        //        Urgency = i.Urgency != null ? i.Urgency.Name : "-",
+        //        AssigneeId = i.AssigneeId ?? "-",
+        //        Statuses = Enum.GetNames<IssueStatuses>(),
+
+        //        Urgencies = _context.Urgencies.AsNoTracking().Select(u => u.Name).ToList(),
+
+        //        Categories = _context.IssueCategories
+        //        .AsNoTracking()
+        //        .Select(x => new { x.Name, x.SubCategories }).ToDictionary(y => y.Name, y => y.SubCategories)
+        //    })
+        //    .FirstOrDefaultAsync(ct) ?? throw new Exception($"Issue is not found with this Id: {id}");
 
         return View(vm);
     }
@@ -145,30 +185,30 @@ public class IssuesController(WebProjectDbContext _context, HttpContext _httpCon
     {
         if (id != vm.Id) return BadRequest(ct);
 
-        var issue = await _getIssueAsync(id, ct);
-
         if (!ModelState.IsValid)
         {
-            vm.Categories = await _context.IssueCategories
-                .AsNoTracking()
-                .Select(x => new IssueCategoryManagementVM
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                })
-                .ToListAsync(ct);
+            vm.Statuses = Enum.GetNames<IssueStatuses>();
+            vm.Urgencies = await _context.Urgencies.AsNoTracking().Select(u => u.Name).ToListAsync(ct);
+            vm.Users = await _context.Users.AsNoTracking().Select(u => u.Username).ToListAsync(ct);
+            vm.Categories = await _context.IssueCategories.AsNoTracking()
+                    .Select(x => new { x.Name, x.SubCategories }).ToDictionaryAsync(y => y.Name, y => y.SubCategories, ct);
             return View(vm);
         }
 
-        //if (issue.Title != vm.Title || issue.Subtitle != vm.Subtitle || issue.Description != vm.Description || issue.CategoryId != vm.CategoryId)
-        //{
-        //    issue.Title = vm.Title;
-        //    issue.Subtitle = vm.Subtitle;
-        //    issue.Description = vm.Description;
-        //    issue.CategoryId = vm.CategoryId;
-        //    issue.UpdatedTime = DateOnly.FromDateTime(DateTime.Now);
-        //    await _context.SaveChangesAsync(ct);
-        //}
+        Issue issue = await _getIssueAsync(id, ct);
+
+        Urgency urgency = await _context.Urgencies.FirstOrDefaultAsync(u => u.Name == vm.Urgency) ?? throw new Exception($"Urgency is not found with this name: {vm.Urgency}");
+
+        issue.Category = vm.Category;
+        issue.SubCategory = vm.SubCategory;
+        issue.Description = vm.Description ?? "";
+        issue.Status = vm.Status;
+        issue.UrgencyId = urgency.Id;
+        issue.AssigneeId = vm.AssigneeId;
+        
+        issue.UpdatedTime = DateTime.UtcNow.AddHours(4);
+
+        await _context.SaveChangesAsync(ct);
 
         return RedirectToAction(nameof(Index));
     }
@@ -192,10 +232,10 @@ public class IssuesController(WebProjectDbContext _context, HttpContext _httpCon
     //    return View(data);
     //}
 
-    [HttpPost, ActionName("Delete")]
+    [HttpPost]
     [ValidateAntiForgeryToken]
     [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
-    public async Task<IActionResult> DeleteConfirmed(int id, CancellationToken ct = default)
+    public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
     {
         var issue = await _getIssueAsync(id, ct, true);
 
