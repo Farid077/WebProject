@@ -15,10 +15,11 @@ public class RolesController(WebProjectDbContext _context) : Controller
     {
         var roles = await _context.Roles
             .AsNoTracking()
-            .Include(x => x.Users)
             .Select(role => new RoleManagementVM
             {
                 Name = role.Name,
+
+                Department = role.Department != null ? role.Department.Name : "-",
 
                 Permissions = role.Permissions.Select(perm => new Dictionary<string, string>
                 {{
@@ -27,10 +28,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
 
                 }}).ToList(),
 
-                Users = role.Users!.Select(user => new RoleUsersVM
-                {
-                    Username = user.Username
-                }).ToList()
+                Users = role.Users!.Select(user => user.Username).ToList()
             })
             .ToListAsync(ct);
 
@@ -42,6 +40,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
     {
         var vm = new RoleCreateVM
         {
+            DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync(),
             PageOptions = Enum.GetNames<Pages>(),
             AccessOptions = Enum.GetNames<PageAccess>(),
             Permissions = [new Pair()]
@@ -57,6 +56,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
     {
         if (!ModelState.IsValid)
         {
+            vm.DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync();
             vm.PageOptions = Enum.GetNames<Pages>();
             vm.AccessOptions = Enum.GetNames<PageAccess>();
             return View(vm);
@@ -64,6 +64,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
 
         if (await _context.Roles.AnyAsync(x => x.Name.ToLower() == vm.RoleName.ToLower(), ct))
         {
+            vm.DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync();
             vm.PageOptions = Enum.GetNames<Pages>();
             vm.AccessOptions = Enum.GetNames<PageAccess>();
             ModelState.AddModelError("RoleName", "This role already exists");
@@ -80,10 +81,13 @@ public class RolesController(WebProjectDbContext _context) : Controller
             }
         }
 
+        Department department = await _context.Departments.FirstOrDefaultAsync(d => d.Name == vm.Department) ?? throw new Exception($"Department is not found with this name: {vm.Department}");
+
         Role role = new()
         {
             Name = vm.RoleName,
-            Permissions = [.. vm.Permissions.Select(perm => (int)Enum.GetValues<Pages>().FirstOrDefault(page => page.ToString() == perm.Page) 
+            DepartmentId = department.Id,
+            Permissions = [.. vm.Permissions.Select(perm => (int)Enum.GetValues<Pages>().FirstOrDefault(page => page.ToString() == perm.Page)
             | (int)Enum.GetValues<PageAccess>().FirstOrDefault(access => access.ToString() == perm.Access))]
         };
 
@@ -100,6 +104,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         vm.Permissions.Add(new Pair());
         vm.PageOptions = Enum.GetNames<Pages>();
         vm.AccessOptions = Enum.GetNames<PageAccess>();
+        vm.DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync();
 
         return View("Create", vm);
     }
@@ -113,6 +118,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
 
         vm.PageOptions = Enum.GetNames<Pages>();
         vm.AccessOptions = Enum.GetNames<PageAccess>();
+        vm.DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync();
 
         return View("Create", vm);
     }
@@ -125,13 +131,15 @@ public class RolesController(WebProjectDbContext _context) : Controller
         RoleUpdateVM vm = new()
         {
             RoleName = role.Name,
+            Department = role.Department != null ? role.Department.Name : "-",
             Permissions = [.. role.Permissions.Select(perm => new Pair() 
             { 
                 Page = Enum.GetValues<Pages>().FirstOrDefault(page => (perm & (int)page) == (int)page).ToString(),
                 Access = (perm & (int)PageAccess.Read_Write) == (int)PageAccess.Read_Write ? PageAccess.Read_Write.ToString() : PageAccess.Read.ToString()
             })],
             PageOptions = Enum.GetNames<Pages>(),
-            AccessOptions = Enum.GetNames<PageAccess>()
+            AccessOptions = Enum.GetNames<PageAccess>(),
+            DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync(),
         };
 
         return View(vm);
@@ -146,6 +154,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         {
             vm.PageOptions = Enum.GetNames<Pages>();
             vm.AccessOptions = Enum.GetNames<PageAccess>();
+            vm.DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync();
             return View(vm);
         }
 
@@ -160,6 +169,9 @@ public class RolesController(WebProjectDbContext _context) : Controller
             }
         }
 
+        Department department = await _context.Departments.FirstOrDefaultAsync(d => d.Name == vm.Department) ?? throw new Exception($"Department is not found with this name: {vm.Department}");
+
+        role.DepartmentId = department.Id;
         role.Permissions = [.. vm.Permissions.Select(perm => (int)Enum.GetValues<Pages>().FirstOrDefault(page => page.ToString() == perm.Page)
             | (int)Enum.GetValues<PageAccess>().FirstOrDefault(access => access.ToString() == perm.Access))];
 
@@ -174,6 +186,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
         vm.Permissions.Add(new Pair());
         vm.PageOptions = Enum.GetNames<Pages>();
         vm.AccessOptions = Enum.GetNames<PageAccess>();
+        vm.DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync();
 
         return View("Update", vm);
     }
@@ -187,6 +200,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
 
         vm.PageOptions = Enum.GetNames<Pages>();
         vm.AccessOptions = Enum.GetNames<PageAccess>();
+        vm.DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync();
 
         return View("Update", vm);
     }

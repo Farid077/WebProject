@@ -7,4 +7,5 @@ public enum Pages
     Roles = 16,
     Issues = 32,
     IssueCategories = 64,
+    Departments = 128,
 }

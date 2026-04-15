@@ -34,6 +34,20 @@
             </div>
         </div>
 
+        <div class="form-row single">
+            <div class="field">
+                <label asp-for="Department">Department</label>
+                <select asp-for="Department" name="Department">
+                    <option value="">Select Department...</option>
+                    @foreach (var department in Model.DepartmentOptions)
+                    {
+                            <option selected="@(Model.Department == department ? "selected" : null)" value="@department">@department</option>
+                    }
+                </select>
+                <span asp-validation-for="Department" class="err-msg"></span>
+            </div>
+        </div>
+
         <div id="pairsContainer">
             @for (int i = 0; i < Model.Permissions.Count; i++)
             {

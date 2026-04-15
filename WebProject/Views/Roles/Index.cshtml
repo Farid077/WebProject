@@ -27,6 +27,7 @@
         <thead>
             <tr>
                 <th>Role</th>
+                <th>Department</th>
                 <th>Page - Access</th>
                 <th>Users</th>
                 <th>Actions</th>
@@ -44,6 +45,9 @@
                         </div>
                     </td>
                     <td>
+                        <div class="cell-name">@role.Department</div>
+                    </td>
+                    <td>
                         @foreach (var perm in role.Permissions)
                         {
                             foreach (var dict in perm)
@@ -53,9 +57,9 @@
                         }
                     </td>
                     <td>
-                        @foreach (var user in role.Users)
+                        @foreach (string username in role.Users)
                         {
-                            <div>@user.Username</div>
+                            <div>@username</div>
                         }
                     </td>
                     <td style="display:flex;">
