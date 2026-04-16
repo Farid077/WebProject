@@ -50,9 +50,9 @@
                     </td>
                     @* <td><span class="role-tag">@issue.Subtitle</span></td> *@
                     <td>
-                        @foreach (var i in category.SubCategories)
+                        @foreach (var subCategory in category.SubCategories)
                         {
-                            <div>@i</div>
+                            <div>@subCategory</div>
                         }
                     </td>
                     @* <td>-</td> *@

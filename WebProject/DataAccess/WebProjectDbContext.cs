@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebProject.Models;
+using WebProject.ViewModels;
 
 namespace WebProject.DataAccess
 {
@@ -20,6 +21,7 @@ namespace WebProject.DataAccess
 
             base.OnModelCreating(builder);
         }
+        public DbSet<WebProject.ViewModels.DepartmentUpdateVM> DepartmentUpdateVM { get; set; } = default!;
 
     }
 }

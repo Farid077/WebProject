@@ -16,6 +16,11 @@ public class SessionValidationMiddleware(RequestDelegate _next)
 
             if(!await sessionService.IsValidAsync(userId, sessionToken))
             {
+                if (context.Response.HasStarted)
+                {
+                    await _next(context);
+                    return;
+                }
                 await context.SignOutAsync();
                 context.Response.Redirect("/Auth/Login");
                 return;

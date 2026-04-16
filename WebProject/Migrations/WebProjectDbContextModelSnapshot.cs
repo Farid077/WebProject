@@ -17,10 +17,27 @@ namespace WebProject.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.3")
+                .HasAnnotation("ProductVersion", "10.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("WebProject.Models.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
 
             modelBuilder.Entity("WebProject.Models.Issue", b =>
                 {
@@ -114,11 +131,16 @@ namespace WebProject.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("character varying(16)");
 
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("integer");
+
                     b.PrimitiveCollection<int[]>("Permissions")
                         .IsRequired()
                         .HasColumnType("integer[]");
 
                     b.HasKey("Name");
+
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Roles");
                 });
@@ -177,6 +199,23 @@ namespace WebProject.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("WebProject.ViewModels.DepartmentUpdateVM", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DepartmentUpdateVM");
+                });
+
             modelBuilder.Entity("WebProject.Models.Issue", b =>
                 {
                     b.HasOne("WebProject.Models.User", "Assignee")
@@ -201,6 +240,16 @@ namespace WebProject.Migrations
                     b.Navigation("Urgency");
                 });
 
+            modelBuilder.Entity("WebProject.Models.Role", b =>
+                {
+                    b.HasOne("WebProject.Models.Department", "Department")
+                        .WithMany("Roles")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("WebProject.Models.User", b =>
                 {
                     b.HasOne("WebProject.Models.Role", "Role")
@@ -209,6 +258,11 @@ namespace WebProject.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("WebProject.Models.Department", b =>
+                {
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("WebProject.Models.Role", b =>

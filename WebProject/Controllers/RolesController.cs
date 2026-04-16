@@ -126,14 +126,14 @@ public class RolesController(WebProjectDbContext _context) : Controller
     [AuthorizePermission((int)Pages.Roles, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(string id, CancellationToken ct = default)
     {
-        var role = await _getRoleAsync(id, ct);
+        var role = await _context.Roles.Include(r => r.Department).FirstOrDefaultAsync(r => r.Name == id, ct) ?? throw new Exception($"Role is not found with this Id: {id}");
 
         RoleUpdateVM vm = new()
         {
             RoleName = role.Name,
             Department = role.Department != null ? role.Department.Name : "-",
-            Permissions = [.. role.Permissions.Select(perm => new Pair() 
-            { 
+            Permissions = [.. role.Permissions.Select(perm => new Pair()
+            {
                 Page = Enum.GetValues<Pages>().FirstOrDefault(page => (perm & (int)page) == (int)page).ToString(),
                 Access = (perm & (int)PageAccess.Read_Write) == (int)PageAccess.Read_Write ? PageAccess.Read_Write.ToString() : PageAccess.Read.ToString()
             })],
@@ -141,6 +141,25 @@ public class RolesController(WebProjectDbContext _context) : Controller
             AccessOptions = Enum.GetNames<PageAccess>(),
             DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync(),
         };
+
+        //RoleUpdateVM VM = await _context.Roles
+        //    .Where(r => r.Name == id)
+        //    .Select(role => new RoleUpdateVM
+        //    {
+        //        RoleName = role.Name,
+        //        Department = role.Department != null ? role.Department.Name : "-",
+        //    })
+        //    .FirstOrDefaultAsync(ct) ?? throw new Exception($"Role is not found with this Id: {id}");
+
+        //VM.Permissions = [.. role.Permissions.Select(perm => new Pair()
+        //    {
+        //        Page = Enum.GetValues<Pages>().FirstOrDefault(page => (perm & (int)page) == (int)page).ToString(),
+        //        Access = (perm & (int)PageAccess.Read_Write) == (int)PageAccess.Read_Write ? PageAccess.Read_Write.ToString() : PageAccess.Read.ToString()
+        //    })];
+
+        //VM.PageOptions = Enum.GetNames<Pages>(),
+        //VM.AccessOptions = Enum.GetNames<PageAccess>(),
+        //VM.DepartmentOptions = await _context.Departments.Select(d => d.Name).ToListAsync(),
 
         return View(vm);
     }

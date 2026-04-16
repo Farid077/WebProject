@@ -1,0 +1,47 @@
+﻿@model DepartmentUpdateVM
+
+@{
+    ViewData["Title"] = "Edit Department";
+    ViewData["ActivePage"] = "Departments";
+}
+
+<div class="topbar">
+    <div class="breadcrumb">
+        <a asp-action="Index" asp-controller="Home">Dashboard</a>
+        <span class="sep">/</span>
+        <a asp-action="Index">Departments</a>
+        <span class="sep">/</span>
+        <span class="current">Edit Department</span>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-icon blue">✎</div>
+        <div>
+            <div class="card-title">Edit Department</div>
+            <div class="card-sub">Update the details for this Department.</div>
+        </div>
+    </div>
+
+    <div class="avatar-row">
+        <div class="big-avatar">
+            @Model.Name.ToUpper()[0]@Model.Name.ToUpper()[1]
+        </div>
+        <div class="avatar-meta">
+            <strong>@Model.Name</strong>
+        </div>
+    </div>
+
+    <form method="post" asp-action="Update" class="form-body" asp-route-id="@Model.Id" id="form">
+        @Html.AntiForgeryToken()
+        <div class="form-row single">
+            <div class="field">
+                <label asp-for="Name">Department Name</label>
+                <input asp-for="Name" type="text" name="Name">
+                <span asp-validation-for="Name" class="err-msg"></span>
+            </div>
+        </div>
+        <button type="submit" class="btn-save">Save Changes</button>
+    </form>
+</div>

@@ -29,6 +29,10 @@
                class="@(ViewData["ActivePage"]?.ToString() == "Roles" ? "active" : "")">
                 <span class="icon">◫</span> Roles
             </a>
+            <a asp-action="Index" asp-controller="Departments"
+                class="@(ViewData["ActivePage"]?.ToString() == "Departments" ? "active" : "")">
+                <span class="icon">◫</span> Departments
+            </a>
             <a asp-action="Index" asp-controller="Issues"
                class="@(ViewData["ActivePage"]?.ToString() == "Issues" ? "active" : "")">
                 <span class="icon">◫</span> Issues

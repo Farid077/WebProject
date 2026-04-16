@@ -37,7 +37,7 @@ public class DepartmentsController(WebProjectDbContext _context) : Controller
         if (!ModelState.IsValid)
             return View(vm);
 
-        if (await _context.Departments.AnyAsync(x => x.Name.ToLower() == vm.Name.ToLower(), ct))
+        if (await _context.Departments.AnyAsync(x => x.Name.ToLower() == vm.Name.ToLowerInvariant() && x.Name.ToUpper() == vm.Name.ToUpperInvariant() && x.Name == vm.Name, ct))
         {
             ModelState.AddModelError("Name", "This department already exists");
             return View(vm);
