@@ -224,7 +224,6 @@ C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\Npgsql.EntityFram
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\Pipelines.Sockets.Unofficial.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\StackExchange.Redis.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\fca6j75913-{0}-lljwq3amqk-lljwq3amqk.gz
-C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\w5vimncr91-{0}-8cqr2kssob-8cqr2kssob.gz
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\Microsoft.Build.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Features.dll
@@ -339,3 +338,4 @@ C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\ru\Microsoft.Code
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\Farid\Desktop\WebProject\WebProject\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\Farid\Desktop\WebProject\WebProject\obj\Debug\net10.0\compressed\w5vimncr91-{0}-zn0pw3o6uy-zn0pw3o6uy.gz

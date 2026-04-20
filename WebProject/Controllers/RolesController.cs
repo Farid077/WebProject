@@ -229,7 +229,7 @@ public class RolesController(WebProjectDbContext _context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(string id, CancellationToken ct = default)
     {
-        var role = await _getRoleAsync(id, ct);
+        var role = await _context.Roles.Include(x => x.Users).FirstOrDefaultAsync(r => r.Name == id, ct) ?? throw new Exception($"Role is not found with this id: {id}");
         
         foreach (User user in role.Users)
         {

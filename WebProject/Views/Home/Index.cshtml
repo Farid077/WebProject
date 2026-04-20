@@ -1,8 +1,576 @@
+@model HomePageVM
+
 @{
     ViewData["Title"] = "Dashboard";
     ViewData["ActivePage"] = "Dashboard";
 }
 
-<div class="topbar">
-    <div class="page-title">Dashboard</div>
+<style>
+    /* ── PAGE LAYOUT ── */
+    .issues-layout {
+        display: grid;
+        grid-template-columns: 420px 1fr;
+        gap: 28px;
+        align-items: start;
+    }
+
+    /* ── LEFT: FORM PANEL ── */
+    .form-panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        position: sticky;
+        top: 0;
+    }
+
+    .form-panel-header {
+        padding: 22px 28px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .form-panel-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--accent-dim);
+        border: 1px solid rgba(200,255,62,.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: var(--accent);
+        flex-shrink: 0;
+    }
+
+    .form-panel-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: -.01em;
+    }
+
+    .form-panel-sub {
+        font-size: 11px;
+        color: var(--text-dim);
+        margin-top: 2px;
+    }
+
+    .form-panel-body {
+        padding: 24px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .form-panel-body .field label {
+        font-size: 11px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 7px;
+        display: block;
+    }
+
+    .form-panel-body .field input,
+    .form-panel-body .field select,
+    .form-panel-body .field textarea {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        padding: 10px 14px;
+        font-family: 'DM Mono', monospace;
+        font-size: 13px;
+        color: var(--text);
+        outline: none;
+        transition: border-color .18s, box-shadow .18s;
+        width: 100%;
+    }
+
+    .form-panel-body .field input:focus,
+    .form-panel-body .field select:focus,
+    .form-panel-body .field textarea:focus {
+        border-color: rgba(200,255,62,.45);
+        box-shadow: 0 0 0 3px rgba(200,255,62,.07);
+    }
+
+    .form-panel-body .field input::placeholder,
+    .form-panel-body .field textarea::placeholder { color: var(--muted); }
+
+    .form-panel-body .field select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b6b8a'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        cursor: pointer;
+    }
+
+    .form-panel-body .field select option { background: #111118; }
+
+    .form-panel-body .field textarea {
+        resize: vertical;
+        min-height: 90px;
+        line-height: 1.6;
+    }
+
+    .form-panel-body .err-msg {
+        font-size: 11px;
+        color: var(--red);
+        margin-top: 4px;
+        display: block;
+    }
+
+    /* priority selector */
+    .priority-group {
+        display: flex;
+        gap: 8px;
+    }
+
+    .priority-btn {
+        flex: 1;
+        padding: 8px 10px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: none;
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        color: var(--text-dim);
+        cursor: pointer;
+        transition: all .15s;
+        letter-spacing: .04em;
+        text-align: center;
+    }
+
+    .priority-btn:hover { border-color: var(--muted); color: var(--text); }
+    .priority-btn.active    { background: rgba(78,168,255,.1);  border-color: rgba(78,168,255,.3);  color: var(--blue); }
+    .priority-btn.active { background: rgba(255,179,71,.1);  border-color: rgba(255,179,71,.3);  color: var(--orange); }
+    .priority-btn.active   { background: rgba(255,78,106,.1);  border-color: rgba(255,78,106,.3);  color: var(--red); }
+
+    /* divider */
+    .form-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 4px 0;
+    }
+
+    .form-panel-footer {
+        padding: 18px 28px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .btn-submit-issue {
+        flex: 1;
+        background: var(--accent);
+        color: #0a0a0f;
+        border: none;
+        font-family: 'Syne', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: .04em;
+        padding: 10px 20px;
+        border-radius: 7px;
+        cursor: pointer;
+        transition: opacity .15s, transform .12s, box-shadow .15s;
+    }
+
+    .btn-submit-issue:hover {
+        opacity: .9;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(200,255,62,.2);
+    }
+
+    .btn-reset-issue {
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--text-dim);
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        padding: 10px 18px;
+        border-radius: 7px;
+        cursor: pointer;
+        transition: all .15s;
+    }
+
+    .btn-reset-issue:hover { color: var(--text); border-color: var(--muted); }
+
+    /* ── RIGHT: CARDS PANEL ── */
+    .cards-panel { display: flex; flex-direction: column; gap: 0; }
+
+    .cards-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+
+    .cards-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: .02em;
+    }
+
+    .cards-title span {
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--text-dim);
+        margin-left: 8px;
+    }
+
+    .cards-filters {
+        display: flex;
+        gap: 6px;
+    }
+
+    .filter-btn {
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--text-dim);
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        padding: 5px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all .13s;
+        letter-spacing: .04em;
+    }
+
+    .filter-btn:hover  { color: var(--text); border-color: var(--muted); }
+    .filter-btn.active { color: var(--accent); border-color: rgba(200,255,62,.3); background: var(--accent-dim); }
+
+    /* issue card */
+    .issue-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 18px 20px;
+        margin-bottom: 10px;
+        transition: border-color .15s, transform .15s;
+        cursor: default;
+        position: relative;
+        overflow: hidden;
+        animation: cardIn .35s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .issue-card:nth-child(1) { animation-delay: .05s; }
+    .issue-card:nth-child(2) { animation-delay: .10s; }
+    .issue-card:nth-child(3) { animation-delay: .15s; }
+    .issue-card:nth-child(4) { animation-delay: .20s; }
+    .issue-card:nth-child(5) { animation-delay: .25s; }
+
+    @@keyframes cardIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .issue-card:hover { border-color: var(--muted); transform: translateY(-1px); }
+
+    /* left accent bar by priority */
+    .issue-card::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        background: var(--priority-color, var(--muted));
+        border-radius: 10px 0 0 10px;
+    }
+
+    .issue-card.priority-low    { --priority-color: var(--blue); }
+    .issue-card.priority-medium { --priority-color: var(--orange); }
+    .issue-card.priority-high   { --priority-color: var(--red); }
+
+    .card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+    }
+
+    .card-id {
+        font-size: 10px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 4px;
+    }
+
+    .card-title-text {
+        font-family: 'Syne', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -.01em;
+        line-height: 1.3;
+    }
+
+    .card-badges { display: flex; gap: 6px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+
+    .priority-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 9px;
+        border-radius: 20px;
+        font-size: 10px;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .priority-pill::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+    .pill-canwait    { background: rgba(78,168,255,.1);  color: var(--blue); }
+    .pill-normal { background: rgba(255,179,71,.1);  color: var(--orange); }
+    .pill-urgent   { background: rgba(255,78,106,.1);  color: var(--red); }
+
+    .type-pill {
+        background: rgba(255,255,255,.05);
+        border: 1px solid var(--border);
+        color: var(--text-dim);
+        font-size: 10px;
+        padding: 3px 9px;
+        border-radius: 20px;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+    }
+
+    .card-desc {
+        font-size: 12px;
+        color: var(--text-dim);
+        line-height: 1.6;
+        margin-bottom: 14px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-footer-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .card-meta {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 11px;
+        color: var(--text-dim);
+    }
+
+    .card-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .card-meta-icon { font-size: 12px; color: var(--muted); }
+
+    .card-assignee {
+        width: 22px; height: 22px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6e6ef0, var(--accent));
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Syne', sans-serif;
+        font-size: 9px; font-weight: 700; color: #fff;
+    }
+
+    .card-actions { display: flex; gap: 6px; }
+
+    .card-action-btn {
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--text-dim);
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all .13s;
+    }
+
+    .card-action-btn:hover { color: var(--text); border-color: var(--muted); }
+    .card-action-btn.del:hover { color: var(--red); border-color: var(--red); }
+
+    /* empty state */
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--text-dim);
+        border: 1px dashed var(--border);
+        border-radius: 10px;
+    }
+
+    .empty-state-icon { font-size: 32px; margin-bottom: 14px; opacity: .3; }
+    .empty-state p { font-size: 13px; }
+</style>
+
+<!-- ── DELETE CONFIRM OVERLAY ── -->
+<div class="overlay" id="deleteOverlay" onclick="closeDelete(event)">
+    <div class="dialog">
+        <div class="dialog-icon">⚠</div>
+        <h3>Delete this issue?</h3>
+        <p>Issue <strong id="deleteTargetName"></strong> will be permanently removed. This cannot be undone.</p>
+        <div id="confirmDeleteForm" class="dialog-btns">
+            <button class="btn-cancel" onclick="closeDelete()">Cancel</button>
+            <form id="deleteForm" method="POST" asp-action="Delete" asp-controller="Issues">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                <button type="submit" class="btn-confirm-delete">Yes, Delete</button>
+            </form>
+        </div>
+    </div>
 </div>
+@* 
+<div class="topbar">
+    <div class="page-title">Issues</div>
+</div> *@
+
+<div class="issues-layout">
+
+    <!-- ── LEFT: FORM ── -->
+    <div class="form-panel">
+        <div class="form-panel-header">
+            <div class="form-panel-icon">◎</div>
+            <div>
+                <div class="form-panel-title">New Issue</div>
+                <div class="form-panel-sub">Report a bug, task or feature request</div>
+            </div>
+        </div>
+        @await Html.PartialAsync("~/Views/Home/_IssueCreateForm.cshtml", Model.IssueCreateForm)
+    </div>
+
+    <!-- ── RIGHT: CARDS ── -->
+    <div class="cards-panel">
+        <div class="cards-header">
+            <div class="cards-title">
+                All Issues
+                <span>@Model.Issues.Count() open</span>
+            </div>
+            <div class="cards-filters">
+                <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+                <button class="filter-btn" onclick="filterCards('Urgent', this)">Urgent</button>
+                <button class="filter-btn" onclick="filterCards('Normal', this)">Normal</button>
+                <button class="filter-btn" onclick="filterCards('CanWait', this)">CanWait</button>
+            </div>
+        </div>
+
+        @if (!Model.Issues.Any())
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">◎</div>
+                <p>No issues yet. Create one using the form.</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var issue in Model.Issues)
+            {
+                <div class="issue-card priority-medium" data-type="@issue.Urgency">
+                    <div class="card-top">
+                        <div>
+                            <div class="card-id">#@issue.Id.ToString("D4")</div>
+                            <div class="card-title-text">@issue.Category</div>
+                            <div class="card-title-text">@issue.SubCategory</div>
+                        </div>
+                        <div class="card-badges">
+                            <span class="type-pill">@issue.Status</span>
+                            <span class="priority-pill pill-@issue.Urgency.ToLower()">@issue.Urgency</span>
+                        </div>
+                    </div>
+
+                    <div class="card-desc">@issue.Description</div>
+
+                    <div class="card-footer-row">
+                        <div class="card-meta">
+                            <div class="card-meta">
+                                    <div class="card-meta-item">
+                                        <div class="card-assignee">@issue.ReporterName.ToUpper()[0]</div>
+                                        <span>@issue.ReporterName</span>
+                                    </div>
+                            </div>
+                        
+                            @if (!string.IsNullOrEmpty(issue.AssigneeName))
+                                {
+                                    <div class="card-meta-item">
+                                        <div class="card-assignee">@issue.AssigneeName.ToUpper()[0]</div>
+                                        <span>@issue.AssigneeName</span>
+                                    </div>
+                                }
+                            else
+                            {
+                                <div class="card-meta-item">
+                                    <span class="card-meta-icon">◎</span>
+                                    <span>Unassigned</span>
+                                </div>
+                            }
+                            <div class="card-meta-item">
+                                <span class="card-meta-icon">◷</span>
+                                <span>@issue.ReportedTime.ToString("MMM dd t")</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <a asp-action="Update" asp-route-id="@issue.Id" asp-route-returnUrl="@Context.Request.Path"
+                               class="card-action-btn" style="text-decoration:none;">Edit</a>
+                            <button class="card-action-btn del" type="button"
+                                    onclick="openDelete('@issue.Id.ToString("D4")', '/Issues/Delete/@issue.Id')">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@* @section Scripts { *@
+    <script>
+
+        // ── FILTER ──
+        function filterCards(type, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.issue-card').forEach(card => {
+                card.style.display =
+                    (type === 'all' || card.dataset.type === type) ? '' : 'none';
+            });
+        }
+
+        // ── DELETE CONFIRM ──
+        function openDelete(id, action) {
+            // const deleteForm = document.getElementById('confirmDeleteForm');
+
+            // deleteForm?.innerHTML = `
+            //     <button class="btn-cancel" onclick="closeDelete()">Cancel</button>
+            //     <form id="deleteForm" method="POST" asp-action="Delete" asp-controller="Issues" asp-route-id="${id}" asp-route-returnUrl="@Context.Request.Path">
+                    // @Html.//AntiForgeryToken()
+            //         <button type="submit" class="btn-confirm-delete">Yes, Delete</button>
+            //     </form>
+            // `;
+
+            document.getElementById('deleteTargetName').textContent = '#' + id;
+            document.getElementById('deleteForm').action = action;
+            // document.getElementById('deleteForm'). = action;
+            document.getElementById('deleteOverlay').classList.add('show');
+        }
+
+        function closeDelete(e) {
+            if (!e || e.target === document.getElementById('deleteOverlay')) {
+                document.getElementById('deleteOverlay').classList.remove('show');
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeDelete();
+        });
+    </script>
+@* } *@

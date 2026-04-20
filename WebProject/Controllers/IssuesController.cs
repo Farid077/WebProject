@@ -62,8 +62,6 @@ public class IssuesController(WebProjectDbContext _context) : Controller
     {
         IssueCreateVM vm = new()
         {
-            Statuses = Enum.GetNames<IssueStatuses>(),
-
             Urgencies = await _context.Urgencies.AsNoTracking().Select(u => u.Name).ToListAsync(ct),
 
             Categories = await _context.IssueCategories
@@ -77,17 +75,40 @@ public class IssuesController(WebProjectDbContext _context) : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
-    public async Task<IActionResult> Create(IssueCreateVM vm, CancellationToken ct = default)
+    public async Task<IActionResult> Create(IssueCreateVM vm, string? returnUrl, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
         {
-            vm.Statuses = Enum.GetNames<IssueStatuses>();
-
             vm.Urgencies = await _context.Urgencies.AsNoTracking().Select(u => u.Name).ToListAsync(ct);
 
             vm.Categories = await _context.IssueCategories
                 .AsNoTracking()
                 .Select(x => new { x.Name, x.SubCategories }).ToDictionaryAsync(y => y.Name, y => y.SubCategories, ct);
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                HomePageVM data = new()
+                {
+                    Issues = await _context.Issues
+                    .AsNoTracking()
+                    .Where(i => !i.IsDeleted)
+                    .Select(i => new IssueCardVM
+                    {
+                        Id = i.Id,
+                        Category = i.Category,
+                        SubCategory = i.SubCategory,
+                        Description = i.Description,
+                        Status = i.Status,
+                        Urgency = i.Urgency != null ? i.Urgency.Name : "",
+                        ReportedTime = i.CreatedTime,
+                        ReporterName = i.ReporterId!,
+                        AssigneeName = i.AssigneeId ?? "",
+                    })
+                    .ToListAsync(ct),
+                    IssueCreateForm = vm,
+                };
+                return View("~/Views/Home/Index.cshtml", data);
+            }
 
             return View(vm);
         }
@@ -99,14 +120,17 @@ public class IssuesController(WebProjectDbContext _context) : Controller
         {
             Category = vm.Category,
             SubCategory = vm.SubCategory,
-            Status = vm.Status,
             Description = vm.Description!,
+            Status = IssueStatuses.Pending.ToString(),
             ReporterId = userId,
             UrgencyId = urgency.Id,
         };
 
         await _context.Issues.AddAsync(issue, ct);
         await _context.SaveChangesAsync(ct);
+
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            return Redirect(returnUrl);
 
         return RedirectToAction(nameof(Index));
     }
@@ -115,25 +139,6 @@ public class IssuesController(WebProjectDbContext _context) : Controller
     [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(int id, CancellationToken ct = default)
     {
-        //var issue = await _getIssueAsync(id, ct);
-
-        //IssueUpdateVM VM = new()
-        //{
-        //    Id = issue.Id,
-        //    Category = issue.Category,
-        //    SubCategory = issue.SubCategory,
-        //    Description = issue.Description,
-        //    Status = issue.Status,
-        //    Urgency = issue.Urgency != null ? issue.Urgency.Name : "-",
-        //    AssigneeId = issue.AssigneeId ?? "-",
-        //    Statuses = Enum.GetNames<IssueStatuses>(),
-        //    Urgencies = await _context.Urgencies.AsNoTracking().Select(u => u.Name).ToListAsync(ct),
-        //    Categories = await _context.IssueCategories
-        //        .AsNoTracking()
-        //        .Select(x => new { x.Name, x.SubCategories }).ToDictionaryAsync(y => y.Name, y => y.SubCategories, ct),
-        //    Users = await _context.Users.AsNoTracking().Select(u => u.Username).ToListAsync(ct)
-        //};
-
         IssueUpdateVM vm = await _context.Issues
             .Where(i => !i.IsDeleted && i.Id == id)
             .Select(i => new IssueUpdateVM
@@ -153,35 +158,13 @@ public class IssuesController(WebProjectDbContext _context) : Controller
         vm.Users = await _context.Users.AsNoTracking().Select(u => u.Username).ToListAsync(ct);
         vm.Categories = await _context.IssueCategories.AsNoTracking()
                 .Select(x => new { x.Name, x.SubCategories }).ToDictionaryAsync(y => y.Name, y => y.SubCategories, ct);
-
-        //IssueUpdateVM vm = await _context.Issues
-        //    .Where(i => !i.IsDeleted && i.Id == id)
-        //    .Select(i => new IssueUpdateVM
-        //    {
-        //        Id = i.Id,
-        //        Category = i.Category,
-        //        SubCategory= i.SubCategory,
-        //        Description = i.Description,
-        //        Status = i.Status,
-        //        Urgency = i.Urgency != null ? i.Urgency.Name : "-",
-        //        AssigneeId = i.AssigneeId ?? "-",
-        //        Statuses = Enum.GetNames<IssueStatuses>(),
-
-        //        Urgencies = _context.Urgencies.AsNoTracking().Select(u => u.Name).ToList(),
-
-        //        Categories = _context.IssueCategories
-        //        .AsNoTracking()
-        //        .Select(x => new { x.Name, x.SubCategories }).ToDictionary(y => y.Name, y => y.SubCategories)
-        //    })
-        //    .FirstOrDefaultAsync(ct) ?? throw new Exception($"Issue is not found with this Id: {id}");
-
         return View(vm);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
-    public async Task<IActionResult> Update(int id, IssueUpdateVM vm, CancellationToken ct = default)
+    public async Task<IActionResult> Update(int id, string returnUrl, IssueUpdateVM vm, CancellationToken ct = default)
     {
         if (id != vm.Id) return BadRequest(ct);
 
@@ -210,6 +193,9 @@ public class IssuesController(WebProjectDbContext _context) : Controller
 
         await _context.SaveChangesAsync(ct);
 
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            return Redirect(returnUrl);
+
         return RedirectToAction(nameof(Index));
     }
 
@@ -235,12 +221,15 @@ public class IssuesController(WebProjectDbContext _context) : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
-    public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
+    public async Task<IActionResult> Delete(int id, string? returnUrl, CancellationToken ct = default)
     {
         var issue = await _getIssueAsync(id, ct, true);
 
         _context.Issues.Remove(issue);
         await _context.SaveChangesAsync(ct);
+        Console.WriteLine(returnUrl);
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            return Redirect(returnUrl);
 
         return RedirectToAction(nameof(Index));
     }

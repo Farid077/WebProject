@@ -1,0 +1,154 @@
+﻿@model IssueCreateVM
+
+<form method="post" asp-action="Create" class="form-panel-body" asp-controller="Issues" asp-route-returnUrl="@Context.Request.Path">
+    @Html.AntiForgeryToken()
+
+    <div class="form-row single">
+        <div class="field">
+            <label asp-for="Category">Category</label>
+            <select asp-for="Category" name="Category" id="categorySelect" onchange="onCategoryChange(this.value)">
+                <option value="">Select category...</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option selected="@(category.Key == Model.Category ? category.Key : null)" value="@category.Key">@category.Key</option>
+                }
+            </select>
+            <span asp-validation-for="Category" class="err-msg"></span>
+        </div>
+    </div>
+
+    <div class="form-row single">
+        <div class="field">
+            <label asp-for="SubCategory">Sub Category</label>
+            <select asp-for="SubCategory" name="SubCategory" id="subCategorySelect" disabled>
+                <option value="">Select category first...</option>
+            </select>
+            <span asp-validation-for="SubCategory" class="err-msg"></span>
+        </div>
+    </div>
+
+    @* <div class="field">
+                <label asp-for="Title">Title</label>
+                <input asp-for="Title" name="Title" type="text" placeholder="Short, descriptive title...">
+                <span asp-validation-for="Title" class="err-msg"></span>
+            </div> *@
+
+    <div class="field">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" name="Description" placeholder="Describe the issue in detail..."></textarea>
+        <span asp-validation-for="Description" class="err-msg"></span>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="field">
+        <label asp-for="Urgency">Urgency</label>
+        <div class="priority-group">
+            @foreach (var urg in Model.Urgencies)
+            {
+                <button type="button" class="priority-btn" id="btn-@urg" onclick="setPriority('@urg')">◆ @urg</button>
+            }
+            @* <button type="button" class="priority-btn" id="btn-mdium" onclick="setPriority('mdium')">◆ Medium</button>
+            <button type="button" class="priority-btn" id="btn-high" onclick="setPriority('high')">▲ High</button> *@
+        </div>
+        <input asp-for="Urgency" type="hidden" name="Urgency" id="priorityInput">
+        <span asp-validation-for="Urgency" class="err-msg"></span>
+    </div>
+
+    @* <div class="field">
+                <label asp-for="Type">Type</label>
+                <select asp-for="Type" name="Type">
+                    <option value="">Select type...</option>
+                    <option value="Bug">Bug</option>
+                    <option value="Feature">Feature</option>
+                    <option value="Task">Task</option>
+                    <option value="Improvement">Improvement</option>
+                </select>
+                <span asp-validation-for="Type" class="err-msg"></span>
+            </div> *@
+
+    @* <div class="field">
+                <label asp-for="IssueCreateForm.">Assign To</label>
+                <select asp-for="AssignedTo" name="AssignedTo">
+                    <option value="">Unassigned</option>
+                    @foreach (var user in Model.UserOptions)
+                    {
+                        <option value="@user">@user</option>
+                    }
+                </select>
+            </div> *@
+
+    <div class="form-divider"></div>
+
+    <div class="form-panel-footer" style="padding: 0; border: none; margin-top: 4px;">
+        <button type="submit" class="btn-submit-issue">Create Issue</button>
+        <button type="reset" class="btn-reset-issue" onclick="resetPriority()">Clear</button>
+    </div>
+</form>
+
+<script>
+    const categoryMap = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Categories));
+
+    const subSelect = document.getElementById('subCategorySelect');
+    const categorySelect = document.getElementById('categorySelect');
+
+    const selectedSubCategory = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Categories));
+
+    categoryMap[categorySelect.value].forEach(sub => {
+        const option = document.createElement('option');
+        option.value = sub;
+        option.textContent = sub;
+        option.selected = (selectedSubCategory == sub ? sub : null);
+        subSelect.appendChild(option);
+    });
+
+    subSelect.disabled = false;
+
+    function onCategoryChange(selectedCategory) {
+        const subSelect = document.getElementById('subCategorySelect');
+
+        // Clear existing options
+        subSelect.innerHTML = '';
+
+        // if (!selectedCategory || !categoryMap[selectedCategory]) {
+        //     subSelect.innerHTML = '<option value="">Select category first...</option>';
+        //     subSelect.disabled = true;
+        //     return;
+        // }
+
+        // Add placeholder
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Select sub category...';
+        subSelect.appendChild(placeholder);
+
+        // Add subcategories of selected category
+        categoryMap[selectedCategory].forEach(sub => {
+            const option = document.createElement('option');
+            option.value = sub;
+            option.textContent = sub;
+            subSelect.appendChild(option);
+        });
+
+        subSelect.disabled = false;
+    }
+
+    // ── Urgency SELECTOR ──
+    function setPriority(val) {
+        document.getElementById('priorityInput').value = val;
+        const urgencies = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Urgencies));
+        urgencies.forEach(p => {
+            document.getElementById('btn-' + p).className = 'priority-btn';
+        });
+
+        document.getElementById('btn-' + val).classList.add('active');
+    }
+
+    function resetPriority() {
+        const urgencies = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Urgencies));
+        urgencies.forEach(p => {
+            document.getElementById('btn-' + p).className = 'priority-btn';
+        });
+        document.getElementById('priorityInput').value = '';
+    }
+</script>

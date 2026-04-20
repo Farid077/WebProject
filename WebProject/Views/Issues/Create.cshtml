@@ -86,18 +86,6 @@
                 </select>
                 <span asp-validation-for="Urgency" class="err-msg"></span>
             </div>
-
-            <div class="field">
-                <label asp-for="Status">Status</label>
-                <select asp-for ="Status" id="status">
-                    <option value="">Select Status...</option>
-                    @foreach (var status in Model.Statuses)
-                    {
-                        <option selected="@(status == Model.Status ? status : null)" value="@status">@status</option>
-                    }
-                    @* <option value="inactive">Inactive</option> *@
-                </select>
-            </div>
         </div>
 
         <button type="submit" class="btn-save">Create User</button>
