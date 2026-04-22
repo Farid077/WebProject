@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <form method="post" asp-action="Update" class="form-body" asp-route-id="@Model.Id" id="form">
+    <form method="post" asp-action="Update" class="form-body" asp-route-id="@Model.Id" asp-route-returnUrl="@(ViewData["returnUrl"] ?? null)" id="form">
         @Html.AntiForgeryToken()
         <div class="form-row single">
             <div class="field">
@@ -80,17 +80,19 @@
                         <option selected="@(status == Model.Status ? status : null)" value="@status">@status</option>
                     }
                 </select>
+                <span asp-validation-for="Status" class="err-msg"></span>
             </div>
 
             <div class="field">
-                <label asp-for="AssigneeId">Assignee Name</label>
-                <select asp-for="AssigneeId">
+                <label asp-for="AssigneeName">Assignee Name</label>
+                <select asp-for="AssigneeName">
                     <option value="">Select Assignee Name...</option>
                     @foreach (var assignee in Model.Users)
                     {
-                        <option selected="@(assignee == Model.AssigneeId ? assignee : null)" value="@assignee">@assignee</option>
+                        <option selected="@(assignee == Model.AssigneeName ? assignee : null)" value="@assignee">@assignee</option>
                     }
                 </select>
+                <span asp-validation-for="AssigneeName" class="err-msg"></span>
             </div>
         </div>
         <button type="submit" class="btn-save">Save Changes</button>

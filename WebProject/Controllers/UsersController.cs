@@ -10,7 +10,7 @@ using WebProject.ViewModels;
 
 namespace WebProject.Controllers;
 
-[AuthorizePermission((int)Pages.Users)]
+[AuthorizePermission((int)Pages.Users, (int)PageAccess.Read)]
 public class UsersController(WebProjectDbContext _context, ISessionService _sessionService, IPasswordHasher<User> _hasher) : Controller
 {
     

@@ -7,9 +7,11 @@ using WebProject.ViewModels;
 
 namespace WebProject.Controllers;
 
+[AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read)]
 public class DepartmentsController(WebProjectDbContext _context) : Controller
 {
     // ============ INDEX ============
+    [AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read)]
     public async Task<IActionResult> Index(CancellationToken ct = default)
     {
         var data = await _context.Departments
@@ -26,12 +28,12 @@ public class DepartmentsController(WebProjectDbContext _context) : Controller
     }
 
     // ============ CREATE ============
-    //[AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
+    [AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
     public IActionResult Create() => View();
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    //[AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
+    [AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create(DepartmentCreateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
@@ -55,7 +57,7 @@ public class DepartmentsController(WebProjectDbContext _context) : Controller
     }
 
     // ============ Update ============
-    //[AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
+    [AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(int id, CancellationToken ct = default)
     {
         Department Department = await _getDepartmentAsync(id, ct);
@@ -71,7 +73,7 @@ public class DepartmentsController(WebProjectDbContext _context) : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    //[AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
+    [AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(int id, DepartmentUpdateVM vm, CancellationToken ct = default)
     {
         if (id != vm.Id) return BadRequest(ct);
@@ -98,7 +100,7 @@ public class DepartmentsController(WebProjectDbContext _context) : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    //[AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
+    [AuthorizePermission((int)Pages.Departments, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
     {
         Department Department = await _getDepartmentAsync(id, ct);

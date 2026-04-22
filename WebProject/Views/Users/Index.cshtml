@@ -76,22 +76,21 @@
                     </td>
                     <td>@user.CreatedTime</td>
                     <td style="display:flex;">
-                        <a asp-action="Update" asp-route-id="@user.Username" class="action-btn edit" style="text-decoration:none;">Edit</a>
-                        <form method="POST" class="action">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="id" value="@user.Username" />
-                            @if (user.Role != "SuperAdmin")
-                            {
-                                <button class="action-btn del" type="button"
-                                        onclick="openDelete('@user.Username', 'Users/Delete/@user.Username')">
+                        @if (user.Role != "SuperAdmin")
+                        {
+                            <a asp-action="Update" asp-route-id="@user.Username" class="action-btn edit" style="text-decoration:none;">Edit</a>
+                            <form method="POST" class="action">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@user.Username" />
+                                <button class="action-btn del" type="button" onclick="openDelete('@user.Username', 'Users/Delete/@user.Username')">
                                     Delete
                                 </button>
-                            }
-                            @if (user.IsActive)
-                            {
-                                <button class="action-btn revoke" type="submit" formaction="Users/RevokeSession/@user.Username">End Session</button>
-                            }
-                        </form>
+                                @if (user.IsActive)
+                                {
+                                    <button class="action-btn revoke" type="submit" formaction="Users/RevokeSession/@user.Username">End Session</button>
+                                }
+                            </form>
+                        }
                     </td>
                 </tr>
             }

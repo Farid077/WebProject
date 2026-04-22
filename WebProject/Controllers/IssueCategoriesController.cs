@@ -26,23 +26,6 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
         return View(data);
     }
 
-    // ============ DETAILS ============
-    //public async Task<IActionResult> Details(int id)
-    //{
-    //    var data = await _context.IssueCategories
-    //        .Where(x => x.Id == id)
-    //        .Select(x => new IssueCategoryDetailsVM
-    //        {
-    //            Id = x.Id,
-    //            Name = x.Name
-    //        })
-    //        .FirstOrDefaultAsync();
-
-    //    if (data == null) return NotFound();
-
-    //    return View(data);
-    //}
-
     // ============ CREATE ============
     [AuthorizePermission((int)Pages.IssueCategories, (int)PageAccess.Read_Write)]
     public IActionResult Create() => View();
@@ -121,23 +104,6 @@ public class IssueCategoriesController(WebProjectDbContext _context) : Controlle
 
         return RedirectToAction(nameof(Index));
     }
-
-    // ============ DELETE ============
-    //public async Task<IActionResult> Delete(int id)
-    //{
-    //    var data = await _context.IssueCategories
-    //        .Where(x => x.Id == id)
-    //        .Select(x => new IssueCategoryDetailsVM
-    //        {
-    //            Id = x.Id,
-    //            Name = x.Name
-    //        })
-    //        .FirstOrDefaultAsync();
-
-    //    if (data == null) return NotFound();
-
-    //    return View(data);
-    //}
 
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]

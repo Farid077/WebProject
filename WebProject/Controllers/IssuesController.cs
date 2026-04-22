@@ -137,7 +137,7 @@ public class IssuesController(WebProjectDbContext _context) : Controller
 
     // ================= Update =================
     [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
-    public async Task<IActionResult> Update(int id, CancellationToken ct = default)
+    public async Task<IActionResult> Update(int id, string? returnUrl, CancellationToken ct = default)
     {
         IssueUpdateVM vm = await _context.Issues
             .Where(i => !i.IsDeleted && i.Id == id)
@@ -149,7 +149,7 @@ public class IssuesController(WebProjectDbContext _context) : Controller
                 Description = i.Description,
                 Status = i.Status,
                 Urgency = i.Urgency != null ? i.Urgency.Name : "-",
-                AssigneeId = i.AssigneeId ?? "-",
+                AssigneeName = i.AssigneeId ?? "-",
                 Statuses = Enum.GetNames<IssueStatuses>(),
             })
             .FirstOrDefaultAsync(ct) ?? throw new Exception($"Issue is not found with this Id: {id}");
@@ -158,13 +158,16 @@ public class IssuesController(WebProjectDbContext _context) : Controller
         vm.Users = await _context.Users.AsNoTracking().Select(u => u.Username).ToListAsync(ct);
         vm.Categories = await _context.IssueCategories.AsNoTracking()
                 .Select(x => new { x.Name, x.SubCategories }).ToDictionaryAsync(y => y.Name, y => y.SubCategories, ct);
+
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            ViewData["returnUrl"] = returnUrl;
         return View(vm);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     [AuthorizePermission((int)Pages.Issues, (int)PageAccess.Read_Write)]
-    public async Task<IActionResult> Update(int id, string returnUrl, IssueUpdateVM vm, CancellationToken ct = default)
+    public async Task<IActionResult> Update(int id, string? returnUrl, IssueUpdateVM vm, CancellationToken ct = default)
     {
         if (id != vm.Id) return BadRequest(ct);
 
@@ -187,7 +190,7 @@ public class IssuesController(WebProjectDbContext _context) : Controller
         issue.Description = vm.Description ?? "";
         issue.Status = vm.Status;
         issue.UrgencyId = urgency.Id;
-        issue.AssigneeId = vm.AssigneeId;
+        issue.AssigneeId = vm.AssigneeName;
         
         issue.UpdatedTime = DateTime.UtcNow.AddHours(4);
 

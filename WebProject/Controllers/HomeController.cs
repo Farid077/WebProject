@@ -2,14 +2,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using WebProject.Attributes;
 using WebProject.DataAccess;
+using WebProject.Models;
 using WebProject.ViewModels;
 
 namespace WebProject.Controllers;
 
+//[AuthorizePermission((int)Pages.Dashboard, (int)PageAccess.Read)]
 [Authorize]
 public class HomeController(WebProjectDbContext _context) : Controller
 {
+    //[AuthorizePermission((int)Pages.Dashboard, (int)PageAccess.Read)]
     public async Task<IActionResult> Index(CancellationToken ct = default)
     {
         HomePageVM data = new()

@@ -517,7 +517,7 @@
                             </div>
                         </div>
                         <div class="card-actions">
-                            <a asp-action="Update" asp-route-id="@issue.Id" asp-route-returnUrl="@Context.Request.Path"
+                            <a asp-controller="Issues" asp-action="Update" asp-route-id="@issue.Id" asp-route-returnUrl="@Context.Request.Path"
                                class="card-action-btn" style="text-decoration:none;">Edit</a>
                             <button class="card-action-btn del" type="button"
                                     onclick="openDelete('@issue.Id.ToString("D4")', '/Issues/Delete/@issue.Id')">

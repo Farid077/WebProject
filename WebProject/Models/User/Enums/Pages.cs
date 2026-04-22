@@ -8,4 +8,5 @@ public enum Pages
     Issues = 32,
     IssueCategories = 64,
     Departments = 128,
+    Urgencies = 256,
 }

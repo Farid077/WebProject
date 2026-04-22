@@ -14,7 +14,7 @@ namespace WebProject.Configurations
                 .HasDefaultValue(false);
 
             builder.Property(x => x.Description)
-                .HasMaxLength(64)
+                .HasMaxLength(128)
                 .HasDefaultValue("");
 
             builder.Property(x => x.Status)

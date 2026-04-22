@@ -7,6 +7,7 @@ using WebProject.ViewModels;
 
 namespace WebProject.Controllers;
 
+[AuthorizePermission((int)Pages.Urgencies, (int)PageAccess.Read)]
 public class UrgenciesController(WebProjectDbContext _context) : Controller
 {
     public async Task<IActionResult> Index(CancellationToken ct = default)
@@ -26,10 +27,12 @@ public class UrgenciesController(WebProjectDbContext _context) : Controller
         return View(data);
     }
 
+    [AuthorizePermission((int)Pages.Urgencies, (int)PageAccess.Read_Write)]
     public IActionResult Create() => View();
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.Urgencies, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Create(UrgencyCreateVM vm, CancellationToken ct = default) {
         if(!ModelState.IsValid)
             return View(vm);
@@ -58,6 +61,7 @@ public class UrgenciesController(WebProjectDbContext _context) : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [AuthorizePermission((int)Pages.Urgencies, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(int id, CancellationToken ct = default)
     {
         Urgency urgency = await _getUrgencyAsync(id, ct);
@@ -76,6 +80,7 @@ public class UrgenciesController(WebProjectDbContext _context) : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.Urgencies, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Update(UrgencyUpdateVM vm, CancellationToken ct = default)
     {
         if (!ModelState.IsValid)
@@ -108,6 +113,7 @@ public class UrgenciesController(WebProjectDbContext _context) : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [AuthorizePermission((int)Pages.Urgencies, (int)PageAccess.Read_Write)]
     public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
     {
         Urgency urgency = await _getUrgencyAsync(id, ct);
